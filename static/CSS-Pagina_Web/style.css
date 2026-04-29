@@ -145,3 +145,71 @@ button{
     border-radius: 16px;
     border-style: none;
 }
+/* Alineamos todo el main a la izquierda */
+main.estudia_cursos {
+    display: block;
+    margin-top: 150px;
+    padding: 0 50px;
+    text-align: left;
+}
+
+.titulo_cursos {
+    color: #345e35; /* Verde */
+    margin-bottom: 30px;
+}
+
+/* Ponemos el texto a un lado y la imagen al otro */
+.curso_entero {
+    display: flex;
+    margin-bottom: 60px;
+    align-items: center; /* Centra la imagen verticalmente con el texto */
+}
+
+.asignaturas {
+    width: 60%; /* El texto ocupa el 60% */
+}
+
+.imagen_asignatura {
+    width: 30%; /* La imagen el 30% */
+    text-align: right; /* Empuja la imagen a la derecha */
+}
+
+/* Colores de las letras */
+.asignaturas h2 {
+    color: #b16a29; /*El Marrón/Dorado del Logo */
+    margin-bottom: 10px;
+}
+
+.asignaturas h3 {
+    color: #345e35; /*El Verde del Logo */
+    margin-top: 15px;
+}
+
+.asignaturas ul {
+    margin-left: 20px; /* Un poco de separación entre lineas para la lista */
+}
+
+/* Imagenes del main de la pagina principal */
+.imagen_asignatura img {
+    width: 500px;  
+    height: 300px;
+    border-radius: 10px; 
+    object-fit: cover;
+}
+
+
+/* Formulario */
+.Sections {
+        border: 2px solid rgb(188, 103, 39);
+        background-color: rgba(251, 252, 246, 0.5);
+        padding: 10px;
+        width: 400px;
+    }
+
+    .Formulario {
+        border: 4px solid rgba(110, 87, 64) ;
+        border-radius: 5%;
+        padding: 20px;
+        background-color: rgb(191, 179, 155);
+        width: 500px;
+    }

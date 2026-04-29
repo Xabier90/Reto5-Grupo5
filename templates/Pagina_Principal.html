@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GastroLab</title>
-    <link rel="stylesheet" href="../CSS-Pagina_Web/style.css">
+    <link rel="stylesheet" href="../static/CSS-Pagina_Web/style.css">
 </head>
 <body>
 
@@ -13,10 +13,10 @@
         
         <div class="bloque-menu">
             <div class="menu-icono">
-                <img src="../Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
+                <img src="../static/Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
                 <div class="menu-desplegable">
                     <a href="#">Quiénes Somos</a>
-                    <a href="#">Red Social "La Comanda"</a>
+                    <a href="../templates/login.html">Red Social "La Comanda"</a>
                     <a href="#">Plan de Digitalización</a>
                     <a href="#">Plan de Sostenibilidad</a>
                     <a href="#">Registrarse</a>
@@ -25,25 +25,165 @@
         </div>
 
         <div class="bloque-logo">
-            <img src="../Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
+            <img src="../static/Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
         </div>
 
         <div class="bloque-registro">
-            <a href="#" class="boton-registro">Registrarse</a>
+            <a href="../templates/registro.html" class="boton-registro">Registrarse</a>
         </div>
 
     </nav>
 </header>
-<main>
-    <h1>Estudia con nosotros</h1>
-    <ul>
-        <li>Agricultura</li>
-        <li>Repostería</li>
-        <li>Cocina y gastronomía</li>
-        <li>Dietética</li>
-        <li>Dirección de cocina</li>
-    </ul>
-
+<main class="estudia_cursos">
+    <h1 class="titulo_cursos">Estudia con nosotros</h1>
+        <div class="todos_cursos">
+            <section class="curso_entero">
+                <div class="asignaturas">
+                    <h2>Agricultura</h2>
+                    <ul>
+                        <li><h3>Primer curso</h3></li>
+                        <ul>
+                            <li><b>Implantación de cultivos:</b> Preparación del terreno, siembra y plantación.</li>
+                            <li><b>Taller y equipos de tracción:</b> Manejo y mantenimiento de tractores y maquinaria.</li>
+                            <li><b>Infraestructuras e instalaciones agrícolas:</b> Montaje y mantenimiento de riegos, invernaderos y naves.</li>
+                            <li><b>Principios de sanidad vegetal:</b> Reconocimiento de plagas y enfermedades.</li>
+                            <li><b>Itinerario personal para la empleabilidad I.</b></li>
+                            <li><b>Inglés profesional.</b></li>
+                            <li><b>DUAL general:</b> prácticas en empresas guipuzcoanas.</li>
+                        </ul>
+                        <li><h3>Segundo curso</h3></li>
+                        <ul>
+                            <li><b>Producción de leche, huevos y animales para vida:</b> Manejo ganadero.</li>
+                            <li><b>Control fitosanitario:</b> Aplicación de tratamientos. </li>
+                            <li><b>Producción carne y otras producciones ganaderas.</b> </li>
+                            <li><b>Empresa e iniciativa emprendedora.</b> </li>
+                            <li><b>Formación en Centros de Trabajo (FCT):</b> Prácticas en empresas.</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div class="imagen_asignatura">
+                    <img src="../static/Imagenes/agricultura.jpg" alt="Agricultura">
+                </div>
+            </section>
+            <section class="curso_entero">
+                <div class="asignaturas">
+                    <h2>Panadería, Repostería y Confitería</h2>
+                    <ul>
+                        <li><h3>Primer curso</h3></li>
+                        <ul>
+                            <li>Elaboraciones de panadería-bollería</li>
+                            <li>Procesos básicos de pastelería y repostería</li>
+                            <li>Elaboraciones de confitería y otras especialidades</li>
+                            <li>Operaciones y control de almacén en la industria alimentaria</li>
+                            <li>Seguridad e higiene en la manipulación de alimentos</li>
+                            <li>Empleabilidad</li>
+                            <li>DUAL general: prácticas en empresas guipuzcoanas.</li>
+                        </ul>
+                        <li><h3>Segundo curso</h3></li>
+                        <ul>
+                            <li>Presentación y venta de productos de panadería y pastelería</li>
+                            <li>Postres en restauración</li>
+                            <li>Productos de obrador</li>
+                            <li>Empresa e iniciativa emprendedora</li>
+                            <li>Inglés técnico</li>
+                            <li>Formación en Centro de Trabajo</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div class="imagen_asignatura">
+                    <img src="../static/Imagenes/panes-pasteleria.jpg" alt="Panadería">
+                </div>
+            </section>
+            <section class="curso_entero">
+                <div class="asignaturas">
+                    <h2>Cocina y gastronomía</h2>
+                    <ul>
+                        <li><h3>Primer curso</h3></li>
+                        <ul>
+                            <li>Preelaboración y conservación de alimentos</li>
+                            <li>Técnicas culinarias</li>
+                            <li>Procesos básicos de pastelería y repostería</li>
+                            <li>Seguridad e higiene en la manipulación de alimentos</li>
+                            <li>Empleabilidad</li>
+                            <li>DUAL general: prácticas en empresas guipuzcoanas.</li>
+                        </ul>
+                        <li><h3>Segundo curso</h3></li>
+                        <ul>
+                            <li>Postres en restauración</li>
+                            <li>Productos culinarios</li>
+                            <li>Empresa e iniciativa emprendedora</li>
+                            <li>Inglés profesional</li>
+                            <li>Formación en Centro de Trabajo</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div class="imagen_asignatura">
+                    <img src="../static/Imagenes/cocina.jpg" alt="Cocina">
+                </div>
+            </section>
+            <section class="curso_entero">
+                <div class="asignaturas">
+                    <h2>Dietética</h2>
+                    <ul>
+                        <li><h3>Primer curso</h3></li>
+                        <ul>
+                            <li>Alimentación equilibrada</li>
+                            <li>Control alimentario</li>
+                            <li>Fisiopatología aplicada a la dietética</li>
+                            <li>Organización y gestión de una unidad / gabinete de dietética</li>
+                            <li>Relaciones en el entorno de trabajo</li>
+                            <li>Empleabilidad</li>
+                            <li>DUAL general: Formación en centros de trabajo</li>
+                        </ul>
+                        <li><h3>Segundo curso</h3></li>
+                        <ul>
+                            <li>Calidad y mejora continua</li>
+                            <li>Dietoterapia</li>
+                            <li>Educación sanitaria y promoción de la salud</li>
+                            <li>Microbiología e higiene alimentaria</li>
+                            <li>Inglés profesional</li>
+                            <li>DUAL general: Formación en centros de trabajo</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div class="imagen_asignatura">
+                    <img src="../static/Imagenes/dietetica.jpg" alt="Dietética">
+                </div>
+            </section>
+            <section class="curso_entero">
+                <div class="asignaturas">
+                    <h2>Dirección de cocina</h2>
+                    <ul>
+                        <li><h3>Primer curso</h3></li>
+                        <ul>
+                            <li>Estructura del mercado turístico </li>
+                            <li>Marketing turístico </li>
+                            <li>Gestión del departamento de pisos.</li>
+                            <li>Recepción y reservas.</li>
+                            <li>Inglés</li>
+                            <li>Itinerario personal para la empleabilidad I.</li>
+                            <li>Digitalización aplicada a los sectores productivos.</li>
+                            <li>Sostenibilidad aplicada al sistema productivo.</li>
+                            <li>Dual general (prácticas en empresa)</li>
+                        </ul>
+                        <li><h3>Segundo curso</h3></li>
+                        <ul>
+                            <li>Protocolo y relaciones públicas.</li>
+                            <li>Dirección de alojamientos turísticos.</li>
+                            <li>Recursos humanos en alojamientos.</li>
+                            <li>Comercialización de eventos.</li>
+                            <li>Proyecto intermodular.</li>
+                            <li>Segunda lengua extranjera</li>
+                            <li>Itinerario personal para la empleabilidad II.</li>
+                            <li>Dual general (prácticas en empresa)</li>
+                        </ul>
+                    </ul>
+                </div>
+                <div class="imagen_asignatura">
+                    <img src="../static/Imagenes/direccion-cocina.jpg" alt="Dirección">
+                </div>
+            </section> 
+        </div>
 </main>
 
     </body>
