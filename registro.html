@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear una cuenta</title>
+    <style></style><link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecera">
+        <nav class="barra-navegacion">
+            
+            <div class="bloque-menu">
+                <div class="menu-icono">
+                    <img src="Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
+                    <div class="menu-desplegable">
+                        <a href="#">Quiénes Somos</a>
+                        <a href="#">Red Social "La Comanda"</a>
+                        <a href="#">Plan de Digitalización</a>
+                        <a href="#">Plan de Sostenibilidad</a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="bloque-logo">
+                <img src="Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
+            </div>
+        
+            <div class="bloque-registro">
+                <a href="#" class="boton-registro">Inicio</a>
+            </div>
+        
+        </nav>
+    </header>
+    <main>
+        <div class="formulario">
+            <h1>Crear una cuenta</h1>
+            <form action="" method="post">
+                <div>
+                    <label for="email_address">Correo electrónico</label><br>
+                    <input type="email" name="email_address" required pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$">
+                </div><br>
+                <div>
+                    <label for="password">Contraseña</label><br>
+                    <input type="password" name="password" required pattern=".{8,64}" title="Debe ser entre 8 y 64 caracteres">
+                </div><br>
+                <button type="submit">CREAR UNA CUENTA</button>
+            </form>    
+            
+        </div>
+    </main>
+</body>
+</html>
