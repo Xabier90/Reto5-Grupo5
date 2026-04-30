@@ -53,6 +53,7 @@ CREATE TABLE `alumnos` (
   `nombre` varchar(255) NOT NULL,
   `apellido1` varchar(255) NOT NULL,
   `apellido2` varchar(255) NOT NULL,
+  `correo` varchar(255) NOT NULL,
   `fecha_ingreso` datetime NOT NULL,
   `id_usuario` int NOT NULL,
   PRIMARY KEY (`id_alumno`),
@@ -430,7 +431,7 @@ CREATE TABLE `profesores` (
   `apellido1` varchar(255) NOT NULL,
   `apellido2` varchar(255) NOT NULL,
   `especialidad` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
+  `correo` varchar(255) NOT NULL,
   `id_usuario` int NOT NULL,
   PRIMARY KEY (`id_profesor`),
   KEY `professor-usuario_idx` (`id_usuario`),
@@ -540,4 +541,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-30 13:40:47
+-- Dump completed on 2026-04-30 13:56:11
