@@ -20,8 +20,8 @@ def registro():
         db = db_helper.get_db()
 
         # sSQL = f"""
-        #         INSERT INTO users (correo, contraseña)
-        #         VALUES('{email_address}', {password})
+        #         INSERT INTO users (correo, contraseña, tipo_usuario)
+        #         VALUES('{email_address}', '{password}', 'invitado')
         #     """
         # No usaremos este método para proteger nuestra base de datos 
 

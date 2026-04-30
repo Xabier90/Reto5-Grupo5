@@ -11,5 +11,9 @@ def get_db():
     # IMPORTANTE: Configuramos para que guarde cambios automáticamente
     conexion.autocommit = True
 
-    # Devolvemos SOLO el cursor
-    return conexion.cursor(dictionary=True)
+    # IMPORTANTE: Al guardar la conexión dentro del cursor, 
+    # evitamos que Python la cierre por error.
+    cursor = conexion.cursor(dictionary=True)
+    cursor._conexion_padre = conexion 
+    
+    return cursor
