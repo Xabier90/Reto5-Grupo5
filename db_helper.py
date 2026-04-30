@@ -1,5 +1,6 @@
 import mysql.connector
 
+
 def get_db():
     conexion = mysql.connector.connect(
         host="localhost",
@@ -7,5 +8,8 @@ def get_db():
         password="Passw0rd", # ¡CAMBIA ESTO por tu contraseña!
         database="reto5_musarana_elefante"      # ¡CAMBIA ESTO por el nombre de tu base de datos!
     )
-    return conexion.cursor(dictionary=True), conexion 
-    # Devolvemos el cursor para hacer consultas y la conexion para hacer el .commit()
+    # IMPORTANTE: Configuramos para que guarde cambios automáticamente
+    conexion.autocommit = True
+
+    # Devolvemos SOLO el cursor
+    return conexion.cursor(dictionary=True)

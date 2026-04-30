@@ -26,15 +26,14 @@ def registro():
         # No usaremos este método para proteger nuestra base de datos 
 
         # Esta es una forma más segura de hacerlo
-        sSQL = "INSERT INTO usuarios (correo, contraseña) VALUES (%s, %s)"
+        sSQL = "INSERT INTO usuarios (correo, contraseña, tipo_usuario) VALUES (%s, %s, %s)"
         # Ahora se ejecuta introduciendo los datos que nos interesa sin ningun peligro
-        db.execute(sSQL, (correo_usuario, contraseña_segura))
-        db.commit()
+        db.execute(sSQL, (correo_usuario, contraseña_segura, "invitado"))
 
         return render_template("registro.html")
     return render_template("registro.html")
     
 
-    cursor.execute(sSQL)
+    
 if __name__ == "__main__":
     app.run(debug=True)
