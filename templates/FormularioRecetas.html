@@ -86,6 +86,9 @@
                     Sulfitos <input type="checkbox" name="Sulfitos">
                     Altramuz <input type="checkbox" name="Altramuz">
 
+                    <!-- 
+                    Opciones vegatariano y Vegano
+                    
                     <br><label>¿La receta es vegetariana?</label><br>
                     Si <input type="radio" name="vegetariano" value="si">
                     No <input type="radio" name="vegetariano" value="no"> <br><br>
@@ -93,7 +96,7 @@
                     <label>¿La receta es vegana?</label><br>
                     Si <input type="radio" name="vegana" value="si">
                     No <input type="radio" name="vegana" value="no"> <br><br>
-                    
+                    -->
                 </div>
 
                 <div class="Sections">
@@ -111,57 +114,6 @@
             </form>
         </div>
     </main>
-    <script>
-        function generarCampos() {
-            const numero = document.getElementById('Num_ingredientes').value;
-            const contenedor = document.getElementById('contenedor_ingredientes');
-            
-            // Limpiamos el contenedor para que no se acumulen si el usuario cambia el número
-            contenedor.innerHTML = '';
-
-            for (let i = 1; i <= numero; i++) {
-                // Creamos un label
-                const label = document.createElement('label');
-                label.innerHTML = `Ingrediente ${i}: `;
-                
-                // Creamos el input
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.name = `ingrediente_${i}`; // Nombre único para cada uno
-                input.placeholder = `Nombre del ingrediente ${i}`;
-                
-                // Añadimos al contenedor con un salto de línea
-                contenedor.appendChild(label);
-                contenedor.appendChild(input);
-                contenedor.appendChild(document.createElement('br'));
-                contenedor.appendChild(document.createElement('br'));
-            }
-        }
-
-        function generarPasos() {
-            const numero = document.getElementById('Num_pasos').value;
-            const contenedor = document.getElementById('contenedor_pasos');
-            
-            // Limpiamos el contenedor para que no se acumulen si el usuario cambia el número
-            contenedor.innerHTML = '';
-
-            for (let i = 1; i <= numero; i++) {
-                // Creamos un label
-                const label = document.createElement('label');
-                label.innerHTML = `Paso ${i}: `;
-                
-                // Creamos el input
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.name = `paso_${i}`; // Nombre único para cada uno
-                
-                // Añadimos al contenedor con un salto de línea
-                contenedor.appendChild(label);
-                contenedor.appendChild(input);
-                contenedor.appendChild(document.createElement('br'));
-                contenedor.appendChild(document.createElement('br'));
-            }
-        }
-    </script>
+    <script src="../static/Script/Form_script.js"> </script>
 </body>
 </html>
