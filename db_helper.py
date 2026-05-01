@@ -13,7 +13,7 @@ def get_db():
 
     # IMPORTANTE: Al guardar la conexión dentro del cursor, 
     # evitamos que Python la cierre por error.
-    cursor = conexion.cursor(dictionary=True)
+    cursor = conexion.cursor(dictionary=True) #Nos da la informacion de la base de datos en forma de diccionario con los nombres de las columnas
     cursor._conexion_padre = conexion 
     
-    return cursor
+    return conexion, cursor
