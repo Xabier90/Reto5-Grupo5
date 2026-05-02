@@ -83,8 +83,9 @@ DROP TABLE IF EXISTS `asignaturas`;
 CREATE TABLE `asignaturas` (
   `id_asignatura` int NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `créditos` varchar(255) NOT NULL,
+  `horas_anuales_asignatura` int NOT NULL,
   `tipo` varchar(255) NOT NULL,
+  `año_curso` int DEFAULT NULL,
   PRIMARY KEY (`id_asignatura`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,7 +96,7 @@ CREATE TABLE `asignaturas` (
 
 LOCK TABLES `asignaturas` WRITE;
 /*!40000 ALTER TABLE `asignaturas` DISABLE KEYS */;
-INSERT INTO `asignaturas` VALUES (1,'Preelaboración y conservación de alimentos','11','Obligatoria'),(2,'Técnicas culinarias','13','Obligatoria'),(3,'Procesos básicos de pastelería y repostería','5','Obligatoria'),(4,'Seguridad e higiene en la manipulación de alimentos','3','Obligatoria'),(5,'DUAL general – Cocina (prácticas en empresa)','22','Prácticas'),(6,'Postres en restauración','5','Obligatoria'),(7,'Productos culinarios','12','Obligatoria'),(8,'Empresa e iniciativa emprendedora','4','Obligatoria'),(9,'Inglés profesional','3','Obligatoria'),(10,'Formación en Centro de Trabajo – Cocina','22','Prácticas'),(11,'Elaboraciones de panadería-bollería','14','Obligatoria'),(12,'Elaboraciones de confitería y otras especialidades','7','Obligatoria'),(13,'Operaciones y control de almacén – ind. alimentaria','5','Obligatoria'),(14,'Seguridad e higiene en manipulación de alimentos','3','Obligatoria'),(15,'DUAL general – Panadería (prácticas en empresa)','22','Prácticas'),(16,'Presentación y venta de productos de panadería','8','Obligatoria'),(17,'Postres en restauración – Panadería','5','Obligatoria'),(18,'Productos de obrador','13','Obligatoria'),(19,'Empresa e iniciativa emprendedora – Panadería','4','Obligatoria'),(20,'Inglés técnico','3','Obligatoria');
+INSERT INTO `asignaturas` VALUES (1,'Preelaboración y conservación de alimentos',195,'Obligatoria',1),(2,'Técnicas culinarias',240,'Obligatoria',1),(3,'Procesos básicos de pastelería y repostería',90,'Obligatoria',1),(4,'Seguridad e higiene en la manipulación de alimentos',60,'Obligatoria',1),(5,'DUAL general – Cocina (prácticas en empresa)',405,'Prácticas',1),(6,'Postres en restauración',120,'Obligatoria',2),(7,'Productos culinarios',210,'Obligatoria',2),(8,'Empresa e iniciativa emprendedora',75,'Obligatoria',2),(9,'Inglés profesional',80,'Obligatoria',2),(10,'Formación en Centro de Trabajo – Cocina',165,'Prácticas',2),(11,'Elaboraciones de panadería-bollería',270,'Obligatoria',1),(12,'Elaboraciones de confitería y otras especialidades',150,'Obligatoria',1),(13,'Operaciones y control de almacén – ind. alimentaria',90,'Obligatoria',1),(14,'Seguridad e higiene en manipulación de alimentos',60,'Obligatoria',1),(15,'DUAL general – Panadería (prácticas en empresa)',390,'Prácticas',1),(16,'Presentación y venta de productos de panadería',180,'Obligatoria',2),(17,'Postres en restauración – Panadería',90,'Obligatoria',2),(18,'Productos de obrador',225,'Obligatoria',2),(19,'Empresa e iniciativa emprendedora – Panadería',75,'Obligatoria',2),(20,'Inglés técnico',80,'Obligatoria',2),(21,'Formación en Centro de Trabajo – Panadería',400,'Prácticas',2),(22,'Implantación de cultivos',195,'Obligatoria',1),(23,'Taller y equipos de tracción',165,'Obligatoria',1),(24,'Infraestructuras e instalaciones agrícolas',135,'Obligatoria',1),(25,'Principios de sanidad vegetal',105,'Obligatoria',1),(26,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(27,'Inglés profesional (Agricultura)',80,'Obligatoria',1),(28,'DUAL general – Agricultura',310,'Prácticas',1),(29,'Producción de leche, huevos y animales',210,'Obligatoria',2),(30,'Control fitosanitario',165,'Obligatoria',2),(31,'Producción carne y otras producciones ganaderas',210,'Obligatoria',2),(32,'Empresa e iniciativa emprendedora (Agri)',65,'Obligatoria',2),(33,'Formación en Centros de Trabajo – Agricultura',400,'Prácticas',2),(34,'Alimentación equilibrada',195,'Obligatoria',1),(35,'Control alimentario',150,'Obligatoria',1),(36,'Fisiopatología aplicada a la dietética',165,'Obligatoria',1),(37,'Organización y gestión de gabinete de dietética',105,'Obligatoria',1),(38,'Relaciones en el entorno de trabajo',60,'Obligatoria',1),(39,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(40,'DUAL general – Dietética',315,'Prácticas',1),(41,'Calidad y mejora continua',120,'Obligatoria',2),(42,'Dietoterapia',195,'Obligatoria',2),(43,'Educación sanitaria y promoción de la salud',135,'Obligatoria',2),(44,'Microbiología e higiene alimentaria',120,'Obligatoria',2),(45,'Inglés profesional (Dietética)',80,'Obligatoria',2),(46,'DUAL general – Dietética 2º',400,'Prácticas',2),(47,'Estructura del mercado turístico',105,'Obligatoria',1),(48,'Marketing turístico',105,'Obligatoria',1),(49,'Gestión del departamento de pisos',150,'Obligatoria',1),(50,'Recepción y reservas',150,'Obligatoria',1),(51,'Inglés (Dirección de Cocina)',80,'Obligatoria',1),(52,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(53,'Digitalización aplicada a los sectores productivos',60,'Obligatoria',1),(54,'DUAL general – Dirección de Cocina 1º',340,'Prácticas',1),(55,'Protocolo y relaciones públicas',105,'Obligatoria',2),(56,'Dirección de alojamientos turísticos',165,'Obligatoria',2),(57,'Recursos humanos en alojamientos',120,'Obligatoria',2),(58,'Comercialización de eventos',105,'Obligatoria',2),(59,'Proyecto intermodular',75,'Obligatoria',2),(60,'Segunda lengua extranjera',80,'Obligatoria',2),(61,'Itinerario personal para la empleabilidad II',60,'Obligatoria',2),(62,'DUAL general – Dirección de Cocina 2º',340,'Prácticas',2);
 /*!40000 ALTER TABLE `asignaturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +113,7 @@ CREATE TABLE `aulas` (
   `capacidad` int NOT NULL,
   `tipo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_aula`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +122,7 @@ CREATE TABLE `aulas` (
 
 LOCK TABLES `aulas` WRITE;
 /*!40000 ALTER TABLE `aulas` DISABLE KEYS */;
-INSERT INTO `aulas` VALUES (1,'Cocina Taller A',20,'Cocina práctica'),(2,'Obrador-Panadería',20,'Taller de panadería y pastelería');
+INSERT INTO `aulas` VALUES (1,'Cocina Taller A',20,'Cocina práctica'),(2,'Obrador-Panadería',20,'Taller de panadería y pastelería'),(3,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(4,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(5,'Aula Dirección y Gestión',24,'Aula teórica'),(6,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(7,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(8,'Aula Dirección y Gestión',24,'Aula teórica'),(9,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(10,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(11,'Aula Dirección y Gestión',24,'Aula teórica'),(12,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(13,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(14,'Aula Dirección y Gestión',24,'Aula teórica'),(15,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(16,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(17,'Aula Dirección y Gestión',24,'Aula teórica'),(18,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(19,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(20,'Aula Dirección y Gestión',24,'Aula teórica'),(21,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(22,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(23,'Aula Dirección y Gestión',24,'Aula teórica'),(24,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(25,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(26,'Aula Dirección y Gestión',24,'Aula teórica'),(27,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(28,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(29,'Aula Dirección y Gestión',24,'Aula teórica'),(30,'Aula Polivalente Agricultura',24,'Aula teórica y laboratorio'),(31,'Aula Dietética y Nutrición',24,'Aula teórica y laboratorio'),(32,'Aula Dirección y Gestión',24,'Aula teórica');
 /*!40000 ALTER TABLE `aulas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +150,7 @@ CREATE TABLE `curso-aula` (
 
 LOCK TABLES `curso-aula` WRITE;
 /*!40000 ALTER TABLE `curso-aula` DISABLE KEYS */;
-INSERT INTO `curso-aula` VALUES (1,1,15),(2,2,14);
+INSERT INTO `curso-aula` VALUES (1,1,15),(2,2,14),(3,3,16),(4,4,22),(5,5,17);
 /*!40000 ALTER TABLE `curso-aula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,10 +164,10 @@ DROP TABLE IF EXISTS `cursos`;
 CREATE TABLE `cursos` (
   `id_curso` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
-  `año_académico` datetime NOT NULL,
+  `año_académico` date NOT NULL,
   `nivel` varchar(255) NOT NULL,
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +176,7 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
-INSERT INTO `cursos` VALUES (1,'Cocina y Gastronomía','2024-09-01 00:00:00','Grado Medio'),(2,'Panadería, Repostería y Confitería','2024-09-01 00:00:00','Grado Medio');
+INSERT INTO `cursos` VALUES (1,'Cocina y Gastronomía','2024-09-01','Grado Medio'),(2,'Panadería, Repostería y Confitería','2024-09-01','Grado Medio'),(3,'Agricultura','2024-09-01','Grado Medio'),(4,'Dietética','2024-09-01','Grado Superior'),(5,'Dirección de Cocina','2024-09-01','Grado Superior'),(6,'Agricultura','2023-09-01','Grado Medio'),(7,'Dietética','2023-09-01','Grado Superior'),(8,'Dirección de Cocina','2023-09-01','Grado Superior');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +219,8 @@ DROP TABLE IF EXISTS `cursos_asignaturas`;
 CREATE TABLE `cursos_asignaturas` (
   `id_asignatura` int NOT NULL,
   `id_curso` int NOT NULL,
-  `cantidad_asig_año` int DEFAULT NULL,
+  `numero_evaluaciones` int DEFAULT '3',
+  `año_curso` int DEFAULT '1',
   PRIMARY KEY (`id_asignatura`,`id_curso`),
   KEY `CursoAsig- Curso_idx` (`id_curso`),
   CONSTRAINT `CursoAsig- Asig` FOREIGN KEY (`id_asignatura`) REFERENCES `asignaturas` (`id_asignatura`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -232,7 +234,7 @@ CREATE TABLE `cursos_asignaturas` (
 
 LOCK TABLES `cursos_asignaturas` WRITE;
 /*!40000 ALTER TABLE `cursos_asignaturas` DISABLE KEYS */;
-INSERT INTO `cursos_asignaturas` VALUES (1,1,3),(2,1,3),(3,1,3),(4,1,3),(5,1,1),(6,1,3),(7,1,3),(8,1,3),(9,1,3),(10,1,1),(11,2,3),(12,2,3),(13,2,3),(14,2,3),(15,2,1),(16,2,3),(17,2,3),(18,2,3),(19,2,3),(20,2,3);
+INSERT INTO `cursos_asignaturas` VALUES (1,1,3,1),(2,1,3,1),(3,1,3,1),(4,1,3,1),(5,1,1,1),(6,1,3,2),(7,1,3,2),(8,1,3,2),(9,1,3,2),(10,1,1,2),(11,2,3,1),(12,2,3,1),(13,2,3,1),(14,2,3,1),(15,2,1,1),(16,2,3,2),(17,2,3,2),(18,2,3,2),(19,2,3,2),(20,2,3,2),(21,2,1,2),(22,3,3,1),(23,3,3,1),(24,3,3,1),(25,3,3,1),(26,3,3,1),(27,3,3,1),(28,3,1,1),(29,3,3,2),(30,3,3,2),(31,3,3,2),(32,3,3,2),(33,3,1,2),(34,4,3,1),(35,4,3,1),(36,4,3,1),(37,4,3,1),(38,4,3,1),(39,4,3,1),(40,4,1,1),(41,4,3,2),(42,4,3,2),(43,4,3,2),(44,4,3,2),(45,4,3,2),(46,4,1,2),(47,5,3,1),(48,5,3,1),(49,5,3,1),(50,5,3,1),(51,5,3,1),(52,5,3,1),(53,5,3,1),(54,5,1,1),(55,5,3,2),(56,5,3,2),(57,5,3,2),(58,5,3,2),(59,5,3,2),(60,5,3,2),(61,5,3,2),(62,5,1,2);
 /*!40000 ALTER TABLE `cursos_asignaturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +262,7 @@ CREATE TABLE `cursos_profesores` (
 
 LOCK TABLES `cursos_profesores` WRITE;
 /*!40000 ALTER TABLE `cursos_profesores` DISABLE KEYS */;
-INSERT INTO `cursos_profesores` VALUES (1,1,'2025-09-19'),(2,2,'2025-09-19');
+INSERT INTO `cursos_profesores` VALUES (1,1,'2025-09-19'),(2,2,'2025-09-19'),(3,3,'2025-09-19'),(4,4,'2025-09-19'),(5,5,'2025-09-19');
 /*!40000 ALTER TABLE `cursos_profesores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,6 +331,7 @@ DROP TABLE IF EXISTS `ingredientes`;
 CREATE TABLE `ingredientes` (
   `id_ingredientes` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
+  `cantidad` float DEFAULT NULL,
   `unidad_medida` enum('mg','g','kg','ud','ml','L') NOT NULL,
   `stock` int DEFAULT NULL,
   `id_alergeno` int NOT NULL,
@@ -344,7 +347,7 @@ CREATE TABLE `ingredientes` (
 
 LOCK TABLES `ingredientes` WRITE;
 /*!40000 ALTER TABLE `ingredientes` DISABLE KEYS */;
-INSERT INTO `ingredientes` VALUES (1,'Tomate cherry','kg',5,15),(2,'Cebolla','kg',8,15),(3,'Ajo','kg',2,15),(4,'Pimiento rojo','kg',4,15),(5,'Zanahoria','kg',6,15),(6,'Patata','kg',10,15),(7,'Puerro','kg',3,15),(8,'Espinacas','kg',2,15),(9,'Aceite de oliva virgen extra','L',10,15),(10,'Sal','g',3000,15),(11,'Pimienta negra','g',500,15),(12,'Albahaca fresca','g',500,15),(13,'Perejil fresco','g',500,15),(14,'Bacalao desalado','kg',4,4),(15,'Anchoas en aceite','g',500,4),(16,'Gambas frescas','kg',2,2),(17,'Berberechos frescos','kg',2,14),(18,'Huevo campero','ud',30,3),(19,'Nata líquida 35%','L',2,7),(20,'Queso Idiazabal','kg',2,7),(21,'Leche entera','L',4,7),(22,'Mantequilla','g',1000,7),(23,'Queso crema','g',1500,7),(24,'Harina de trigo T55','kg',5,1),(25,'Harina de fuerza','kg',5,1),(26,'Pan rallado','g',1000,1),(27,'Levadura fresca','g',200,1),(28,'Azúcar blanquilla','kg',3,15),(29,'Azúcar glas','g',500,15),(30,'Cacao en polvo','g',500,15),(31,'Alubias rojas','kg',3,15),(32,'Txistorra','kg',1,1),(33,'Chorizo','kg',1,1),(34,'Avellanas tostadas','g',500,8);
+INSERT INTO `ingredientes` VALUES (1,'Tomate cherry',0.5,'kg',5,15),(2,'Cebolla',0.2,'kg',8,15),(3,'Ajo',3,'ud',2,15),(4,'Pimiento rojo',0.3,'kg',4,15),(5,'Zanahoria',0.3,'kg',6,15),(6,'Patata',0.5,'kg',10,15),(7,'Puerro',0.25,'kg',3,15),(8,'Espinacas',0.2,'kg',2,15),(9,'Aceite de oliva virgen extra',50,'ml',10,15),(10,'Sal',5,'g',3000,15),(11,'Pimienta negra',2,'g',500,15),(12,'Albahaca fresca',5,'ud',500,15),(13,'Perejil fresco',4,'ud',500,15),(14,'Bacalao desalado',0.2,'kg',4,4),(15,'Anchoas en aceite',4,'ud',500,4),(16,'Gambas frescas',0.15,'kg',2,2),(17,'Berberechos frescos',0.25,'kg',2,14),(18,'Huevo campero',2,'ud',30,3),(19,'Nata líquida 35%',100,'ml',2,7),(20,'Queso Idiazabal',0.05,'kg',2,7),(21,'Leche entera',250,'ml',4,7),(22,'Mantequilla',50,'g',1000,7),(23,'Queso crema',200,'g',1500,7),(24,'Harina de trigo T55',0.1,'kg',5,1),(25,'Harina de fuerza',0.5,'kg',5,1),(26,'Pan rallado',50,'g',1000,1),(27,'Levadura fresca',10,'g',200,1),(28,'Azúcar blanquilla',0.1,'kg',3,15),(29,'Azúcar glas',30,'g',500,15),(30,'Cacao en polvo',30,'g',500,15),(31,'Alubias rojas',0.3,'kg',3,15),(32,'Txistorra',150,'g',1,1),(33,'Chorizo',150,'g',1,1),(34,'Avellanas tostadas',40,'g',500,8);
 /*!40000 ALTER TABLE `ingredientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,7 +453,7 @@ CREATE TABLE `profesores` (
   PRIMARY KEY (`id_profesor`),
   KEY `professor-usuario_idx` (`id_usuario`),
   CONSTRAINT `professor-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +462,7 @@ CREATE TABLE `profesores` (
 
 LOCK TABLES `profesores` WRITE;
 /*!40000 ALTER TABLE `profesores` DISABLE KEYS */;
-INSERT INTO `profesores` VALUES (1,'Ana','García','Fernández','Cocina y Gastronomía','ana.docente@gmail.es',1),(2,'Carlos','López','Mendoza','Panadería, Repostería y Confitería','profe.lópez@hotmail.com',2);
+INSERT INTO `profesores` VALUES (1,'Ana','García','Fernández','Cocina y Gastronomía','ana.docente@gmail.es',1),(2,'Carlos','López','Mendoza','Panadería, Repostería y Confitería','profe.lópez@hotmail.com',2),(3,'Amaia','González','Elorza','Agricultura','agonzalez@GastroLab.eus',22),(4,'Mikel','Martínez','Iturri','Dietética','mmartinez@GastroLab.eus',23),(5,'Leire','Sánchez','Zabala','Dirección de Cocina','lsanchez@GastroLab.eus',24);
 /*!40000 ALTER TABLE `profesores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -537,7 +540,7 @@ CREATE TABLE `usuarios` (
   `contraseña` varchar(255) NOT NULL,
   `tipo_usuario` enum('profesor','alumno','invitado') NOT NULL DEFAULT 'invitado',
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,7 +549,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'agarcia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(2,'clopez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(3,'ietxebarria@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(4,'azubieta@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(5,'marrizabalaga@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(6,'lgoikoetxea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(7,'uarostegi@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(8,'niture@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(9,'jlazkano@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(10,'aolalde@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(11,'eurrutia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(12,'mlarrea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(13,'invitado1@mail.com','$2b$10$HaShedPasswd0013','invitado'),(14,'invitado2@mail.com','$2b$10$HaShedPasswd0014','invitado'),(15,'invitado3@mail.com','$2b$10$HaShedPasswd0015','invitado'),(16,'invitado4@mail.com','$2b$10$HaShedPasswd0016','invitado'),(17,'invitado5@mail.com','$2b$10$HaShedPasswd0017','invitado'),(18,'invitado6@mail.com','$2b$10$HaShedPasswd0018','invitado'),(19,'invitado7@mail.com','$2b$10$HaShedPasswd0019','invitado'),(20,'invitado8@mail.com','$2b$10$HaShedPasswd0020','invitado'),(21,'test@gastrolab.eus','pbkdf2:sha256:600000$uG9vXzR8pL2m$0e8c1a9b2d3f4a5b6c7d8e9f0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t','alumno');
+INSERT INTO `usuarios` VALUES (1,'agarcia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(2,'clopez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(3,'ietxebarria@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(4,'azubieta@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(5,'marrizabalaga@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(6,'lgoikoetxea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(7,'uarostegi@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(8,'niture@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(9,'jlazkano@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(10,'aolalde@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(11,'eurrutia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(12,'mlarrea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(13,'invitado1@mail.com','$2b$10$HaShedPasswd0013','invitado'),(14,'invitado2@mail.com','$2b$10$HaShedPasswd0014','invitado'),(15,'invitado3@mail.com','$2b$10$HaShedPasswd0015','invitado'),(16,'invitado4@mail.com','$2b$10$HaShedPasswd0016','invitado'),(17,'invitado5@mail.com','$2b$10$HaShedPasswd0017','invitado'),(18,'invitado6@mail.com','$2b$10$HaShedPasswd0018','invitado'),(19,'invitado7@mail.com','$2b$10$HaShedPasswd0019','invitado'),(20,'invitado8@mail.com','$2b$10$HaShedPasswd0020','invitado'),(21,'test@gastrolab.eus','pbkdf2:sha256:600000$uG9vXzR8pL2m$0e8c1a9b2d3f4a5b6c7d8e9f0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t','alumno'),(22,'agonzalez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(23,'mmartinez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(24,'lsanchez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -559,4 +562,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-01 21:29:19
+-- Dump completed on 2026-05-02 14:37:31

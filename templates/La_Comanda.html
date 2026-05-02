@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Comanda</title>
+    <link rel="stylesheet" href="../static/CSS-Pagina_Web/style.css">
+</head>
+<body>
+    <header class="cabecera">
+        <nav class="barra-navegacion">
+            <div class="bloque-menu">
+                <div class="menu-icono">
+                    <img src="../static/Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
+                    <div class="menu-desplegable">
+                        <a href="#">Quiénes Somos</a>
+                        <a href="#">Red Social "La Comanda"</a>
+                        <a href="#">Plan de Digitalización</a>
+                        <a href="#">Plan de Sostenibilidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bloque-logo">
+                <img src="../static/Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
+            </div>
+            <div class="bloque-registro">
+                <a href="../templates/Pagina_Principal.html" class="boton-registro">Inicio</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- TITULO Y BOTON CREAR -->
+    <div class="cabecera-social">
+        <h1>Bienvenidos a La Comanda</h1>
+        <a href="formulario_receta.html" class="boton-crear">＋ Publicar mi Receta</a>
+    </div>
+
+    <!-- LISTA TOP 10 -->
+    <div class="top-10">
+        <h3>🏆 Top 10 Recetas de la Semana</h3>
+        <p>1. Paella | 2. Tortilla | 3. Gazpacho... </p>
+    </div>
+
+    <!-- CONTENEDOR DE BLOQUES -->
+    <div class="galeria">
+
+        <!-- Receta 1 -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Lasaña Clásica</h3>
+            <img src="../static/Imagenes/lasaña.jpg" alt="Lasaña">
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>45</span>
+            </div>
+            <!-- ENLACE A OTRA PÁGINA -->
+            <a href="receta_lasana.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+        <!-- Receta 2 -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Vídeo: Tarta Queso</h3>
+            <video controls>
+                <source src="../static/Videos/tarta.mp4" type="video/mp4">
+            </video>
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>82</span>
+            </div>
+            <a href="receta_tarta.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+        <!-- Receta 3 -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Ensalada César</h3>
+            <img src="../static/Imagenes/ensalada.jpg" alt="Ensalada">
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>12</span>
+            </div>
+            <a href="receta_ensalada.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+        <!-- Receta 4 (Bajará sola) -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Arroz a Banda</h3>
+            <img src="../static/Imagenes/arroz.jpg" alt="Arroz">
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>30</span>
+            </div>
+            <a href="receta_arroz.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+    </div>
+</body>
+</html>
