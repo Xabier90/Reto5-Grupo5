@@ -13,8 +13,8 @@
                 <div class="menu-icono">
                     <img src="../static/Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
                     <div class="menu-desplegable">
+                        <a href="{{url_for('Pagina_Principal')}}">Página Principal</a>
                         <a href="#">Quiénes Somos</a>
-                        <a href="#">Red Social "La Comanda"</a>
                         <a href="#">Plan de Digitalización</a>
                         <a href="#">Plan de Sostenibilidad</a>
                     </div>
@@ -24,7 +24,7 @@
                 <img src="../static/Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
             </div>
             <div class="bloque-registro">
-                <a href="../templates/Pagina_Principal.html" class="boton-registro">Inicio</a>
+                <a href="{{ url_for('logout') }}" class="boton_cierre_sesion">Cerrar sesion</a>
             </div>
         </nav>
     </header>
@@ -32,7 +32,7 @@
     <!-- TITULO Y BOTON CREAR -->
     <div class="cabecera-social">
         <h1>Bienvenidos a La Comanda</h1>
-        <a href="formulario_receta.html" class="boton-crear">＋ Publicar mi Receta</a>
+        <a href="{{url_for('formulario_recetas')}}" class="boton-crear">＋ Publicar mi Receta</a>
     </div>
 
     <!-- LISTA TOP 10 -->

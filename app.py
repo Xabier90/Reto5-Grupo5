@@ -36,7 +36,7 @@ def registro():
         cursor.close()
         conexion.close()
 
-        return render_template("registro.html")
+        return render_template("login.html")
     return render_template("registro.html")
     
 @app.route("/login", methods =["GET","POST"])
@@ -77,6 +77,15 @@ def login():
 @app.route("/la-comanda") # Esta es la URL que se verá en el navegador
 def La_Comanda():         # <--- Este es el nombre que busca url_for
     return render_template("la_comanda.html")
+
+@app.route("/Pagina_principal")
+def Pagina_Principal ():
+    return render_template("Pagina_Principal.html")
+
+@app.route("/formulario_recetas")
+def formulario_recetas():
+    return render_template("FormularioRecetas.html")
+
 
 @app.route("/logout")
 def logout():
