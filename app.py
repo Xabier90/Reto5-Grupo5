@@ -6,9 +6,25 @@ from werkzeug.security import generate_password_hash, check_password_hash # La h
 app = Flask(__name__)
 app.secret_key = "ABCD"
 
-@app.route("/")
+@app.route("/home")
 def home():
-    return "Hello, Flask + uv is working!"
+
+    conexion, cursor = db_helper.get_db()
+
+    SQL = f"""
+        select c.nombre as nombre_curso, a.nombre as nombre_asignatura, ca.año_curso as año_curso
+        from cursos c
+        inner join cursos_asignaturas ca on c.id_curso = ca.id_curso
+        inner join asignaturas a on a.id_asignatura = ca.id_asignatura;
+    """
+
+    cursor.execute(SQL)
+    cursos = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+
+    return render_template("Pagina_Principal.html", cursos=cursos)
 
 @app.route("/registro", methods = ['GET','POST'])
 def registro():
