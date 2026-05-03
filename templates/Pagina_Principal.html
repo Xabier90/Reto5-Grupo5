@@ -1,3 +1,4 @@
+<!-- Pagina_Principal.html realizado por Ibai y Xabier Iglesias -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,9 +38,22 @@
 <main class="estudia_cursos">
     <h1 class="titulo_cursos">Estudia con nosotros</h1>
         <div class="todos_cursos">
+            
+            {#
+                Se crea una lista de los cursos para añadir cada curso para
+                evitar duplicacion de los cursos por cada asignatura
+            #}
+
             {% set lista_cursos = [None] %}
             {% for curso in cursos %}
                 {% if curso.nombre_curso not in lista_cursos %}
+
+                    {#
+                        Se crea una variable para añadir a la lista cada
+                        curso con el set _ debido a que es una variable
+                        que no se va a usar
+                    #}
+
                     {% set _ = lista_cursos.append(curso.nombre_curso) %}
                 
                     <section class="curso_entero">

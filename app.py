@@ -1,3 +1,4 @@
+# app.py realizado por Ibai y Xabier Iglesias
 from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 import db_helper

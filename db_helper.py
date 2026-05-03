@@ -1,3 +1,4 @@
+# db_helper.py realizado por Xabier Iglesias
 import mysql.connector
 
 
