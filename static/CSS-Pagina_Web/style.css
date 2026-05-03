@@ -225,6 +225,16 @@ main.estudia_cursos {
 
 .boton-crear {
     display: inline-block;
+    background-color: #345e35;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.boton-cambiar {
+    display: inline-block;
     background-color: #b16a29;
     color: white;
     padding: 10px 20px;
@@ -232,6 +242,20 @@ main.estudia_cursos {
     border-radius: 5px;
     font-weight: bold;
     margin-top: 10px;
+}
+.boton-eliminar {
+    display: inline-block;
+    background-color: #8d2606;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.label_nombre_receta{
+    font-size: 15px;
 }
 
 /* Top 10 */
