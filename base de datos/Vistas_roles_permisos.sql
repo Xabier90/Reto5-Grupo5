@@ -26,6 +26,14 @@ left join huerto_ingredientes hi on h.id_huerto = hi.id_huerto
 left join ingredientes i on hi.id_ingrediente = i.id_ingredientes;
 
 
+create view vista_cursos_asignaturas as
+select c.nombre as nombre_curso, 
+a.nombre as nombre_asignatura, ca.año_curso as año_curso
+from cursos c
+left join cursos_asignaturas ca on c.id_curso = ca.id_curso
+left join asignaturas a on a.id_asignatura = ca.id_asignatura;
+
+
 -- Roles
 
 create role 'rol_invitado', 'rol_alumno', 'rol_profesor';
