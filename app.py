@@ -36,7 +36,9 @@ def registro():
         cursor.close()
         conexion.close()
 
-        return render_template("login.html")
+        # return render_template("login.html")
+        return redirect(url_for("login"))
+
     return render_template("registro.html")
     
 @app.route("/login", methods =["GET","POST"])
@@ -51,7 +53,7 @@ def login():
         
         conexion, cursor = db_helper.get_db()
 
-        sSQL = "SELECT id_usuario, correo, contraseña AS contra, tipo_usuario FROM usuarios where correo = %s" 
+        sSQL = "SELECT id_usuario, correo, contraseña , tipo_usuario FROM usuarios where correo = %s" 
         # selecciona en este caso en la tabla usuarios, todas las columnas. 
         # Unicamente en el caso  que coincida el correo de la base de datos con el que ha introducido el usuario
         cursor.execute(sSQL, [correo_usuario])
@@ -59,8 +61,8 @@ def login():
         usuario = cursor.fetchone() # Recoge el resultado de la consulta SQL que hemos hecho y nos da la primera coincidencia (En este caso no va a haber correos repetidos por lo que nos sirve)
         print(f"VALOR DE USUARIO: {usuario}")
 
-        if usuario is not None and check_password_hash(usuario["contra"], contraseña_normal):
-            session["user_id"] = usuario["id_usuario"]
+        if usuario is not None and check_password_hash(usuario["contraseña"], contraseña_normal):
+            session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             mensaje = "Bienvenido a La Comanda"
             return redirect(url_for("La_Comanda"))
@@ -75,11 +77,16 @@ def login():
     return render_template("login.html", mensaje = mensaje) # hace que devuelva lo que nos interesa
 
 @app.route("/la-comanda") # Esta es la URL que se verá en el navegador
-def La_Comanda():         # <--- Este es el nombre que busca url_for
-    return render_template("la_comanda.html")
+def La_Comanda(): 
+    usuario = session.get("id_usuario")
+    if usuario:      # <--- Este es el nombre que busca url_for
+        return render_template("La_Comanda.html")
+    else:
+        return redirect(url_for("login"))
+
 
 @app.route("/Pagina_principal")
-def Pagina_Principal ():
+def Pagina_Principal():
     return render_template("Pagina_Principal.html")
 
 @app.route("/formulario_recetas")
