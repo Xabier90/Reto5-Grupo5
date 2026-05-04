@@ -7,16 +7,13 @@ from werkzeug.security import generate_password_hash, check_password_hash # La h
 app = Flask(__name__)
 app.secret_key = "ABCD"
 
-@app.route("/home")
-def home():
+@app.route("/Pagina_principal")
+def Pagina_principal():
 
     conexion, cursor = db_helper.get_db()
 
     SQL = f"""
-        select c.nombre as nombre_curso, a.nombre as nombre_asignatura, ca.año_curso as año_curso
-        from cursos c
-        inner join cursos_asignaturas ca on c.id_curso = ca.id_curso
-        inner join asignaturas a on a.id_asignatura = ca.id_asignatura;
+        SELECT * FROM vista_cursos_asignaturas;
     """
 
     cursor.execute(SQL)
