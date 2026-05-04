@@ -46,8 +46,7 @@ function generarCampos() {
             fila.appendChild(inputCantidad);
             fila.appendChild(selectUnidad);
 
-            fila.appendChild(document.createElement('br'));
-            fila.appendChild(document.createElement('br'));
+            fila.appendChild(document.createElement('br', 'br'));
 
             contenedor.appendChild(fila);
         }
@@ -75,7 +74,6 @@ function generarCampos() {
                 // Añadimos al contenedor con un salto de línea
                 contenedor.appendChild(label);
                 contenedor.appendChild(textarea);
-                contenedor.appendChild(document.createElement('br'));
-                contenedor.appendChild(document.createElement('br'));
+                contenedor.appendChild(document.createElement('br', 'br'));
             }
         }

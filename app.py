@@ -82,7 +82,7 @@ def La_Comanda():         # <--- Este es el nombre que busca url_for
 def Pagina_Principal ():
     return render_template("Pagina_Principal.html")
 
-@app.route("/formulario_recetas")
+@app.route("/formulario_recetas", methods=["GET", "POST"])
 def formulario_recetas():
     return render_template("FormularioRecetas.html")
 
