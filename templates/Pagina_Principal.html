@@ -50,11 +50,12 @@
 
                     {#
                         Se crea una variable para añadir a la lista cada
-                        curso con el set _ debido a que es una variable
-                        que no se va a usar
+                        curso con el set añadir_curso y he tenindo que 
+                        consultar la IA para evitar que se duplique los
+                        cursos por cada registro de la base de datos
                     #}
 
-                    {% set _ = lista_cursos.append(curso.nombre_curso) %}
+                    {% set añadir_curso = lista_cursos.append(curso.nombre_curso) %}
                 
                     <section class="curso_entero">
                         <div class="asignaturas">
