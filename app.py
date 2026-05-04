@@ -64,6 +64,7 @@ def login():
         if usuario is not None and check_password_hash(usuario["contraseña"], contraseña_normal):
             session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
+            session["correo"] = usuario["correo"] # Para guardar el correo
             mensaje = "Bienvenido a La Comanda"
             return redirect(url_for("La_Comanda"))
             # Aquí haremos que acceda al apartado de la red social
