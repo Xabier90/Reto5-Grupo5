@@ -41,12 +41,14 @@ create role 'rol_invitado', 'rol_alumno', 'rol_profesor';
 -- Permisos a los roles
 -- Invitados
 grant select on vista_lectura_recetas_ingredientes_likes to 'rol_invitado';
+grant select on vista_huertos_ingredientes to 'rol_invitado';
 grant select, insert on likes_recetas to 'rol_invitado';
 grant select on usuarios to 'rol_invitado';
 
 
 -- Alumnos
 grant select on vista_lectura_recetas_ingredientes_likes to 'rol_alumno';
+grant select on vista_huertos_ingredientes to 'rol_alumno';
 grant select, insert on likes_recetas to 'rol_alumno';
 grant select on usuarios to 'rol_alumno';
 grant select on ingredientes to 'rol_alumno';
@@ -60,6 +62,7 @@ grant insert, update on huerto_ingredientes to 'rol_alumno';
 
 -- Profesores
 grant select on vista_lectura_recetas_ingredientes_likes to 'rol_profesor';
+grant select on vista_huertos_ingredientes to 'rol_profesor';
 grant select, insert on likes_recetas to 'rol_profesor';
 grant select on usuarios to 'rol_profesor';
 grant select on ingredientes to 'rol_profesor';
