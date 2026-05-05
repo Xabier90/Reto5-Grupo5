@@ -61,7 +61,7 @@ def login():
         usuario = cursor.fetchone() # Recoge el resultado de la consulta SQL que hemos hecho y nos da la primera coincidencia (En este caso no va a haber correos repetidos por lo que nos sirve)
         print(f"VALOR DE USUARIO: {usuario}")
 
-        if usuario is not None and check_password_hash(usuario["contra"], contraseña_normal):
+        if usuario is not None and check_password_hash(usuario["contraseña"], contraseña_normal):
             session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             session["correo"] = usuario["correo"] # Para guardar el correo
@@ -101,7 +101,8 @@ def formulario_recetas():
         dificultad = request.form.get("nivel_dificultad")
         tiempo_str = request.form.get("tiempo_receta")  # formato HH:MM
         url_archivo = request.form.get("url_archivo")
-        id_usuario = request.form.get("nom_usuario")
+        alergenos_marcados = request.form.to_dict()
+
 
         # Convertir tiempo a minutos
         horas, minutos = tiempo_str.split(":")
@@ -123,30 +124,41 @@ def formulario_recetas():
             #Insertar receta
             sql_receta = """
                 INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
-                VALUES (%s, %s, %s, %s, 0, 1, %s, %s)
-                    """
-            cursor.execute(sql_receta, (nombre, dificultad, tiempo, instrucciones, url_archivo, id_usuario))
+                VALUES (%s, %s, %s, %s, 0, %s, %s)
+            """
+            cursor.execute(sql_receta, (nombre, dificultad, tiempo, instrucciones, id_usuario, url_archivo))
+
 
 
             id_receta = cursor.lastrowid
 
+            # Alergenos marcados
+            lista_alergenos = [
+                "Gluten", "Lacteos", "Frutos_secos", "Cacahuete", "Pescado",
+                "Crustaceos", "Moluscos", "Huevos", "Soja", "Apio",
+                "Mostaza", "Sesamo", "Sulfitos", "Altramuz", "Vegano"
+            ]
+
+            alergenos_marcados = [request.form.get(a) for a in lista_alergenos if request.form.get(a)]
+            id_alergeno = alergenos_marcados[0] if alergenos_marcados else None
+
             num_ing = int(request.form.get("Num_ingredientes"))
 
             for i in range(1, num_ing + 1):
-                nombre_ing = request.form.get(f"ingrediente_{i}")
+                nombre_ingrediente = request.form.get(f"ingrediente_{i}")
                 cantidad = request.form.get(f"cantidad_{i}")
                 unidad = request.form.get(f"unidad_{i}")
+                stock = 0
 
-
-                cursor.execute("SELECT id_ingredientes FROM ingredientes WHERE nombre = %s", (nombre_ing,))
+                cursor.execute("SELECT id_ingredientes FROM ingredientes WHERE nombre = %s", (nombre_ingrediente,))
                 resultado = cursor.fetchone()
 
                 if resultado:
                     id_ing = resultado["id_ingredientes"]
                 else:
                     cursor.execute(
-                        "INSERT INTO ingredientes (nombre, unidad_medida, stock, id_alergeno) VALUES (%s, %s, 0, NULL)",
-                        (nombre_ing, unidad)
+                        "INSERT INTO ingredientes (nombre, unidad_medida, stock, id_alergeno) VALUES (%s, %s, %s, %s)",
+                        (nombre_ingrediente, unidad, stock, id_alergeno)
                     )
                     id_ing = cursor.lastrowid
 
@@ -154,6 +166,8 @@ def formulario_recetas():
                     "INSERT INTO receta_ingredientes (id_receta, id_ingrediente, cantidad) VALUES (%s, %s, %s)",
                     (id_receta, id_ing, cantidad)
                 )
+
+
 
             return redirect("/formulario_recetas")
 
