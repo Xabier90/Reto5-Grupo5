@@ -26,6 +26,14 @@ left join huerto_ingredientes hi on h.id_huerto = hi.id_huerto
 left join ingredientes i on hi.id_ingrediente = i.id_ingredientes;
 
 
+create view vista_cursos_asignaturas as
+select c.nombre as nombre_curso, 
+a.nombre as nombre_asignatura, ca.año_curso as año_curso
+from cursos c
+left join cursos_asignaturas ca on c.id_curso = ca.id_curso
+left join asignaturas a on a.id_asignatura = ca.id_asignatura;
+
+
 -- Roles
 
 create role 'rol_invitado', 'rol_alumno', 'rol_profesor';
@@ -33,15 +41,20 @@ create role 'rol_invitado', 'rol_alumno', 'rol_profesor';
 -- Permisos a los roles
 -- Invitados
 grant select on vista_lectura_recetas_ingredientes_likes to 'rol_invitado';
+grant select on vista_cursos_asignaturas to 'rol_invitado';
 grant select, insert on likes_recetas to 'rol_invitado';
+grant select on usuarios to 'rol_invitado';
 
 
 -- Alumnos
 grant select on vista_lectura_recetas_ingredientes_likes to 'rol_alumno';
+grant select on vista_cursos_asignaturas to 'rol_alumno';
 grant select, insert on likes_recetas to 'rol_alumno';
+grant select on usuarios to 'rol_alumno';
 grant select on ingredientes to 'rol_alumno';
 grant insert on recetas to 'rol_alumno';
 grant insert on receta_ingredientes to 'rol_alumno';
+
 
 grant select on vista_huertos_ingredientes to 'rol_alumno';
 grant select on huertos to 'rol_alumno';
@@ -49,7 +62,9 @@ grant insert, update on huerto_ingredientes to 'rol_alumno';
 
 -- Profesores
 grant select on vista_lectura_recetas_ingredientes_likes to 'rol_profesor';
+grant select on vista_cursos_asignaturas to 'rol_profesor';
 grant select, insert on likes_recetas to 'rol_profesor';
+grant select on usuarios to 'rol_profesor';
 grant select on ingredientes to 'rol_profesor';
 grant insert on recetas to 'rol_profesor';
 grant insert on receta_ingredientes to 'rol_profesor';

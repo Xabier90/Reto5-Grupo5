@@ -23,33 +23,48 @@
             <div class="bloque-logo">
                 <img src="../static/Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
             </div>
+                      
             <div class="bloque-registro">
-                <a href="{{ url_for('logout') }}" class="boton_cierre_sesion">Cerrar sesion</a>
+                {% if not session.get('correo') %}
+                    <div class="boton-registro">
+                        <a href="{{ url_for('registro') }}" class="boton-registro">Registrarse</a>
+                    </div>
+                {% else %}
+                    <div class="boton_cierre_sesion">
+                        <p>Estás conectado como: <b>{{ session['correo'] }}</b><br>
+                        (Rol: {{ session['tipo_usuario'] }})</p><br>
+                        <a class="texto_cerrar_sesion" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                    </div>
+                {% endif %}
             </div>
         </nav>
     </header>
 
-    <!-- TITULO Y BOTON CREAR -->
+    <!-- Titulo y Botones -->
     <div class="cabecera-social">
         <h1>Bienvenidos a La Comanda</h1>
-        <a href="{{url_for('formulario_recetas')}}" class="boton-crear"> + Publicar mi Receta</a><br><br>
-        <a href="{{url_for('formulario_recetas')}}" class="boton-cambiar"> ? Cambiar Receta</a>
+        {% if session['tipo_usuario'] == 'alumno' or session['tipo_usuario'] == 'profesor' %}
+            <a href="{{url_for('formulario_recetas')}}" class="boton-crear"> + Publicar mi Receta</a><br><br>
+        {% endif %}
+        {% if session['tipo_usuario'] == 'profesor' %}
+            <a href="{{url_for('formulario_recetas')}}" class="boton-cambiar"> ? Cambiar Receta</a>
             <label for="nombre_receta" class="label_nombre_receta">Nombre de la Receta:</label>
             <input type="text" id="nombre_receta" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
-
-        <a href="{{url_for('formulario_recetas')}}" class="boton-eliminar"> - Eliminar</a>
+        {% endif %}
+        {% if session['tipo_usuario'] == 'profesor' %}
+            <a href="{{url_for('formulario_recetas')}}" class="boton-eliminar"> - Eliminar</a>
             <label for="nombre_receta" class="label_nombre_receta">Nombre de la Receta:</label>
             <input type="text" id="nombre_receta" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
-
+        {% endif %}
     </div>
 
-    <!-- LISTA TOP 10 -->
+    <!-- Lista Top 10 -->
     <div class="top-10">
         <h3>🏆 Top 10 Recetas de la Semana</h3>
         <p>1. Paella | 2. Tortilla | 3. Gazpacho... </p>
     </div>
 
-    <!-- CONTENEDOR DE BLOQUES -->
+    <!-- Contenedor de celdas que contienen las recetas -->
     <div class="galeria">
 
         <!-- Receta 1 -->
@@ -85,7 +100,7 @@
             <a href="receta_ensalada.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
         </div>
 
-        <!-- Receta 4 (Bajará sola) -->
+        <!-- Receta 4 (Bajará sola porque he repartido en 3 partes) -->
         <div class="receta-bloque">
             <h3 class="nombre-plato">Arroz a Banda</h3>
             <img src="../static/Imagenes/arroz.jpg" alt="Arroz">

@@ -28,7 +28,17 @@
         </div>
 
         <div class="bloque-registro">
-            <a href="#" class="boton-registro">Registrarse</a>
+            {% if not session.get('correo') %}
+                <div class="boton-registro">
+                    <a href="{{ url_for('registro') }}" class="boton-registro">Registrarse</a>
+                </div>
+            {% else %}
+                <div class="boton_cierre_sesion">
+                    <p>Estás conectado como: <b>{{ session['correo'] }}</b><br>
+                    (Rol: {{ session['tipo_usuario'] }})</p><br>
+                    <a class="texto_cerrar_sesion" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                </div>
+            {% endif %}
         </div>
 
     </nav>
