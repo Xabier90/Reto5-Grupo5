@@ -94,6 +94,13 @@ def Pagina_Principal():
 def formulario_recetas():
 
     if request.method == "POST":
+
+        #Concexion con el usuario - Pueba
+        id_usuario = session.get("id_usuario")
+
+        if id_usuario is None:
+            return redirect("/login")
+
         conexion, cursor = db_helper.get_db()
 
         # DATOS PRINCIPALES DE LA RECETA
@@ -101,7 +108,7 @@ def formulario_recetas():
         dificultad = request.form.get("nivel_dificultad")
         tiempo_str = request.form.get("tiempo_receta")  # formato HH:MM
         url_archivo = request.form.get("url_archivo")
-        alergenos_marcados = request.form.to_dict()
+        #alergenos_marcados = request.form.to_dict()
 
 
         # Convertir tiempo a minutos
@@ -111,44 +118,48 @@ def formulario_recetas():
 
         num_pasos = int(request.form.get("Num_pasos"))
         pasos = [request.form.get(f"paso_{i}") for i in range(1, num_pasos + 1)]
-        instrucciones = "\n".join(pasos)
-
-        #Concexion con el usuario - Pueba
-        id_usuario = session.get("id_usuario")
-
-        if id_usuario is None:
-            return redirect("/login")
+        instrucciones = "; ".join(filter(None, pasos))
         
-        else:
 
-            #Insertar receta
-            sql_receta = """
-                INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
-                VALUES (%s, %s, %s, %s, 0, %s, %s)
-            """
-            cursor.execute(sql_receta, (nombre, dificultad, tiempo, instrucciones, id_usuario, url_archivo))
+        #Insertar receta
+        sql_receta = """
+            INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
+            VALUES (%s, %s, %s, %s, 0, %s, %s)
+        """
+        cursor.execute(sql_receta, (nombre, dificultad, tiempo, instrucciones, id_usuario, url_archivo))
+
+        id_receta = cursor.lastrowid
+
+        # Alergenos marcados
+        lista_alergenos = [
+            "Gluten", "Lacteos", "Frutos_secos", "Cacahuete", "Pescado",
+            "Crustaceos", "Moluscos", "Huevos", "Soja", "Apio",
+            "Mostaza", "Sesamo", "Sulfitos", "Altramuz", "Vegano"
+        ]
+
+        ids_alergenos_marcados = []
+        for a in lista_alergenos:
+            valor = request.form.get(a)
+            if valor:
+                ids_alergenos_marcados.append(int(valor))
+
+        id_alergeno_default = ids_alergenos_marcados[0] if ids_alergenos_marcados else None
 
 
 
-            id_receta = cursor.lastrowid
+        # --- INGREDIENTES ---
 
-            # Alergenos marcados
-            lista_alergenos = [
-                "Gluten", "Lacteos", "Frutos_secos", "Cacahuete", "Pescado",
-                "Crustaceos", "Moluscos", "Huevos", "Soja", "Apio",
-                "Mostaza", "Sesamo", "Sulfitos", "Altramuz", "Vegano"
-            ]
+        num_ing = int(request.form.get("Num_ingredientes"))
 
-            alergenos_marcados = [request.form.get(a) for a in lista_alergenos if request.form.get(a)]
-            id_alergeno = alergenos_marcados[0] if alergenos_marcados else None
-
-            num_ing = int(request.form.get("Num_ingredientes"))
-
-            for i in range(1, num_ing + 1):
+        for i in range(1, num_ing + 1):
                 nombre_ingrediente = request.form.get(f"ingrediente_{i}")
                 cantidad = request.form.get(f"cantidad_{i}")
                 unidad = request.form.get(f"unidad_{i}")
-                stock = 0
+
+                if not nombre_ingrediente or not cantidad:
+                    continue
+                
+                cantidad = int(cantidad)
 
                 cursor.execute("SELECT id_ingredientes FROM ingredientes WHERE nombre = %s", (nombre_ingrediente,))
                 resultado = cursor.fetchone()
@@ -158,18 +169,19 @@ def formulario_recetas():
                 else:
                     cursor.execute(
                         "INSERT INTO ingredientes (nombre, unidad_medida, stock, id_alergeno) VALUES (%s, %s, %s, %s)",
-                        (nombre_ingrediente, unidad, stock, id_alergeno)
+                        (nombre_ingrediente, unidad, 0, id_alergeno_default)
                     )
                     id_ing = cursor.lastrowid
 
                 cursor.execute(
                     "INSERT INTO receta_ingredientes (id_receta, id_ingrediente, cantidad) VALUES (%s, %s, %s)",
                     (id_receta, id_ing, cantidad)
-                )
+                ) 
 
+        cursor.close()
+        conexion.close()
 
-
-            return redirect("/formulario_recetas")
+        return redirect("/formulario_recetas")
 
     return render_template("FormularioRecetas.html")
 
