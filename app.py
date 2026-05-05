@@ -79,11 +79,74 @@ def login():
 
 @app.route("/la-comanda") # Esta es la URL que se verá en el navegador
 def La_Comanda(): 
-    usuario = session.get("id_usuario")
-    if usuario:      # <--- Este es el nombre que busca url_for
-        return render_template("La_Comanda.html")
+    id_usuario = session.get("id_usuario")
+    if id_usuario is None:
+        return redirect("/login")
+    conexion, cursor = db_helper.get_db()
+    
+    # Cargar recetas con informacion de la base de datos si el usuario ya ha votado
+    cursor.execute("""
+        SELECT r.id_receta, r.nombre, r.url_archivo, r.votos,
+               IF(v.id_usuario IS NOT NULL, 1, 0) AS ya_vote
+        FROM recetas r
+        LEFT JOIN likes_recetas v 
+            ON r.id_receta = v.id_receta AND v.id_usuario = %s
+        ORDER BY r.votos DESC
+    """, (id_usuario,))
+    
+    recetas = cursor.fetchall()
+    cursor.close()
+    conexion.close()
+    return render_template("La_Comanda.html", recetas=recetas)
+
+    
+
+@app.route("/votar", methods=["POST"])
+def votar():
+    id_usuario = session.get("id_usuario")
+    if id_usuario is None:       
+        return redirect("/login")
+
+    conexion, cursor = db_helper.get_db()
+    # Comprobar si ya ha votado
+    cursor.execute(
+        "SELECT 1 FROM likes_recetas WHERE id_usuario=%s AND id_receta=%s",
+        (id_usuario, id_receta)
+    )
+    ya_voto = cursor.fetchone()
+
+    if ya_voto:
+        # Quitar voto
+        cursor.execute(
+            "DELETE FROM likes_recetas WHERE id_usuario=%s AND id_receta=%s",
+            (id_usuario, id_receta)
+        )
+        cursor.execute(
+            "UPDATE recetas SET votos = votos - 1 WHERE id_receta=%s",
+            (id_receta,)
+        )
+        accion = "quitado"
+
     else:
-        return redirect(url_for("login"))
+        # Añadir voto
+        cursor.execute(
+            "INSERT INTO likes_recetas (id_usuario, id_receta, fecha_receta) VALUES (%s, %s, NOW())",
+            (id_usuario, id_receta)
+        )
+        cursor.execute(
+            "UPDATE recetas SET votos = votos + 1 WHERE id_receta=%s",
+            (id_receta,)
+        )
+        accion = "añadido"
+
+        # Obtener votos actualizados
+        cursor.execute("SELECT votos FROM recetas WHERE id_receta=%s", (id_receta,))
+        nuevos_votos = cursor.fetchone()["votos"]
+
+        return redirect("/La_Comanda")
+    
+        cursor.close()
+        conexion.close()
 
 
 @app.route("/Pagina_principal")

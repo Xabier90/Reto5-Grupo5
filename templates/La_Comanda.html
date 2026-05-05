@@ -61,55 +61,34 @@
     <!-- Lista Top 10 -->
     <div class="top-10">
         <h3>🏆 Top 10 Recetas de la Semana</h3>
-        <p>1. Paella | 2. Tortilla | 3. Gazpacho... </p>
+        <p> {% for r in recetas[:10] %}
+            {{ loop.index }}. {{ r.nombre }}{% if not loop.last %} | {% endif %}
+            {% endfor %}
+        </p>
     </div>
 
     <!-- Contenedor de celdas que contienen las recetas -->
     <div class="galeria">
-
+        {% for receta in recetas %}
         <!-- Receta 1 -->
         <div class="receta-bloque">
-            <h3 class="nombre-plato">Lasaña Clásica</h3>
-            <img src="../static/Imagenes/lasaña.jpg" alt="Lasaña">
+            <h3 class="nombre-plato">{{ receta.nombre }}</h3>
+            <!-- Para la imagen y video he necesitado ayuda de la IA porque no me visualizaba bien en el caso de los videos -->
+             <!-- Imagen o Video -->
+            {% if receta.url_archivo and receta.url_archivo.endswith('.mp4') %}
+                <video controls>
+                    <source src="{{ receta.url_archivo }}" type="video/mp4">
+                </video>
+            {% elif receta.url_archivo %}
+                <img src="{{ receta.url_archivo }}" alt="{{ receta.nombre }}">
+            {% endif %}
             <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>45</span>
+                <button class="emoji-like">{% if receta.ya_vote %}😍{% else %}😋{% endif %}</button> <span>45</span>
             </div>
             <!-- ENLACE A OTRA PÁGINA -->
             <a href="receta_lasana.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
         </div>
-
-        <!-- Receta 2 -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Vídeo: Tarta Queso</h3>
-            <video controls>
-                <source src="../static/Videos/tarta.mp4" type="video/mp4">
-            </video>
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>82</span>
-            </div>
-            <a href="receta_tarta.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
-        <!-- Receta 3 -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Ensalada César</h3>
-            <img src="../static/Imagenes/ensalada.jpg" alt="Ensalada">
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>12</span>
-            </div>
-            <a href="receta_ensalada.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
-        <!-- Receta 4 (Bajará sola porque he repartido en 3 partes) -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Arroz a Banda</h3>
-            <img src="../static/Imagenes/arroz.jpg" alt="Arroz">
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>30</span>
-            </div>
-            <a href="receta_arroz.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
+        {% endfor %}
     </div>
 </body>
 </html>
