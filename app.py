@@ -60,7 +60,7 @@ def login():
         print(f"VALOR DE USUARIO: {usuario}")
 
         if usuario is not None and check_password_hash(usuario["contra"], contraseña_normal):
-            session["user_id"] = usuario["id_usuario"]
+            session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             mensaje = "Bienvenido a La Comanda"
             return redirect(url_for("La_Comanda"))
@@ -84,7 +84,73 @@ def Pagina_Principal ():
 
 @app.route("/formulario_recetas", methods=["GET", "POST"])
 def formulario_recetas():
+
+    if request.method == "POST":
+        conexion, cursor = db_helper.get_db()
+
+        # DATOS PRINCIPALES DE LA RECETA
+        nombre = request.form.get("nombre_receta")
+        dificultad = request.form.get("nivel_dificultad")
+        tiempo_str = request.form.get("tiempo_receta")  # formato HH:MM
+        url_archivo = request.form.get("url_archivo")
+        id_usuario = request.form.get("nom_usuario")
+
+        # Convertir tiempo a minutos
+        horas, minutos = tiempo_str.split(":")
+        tiempo = int(horas) * 60 + int(minutos)
+
+
+        num_pasos = int(request.form.get("Num_pasos"))
+        pasos = [request.form.get(f"paso_{i}") for i in range(1, num_pasos + 1)]
+        instrucciones = "\n".join(pasos)
+
+        #Concexion con el usuario - Pueba
+        id_usuario = session.get("id_usuario")
+
+        if id_usuario is None:
+            return redirect("/login")
+        
+        else:
+
+            #Insertar receta
+            sql_receta = """
+                INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
+                VALUES (%s, %s, %s, %s, 0, 1, %s, %s)
+                    """
+            cursor.execute(sql_receta, (nombre, dificultad, tiempo, instrucciones, url_archivo, id_usuario))
+
+
+            id_receta = cursor.lastrowid
+
+            num_ing = int(request.form.get("Num_ingredientes"))
+
+            for i in range(1, num_ing + 1):
+                nombre_ing = request.form.get(f"ingrediente_{i}")
+                cantidad = request.form.get(f"cantidad_{i}")
+                unidad = request.form.get(f"unidad_{i}")
+
+
+                cursor.execute("SELECT id_ingredientes FROM ingredientes WHERE nombre = %s", (nombre_ing,))
+                resultado = cursor.fetchone()
+
+                if resultado:
+                    id_ing = resultado["id_ingredientes"]
+                else:
+                    cursor.execute(
+                        "INSERT INTO ingredientes (nombre, unidad_medida, stock, id_alergeno) VALUES (%s, %s, 0, NULL)",
+                        (nombre_ing, unidad)
+                    )
+                    id_ing = cursor.lastrowid
+
+                cursor.execute(
+                    "INSERT INTO receta_ingredientes (id_receta, id_ingrediente, cantidad) VALUES (%s, %s, %s)",
+                    (id_receta, id_ing, cantidad)
+                )
+
+            return redirect("/formulario_recetas")
+
     return render_template("FormularioRecetas.html")
+
 
 
 @app.route("/logout")
