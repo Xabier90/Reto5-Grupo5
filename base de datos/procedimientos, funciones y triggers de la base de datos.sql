@@ -5,7 +5,7 @@ deterministic
 begin
 	declare resultado varchar(255);
     set resultado = lower(texto);
-    set resultado = replace(texto, "á", "a");
+    set resultado = replace(resultado, "á", "a");
     set resultado = replace(resultado, "é", "e");
     set resultado = replace(resultado, "í", "i");
     set resultado = replace(resultado, "ó", "o");
@@ -25,36 +25,87 @@ out p_correo varchar(255))
 begin
 	set p_nombre = eliminar_acentos(p_nombre);
     set p_apellido1 = eliminar_acentos(p_apellido1);
-    set p_correo = lower(concat(left(p_nombre, 1), p_apellido1, "@", p_dominio));
-end
-\\
+    set p_correo = concat(lower(concat(left(p_nombre, 1), p_apellido1)), "@", p_dominio);
+end\\
 
-delimiter ;
-
-
-delimiter \\
-create trigger trigger_alumnos after insert on alumnos
-for each row
-begin
-    call crear_correo(new.nombre, new.apellido1, "GastroLab.eus", @correo_creado);
-    
-	insert into usuarios (correo, contraseña, tipo_usuario)
-	values(@correo_creado, 'GastroLab2026', 'alumno');
-end \\
 delimiter ;
 
 delimiter \\
-create trigger trigger_profesores after insert on profesores
+create trigger trigger_usuario_before_insert before insert on usuarios
 for each row
 begin
-    call crear_correo(new.nombre, new.apellido1, "GastroLab.eus", @correo_creado);
+	if char_length(new.contraseña) < 8 or char_length(new.contraseña) > 64 then
+		signal sqlstate '45000'
+        set message_text = "La contraseña debe tener entre 8 y 64 caracteres";
+	end if;
     
-	insert into usuarios (correo, contraseña, tipo_usuario)
-	values(@correo_creado, 'GastroLab2026', 'profesor');
+	if new.correo is null then
+		call generar_correo(new.nombre, new.apellido1, "GastroLab.eus", @correo_creado);
+		set new.correo = @correo_creado;
+	elseif new.tipo_usuario = 'invitado' then
+		set new.nombre = 'invitado';
+        set new.apellido1 = 'invitado';
+        set new.apellido2 = 'invitado';
+    end if;
+    if new.tipo_usuario != 'invitado' then
+		set new.contraseña = SHA2(new.contraseña, 256);
+	end if;
 end \\
+
 delimiter ;
 
-INSERT INTO `reto5_musarana_elefante`.`alumnos` (`id_alumno`, `nombre`, `apellido1`, `apellido2`, `correo`, `fecha_ingreso`) 
-VALUES ('60', 'xabi', 'prueba', 'sdas', 'prueba@gmail.com', '2025-09-01 08:00:00');
+delimiter \\
+create trigger trigger_usuario_after_insert after insert on usuarios
+for each row
+begin
+	if new.tipo_usuario = 'alumno' then
+		call crear_alumno(new.correo, new.id_usuario);
+	elseif new.tipo_usuario = 'profesor' then
+		call crear_profesor(null, new.correo, new.id_usuario);
+    end if;
+end \\
+
+delimiter ;
+
+delimiter \\
+
+create procedure crear_alumno(in correo_alumno varchar(255), in id_de_usuario int)
+begin
+	insert into alumnos (correo, id_usuario, fecha_ingreso)
+    values(correo_alumno, id_de_usuario, NOW());
+end \\
+
+delimiter ;
+
+delimiter \\
+
+create procedure crear_profesor(in especialidad_profesor varchar(255), in correo_profesor varchar(255), id_de_usuario int)
+begin
+	insert into profesores (especialidad, correo, id_usuario)
+    values(especialidad_profesor, correo_profesor, id_de_usuario);
+end \\
+
+delimiter ;
+
+delimiter \\
+create trigger trigger_usuarios_before_update before update on usuarios
+for each row
+begin
+	if char_length(new.contraseña) < 8 or char_length(new.contraseña) > 64 then
+		signal sqlstate '45000'
+        set message_text = "La contraseña debe tener entre 8 y 64 caracteres";
+	end if;
+    
+    set new.contraseña = SHA2(new.contraseña, 256);
+    
+    if new.tipo_usuario = 'invitado' then
+		set new.nombre = 'invitado';
+        set new.apellido1 = 'invitado';
+        set new.apellido2 = 'invitado';
+    end if;
+end \\
+
+delimiter ;
+
 
 

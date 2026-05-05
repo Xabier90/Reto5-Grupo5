@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 import db_helper
-from werkzeug.security import generate_password_hash, check_password_hash # La herramienta para cifrar y comprobar si hay coincidencia
+import hashlib # La herramienta para cifrar y comprobar si hay coincidencia
 
 app = Flask(__name__)
 app.secret_key = "ABCD"
@@ -31,7 +31,7 @@ def registro():
         correo_usuario = request.form.get("email_address")
         contraseña = request.form.get("password")
 
-        contraseña_segura = generate_password_hash(contraseña)
+        contraseña_segura = hashlib.sha256(contraseña.encode()).hexdigest()
 
         conexion, cursor = db_helper.get_db()
 
@@ -73,7 +73,7 @@ def login():
         usuario = cursor.fetchone() # Recoge el resultado de la consulta SQL que hemos hecho y nos da la primera coincidencia (En este caso no va a haber correos repetidos por lo que nos sirve)
         print(f"VALOR DE USUARIO: {usuario}")
 
-        if usuario is not None and check_password_hash(usuario["contra"], contraseña_normal):
+        if usuario is not None and hashlib.sha256(contraseña_normal.encode()).hexdigest() == usuario["contra"]:
             session["user_id"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             mensaje = "Bienvenido a La Comanda"
