@@ -47,14 +47,16 @@
             <a href="{{url_for('formulario_recetas')}}" class="boton-crear"> + Publicar mi Receta</a><br><br>
         {% endif %}
         {% if session['tipo_usuario'] == 'profesor' %}
-            <a href="{{url_for('formulario_recetas')}}" class="boton-cambiar"> ? Cambiar Receta</a>
+            <a onclick="editarReceta()" class="boton-cambiar"> ? Cambiar Receta</a>
             <label for="nombre_receta" class="label_nombre_receta">Nombre de la Receta:</label>
             <input type="text" id="nombre_receta" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
+
         {% endif %}
         {% if session['tipo_usuario'] == 'profesor' %}
-            <a href="{{url_for('formulario_recetas')}}" class="boton-eliminar"> - Eliminar</a>
-            <label for="nombre_receta" class="label_nombre_receta">Nombre de la Receta:</label>
-            <input type="text" id="nombre_receta" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
+            <a onclick="eliminarReceta()" class="boton-eliminar"> - Eliminar</a>
+            <label for="nombre_receta_eliminar" class="label_nombre_receta">Nombre de la Receta:</label>
+            <input type="text" id="nombre_receta_eliminar" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
+
         {% endif %}
     </div>
 
@@ -112,4 +114,28 @@
 
     </div>
 </body>
+
+<script>
+function editarReceta() {
+    const nombre = document.getElementById("nombre_receta").value;
+    console.log("NOMBRE LEÍDO:", nombre);
+    alert("Nombre leído: " + nombre);
+    if (!nombre.trim()) {
+        alert("Introduce un nombre de receta");
+        return;
+    }
+    window.location.href = "/editar_receta_por_nombre/" + encodeURIComponent(nombre);
+}
+
+function eliminarReceta() {
+    const nombre = document.getElementById("nombre_receta_eliminar").value;
+    if (!nombre.trim()) {
+        alert("Introduce un nombre de receta");
+        return;
+    }
+    window.location.href = "/eliminar_receta_por_nombre/" + encodeURIComponent(nombre);
+}
+</script>
+
+
 </html>

@@ -92,98 +92,192 @@ def Pagina_Principal():
 
 @app.route("/formulario_recetas", methods=["GET", "POST"])
 def formulario_recetas():
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return redirect(url_for("login"))
 
+    conexion, cursor = db_helper.get_db()
+
+    # --- SI ES GET: ¿VIENE CON ID? ---
+    id_receta = request.args.get("id_receta")
+
+    receta = None
+    ingredientes = []
+    pasos = []
+    alergenos_receta = []
+
+    if id_receta and request.method == "GET":
+        cursor.execute("SELECT * FROM recetas WHERE id_receta=%s",
+        (id_receta,))
+        receta = cursor.fetchone()
+
+        if receta:
+            # 2. Ingredientes
+            cursor.execute("""
+                SELECT i.nombre, ri.cantidad, i.unidad_medida
+                FROM receta_ingredientes ri
+                JOIN ingredientes i ON ri.id_ingrediente = i.id_ingredientes
+                WHERE ri.id_receta = %s
+            """, (id_receta,))
+            ingredientes = cursor.fetchall()
+
+        # Ingredientes: cantidad viene de receta_ingredientes
+        cursor.execute("""
+            SELECT i.nombre, ri.cantidad, i.unidad_medida
+            FROM receta_ingredientes ri
+            JOIN ingredientes i ON ri.id_ingrediente = i.id_ingredientes
+            WHERE ri.id_receta = %s
+        """, (id_receta,))
+        ingredientes = cursor.fetchall()
+
+        # Alergenos
+        cursor.execute("""
+            SELECT id_alergeno
+            FROM ingredientes i
+            JOIN receta_ingredientes ri ON i.id_ingredientes = ri.id_ingrediente
+            WHERE ri.id_receta = %s
+        """, (id_receta,))
+        alergenos_receta = [row["id_alergeno"] for row in cursor.fetchall()]
+
+        # Pasos
+        if receta and receta["instrucciones"]:
+            pasos = receta["instrucciones"].split(";")
+            pasos = [p.strip() for p in pasos if p.strip()]
+        else:
+            pasos = []
+    else:
+        receta = None
+        ingredientes = []
+        pasos = []
+        alergenos_receta = []
+
+
+    # --- SI ES POST: GUARDAR O ACTUALIZAR ---
     if request.method == "POST":
-
-        #Concexion con el usuario - Pueba
-        id_usuario = session.get("id_usuario")
-
-        if id_usuario is None:
-            return redirect("/login")
-
-        conexion, cursor = db_helper.get_db()
-
-        # DATOS PRINCIPALES DE LA RECETA
         nombre = request.form.get("nombre_receta")
-        dificultad = request.form.get("nivel_dificultad")
-        tiempo_str = request.form.get("tiempo_receta")  # formato HH:MM
-        url_archivo = request.form.get("url_archivo")
-        #alergenos_marcados = request.form.to_dict()
 
+        # ¿Existe ya una receta con ese nombre?
+        cursor.execute("""
+            SELECT id_receta FROM recetas
+            WHERE nombre=%s AND id_usuario=%s
+        """, (nombre, id_usuario))
 
-        # Convertir tiempo a minutos
+        existente = cursor.fetchone()
+
+        if existente:
+            id_receta = existente["id_receta"]
+        else:
+            id_receta = None
+
+        # Convertir tiempo
+        tiempo_str = request.form.get("tiempo_receta")
         horas, minutos = tiempo_str.split(":")
         tiempo = int(horas) * 60 + int(minutos)
 
-
+        # Pasos
         num_pasos = int(request.form.get("Num_pasos"))
         pasos = [request.form.get(f"paso_{i}") for i in range(1, num_pasos + 1)]
         instrucciones = "; ".join(filter(None, pasos))
-        
 
-        #Insertar receta
-        sql_receta = """
-            INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
-            VALUES (%s, %s, %s, %s, 0, %s, %s)
-        """
-        cursor.execute(sql_receta, (nombre, dificultad, tiempo, instrucciones, id_usuario, url_archivo))
+        # Si existe → actualizar
+        if id_receta:
+            cursor.execute("""
+                UPDATE recetas
+                SET dificultad=%s, tiempo=%s, instrucciones=%s, url_archivo=%s
+                WHERE id_receta=%s AND id_usuario=%s
+            """, (request.form.get("nivel_dificultad"), tiempo, instrucciones,
+                  request.form.get("url_archivo"), id_receta, id_usuario))
 
-        id_receta = cursor.lastrowid
+        else:
+            # Crear nueva
+            cursor.execute("""
+                INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
+                VALUES (%s, %s, %s, %s, 0, %s, %s)
+            """, (nombre, request.form.get("nivel_dificultad"), tiempo,
+                  instrucciones, id_usuario, request.form.get("url_archivo")))
+            id_receta = cursor.lastrowid
 
-        # Alergenos marcados
-        lista_alergenos = [
-            "Gluten", "Lacteos", "Frutos_secos", "Cacahuete", "Pescado",
-            "Crustaceos", "Moluscos", "Huevos", "Soja", "Apio",
-            "Mostaza", "Sesamo", "Sulfitos", "Altramuz", "Vegano"
-        ]
-
-        ids_alergenos_marcados = []
-        for a in lista_alergenos:
-            valor = request.form.get(a)
-            if valor:
-                ids_alergenos_marcados.append(int(valor))
-
-        id_alergeno_default = ids_alergenos_marcados[0] if ids_alergenos_marcados else None
-
-
-
-        # --- INGREDIENTES ---
-
-        num_ing = int(request.form.get("Num_ingredientes"))
-
-        for i in range(1, num_ing + 1):
-                nombre_ingrediente = request.form.get(f"ingrediente_{i}")
-                cantidad = request.form.get(f"cantidad_{i}")
-                unidad = request.form.get(f"unidad_{i}")
-
-                if not nombre_ingrediente or not cantidad:
-                    continue
-                
-                cantidad = int(cantidad)
-
-                cursor.execute("SELECT id_ingredientes FROM ingredientes WHERE nombre = %s", (nombre_ingrediente,))
-                resultado = cursor.fetchone()
-
-                if resultado:
-                    id_ing = resultado["id_ingredientes"]
-                else:
-                    cursor.execute(
-                        "INSERT INTO ingredientes (nombre, unidad_medida, stock, id_alergeno) VALUES (%s, %s, %s, %s)",
-                        (nombre_ingrediente, unidad, 0, id_alergeno_default)
-                    )
-                    id_ing = cursor.lastrowid
-
-                cursor.execute(
-                    "INSERT INTO receta_ingredientes (id_receta, id_ingrediente, cantidad) VALUES (%s, %s, %s)",
-                    (id_receta, id_ing, cantidad)
-                ) 
 
         cursor.close()
         conexion.close()
 
-        return redirect("/formulario_recetas")
+        return redirect(url_for("La_Comanda"))
 
-    return render_template("FormularioRecetas.html")
+    cursor.close()
+    conexion.close()
+
+    return render_template("FormularioRecetas.html",
+        receta=receta,
+        ingredientes=ingredientes,
+        pasos=pasos,
+        num_ingredientes=len(ingredientes),
+        num_pasos=len(pasos),
+        alergenos_receta=alergenos_receta)
+
+
+
+
+@app.route("/editar_receta_por_nombre/<nombre>")
+def editar_receta_por_nombre(nombre):
+
+    print(">>> NOMBRE RECIBIDO:", nombre)
+
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return redirect(url_for("login"))
+
+    conexion, cursor = db_helper.get_db()
+
+    nombre_cap = nombre.capitalize()
+
+    cursor.execute("""
+        SELECT * FROM recetas WHERE nombre = %s
+    """, (nombre_cap,))
+
+
+    
+
+    receta = cursor.fetchone()
+
+    print(">>> NOMBRE RECIBIDO:", nombre)
+    print(">>> ID_USUARIO:", id_usuario)
+    print(">>> RECETA ENCONTRADA:", receta)
+
+
+    cursor.close()
+    conexion.close()
+
+    # Si existe -> cargar formulario con datos
+    if receta:
+        return redirect(url_for("formulario_recetas", id_receta=receta["id_receta"]))
+
+
+    else:
+
+        # Si no existe -> formulario vacío (crear nueva)
+        return redirect(url_for("La_Comanda"))
+
+
+@app.route("/eliminar_receta_por_nombre/<nombre>")
+def eliminar_receta_por_nombre(nombre):
+
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return redirect(url_for("login"))
+
+    conexion, cursor = db_helper.get_db()
+
+    cursor.execute("""
+    DELETE FROM recetas
+        WHERE nombre = %s
+    """, (nombre,))
+
+
+
+    cursor.close()
+    conexion.close()
+
+    return redirect(url_for("La_Comanda"))
 
 
 

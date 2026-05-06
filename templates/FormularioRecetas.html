@@ -52,46 +52,78 @@
             <form action="" method="post">
                 <div class="Sections">
                     <label for="nombre_receta">Nombre de la Receta:</label><br>
-                    <input type="text" id="nombre_receta" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
+                    <input type="text" id="nombre_receta" name="nombre_receta"
+                    value="{{ receta['nombre'] if receta else '' }}"
+                    placeholder="Nombre Receta" required><br><br>
+
 
                     <label for="Num_ingredientes">¿Cuántos ingredientes tiene tu receta?</label><br>
-                    <input type="number" id="Num_ingredientes" name="Num_ingredientes" required min="1" max="25" oninput="generarCampos()"><br><br>
+                    <input type="number" id="Num_ingredientes" name="Num_ingredientes"
+                    value="{{ num_ingredientes if ingredientes else '' }}"
+                    min="1" max="25" oninput="generarCampos()"><br><br>
 
                     <label for="Num_pasos">¿Cuántos pasos tiene tu receta?</label><br>
-                    <input type="number" id="Num_pasos" name="Num_pasos" min="1" max="30" oninput="generarPasos()" ><br><br>
+                    <input type="number" id="Num_pasos" name="Num_pasos"
+                    value="{{ num_pasos if pasos else '' }}"
+                    min="1" max="30" oninput="generarPasos()"><br><br>
 
                     <!-- Apartado de alergenos-->
                     <label for="alergenos">Alergenos:</label> <br>
-                    Gluten <input type="checkbox" name="Gluten" value="1">
-                    Lacteos <input type="checkbox" name="Lacteos" value="7">
-                    Frutos secos <input type="checkbox" name="Frutos_secos" value="8">
-                    <br>Cacahuete <input type="checkbox" name="Cacahuete" value="5">
-                    Pescado <input type="checkbox" name="Pescado" value="4">
-                    Crustaceos <input type="checkbox" name="Crustaceos" value="2">
-                    <br>Moluscos <input type="checkbox" name="Moluscos" value="14">
-                    Huevos <input type="checkbox" name="Huevos" value="3">
-                    Soja <input type="checkbox" name="Soja" value="6">
-                    Apio <input type="checkbox" name="Apio" value="9">
-                    <br>Mostaza <input type="checkbox" name="Mostaza" value="10">
-                    Sesamo <input type="checkbox" name="Sesamo" value="11">
-                    Sulfitos <input type="checkbox" name="Sulfitos" value="12">
-                    Altramuz <input type="checkbox" name="Altramuz" value="13">
-                    Vegano <input type="checkbox" name="Vegano" value="15">
+                    Gluten <input type="checkbox" name="Gluten" value="1"
+                    {% if 1 in alergenos_receta %}checked{% endif %}>
+                    
+                    Lacteos <input type="checkbox" name="Lacteos" value="7"
+                    {% if 7 in alergenos_receta %}checked{% endif %}>
+                    Frutos secos <input type="checkbox" name="Frutos_secos" value="8"
+                    {% if 8 in alergenos_receta %}checked{% endif %}>
+                    <br>Cacahuete <input type="checkbox" name="Cacahuete" value="5"
+                    {% if 5 in alergenos_receta %}checked{% endif %}>
+                    Pescado <input type="checkbox" name="Pescado" value="4"
+                    {% if 4 in alergenos_receta %}checked{% endif %}>
+                    Crustaceos <input type="checkbox" name="Crustaceos" value="2"
+                    {% if 2 in alergenos_receta %}checked{% endif %}>
+                    <br>Moluscos <input type="checkbox" name="Moluscos" value="14"
+                    {% if 14 in alergenos_receta %}checked{% endif %}>
+                    Huevos <input type="checkbox" name="Huevos" value="3"
+                    {% if 3 in alergenos_receta %}checked{% endif %}>
+                    Soja <input type="checkbox" name="Soja" value="6"
+                    {% if 6 in alergenos_receta %}checked{% endif %}>
+                    Apio <input type="checkbox" name="Apio" value="9"
+                    {% if 9 in alergenos_receta %}checked{% endif %}>
+                    <br>Mostaza <input type="checkbox" name="Mostaza" value="10"
+                    {% if 10 in alergenos_receta %}checked{% endif %}>
+                    Sesamo <input type="checkbox" name="Sesamo" value="11"
+                    {% if 11 in alergenos_receta %}checked{% endif %}>
+                    Sulfitos <input type="checkbox" name="Sulfitos" value="12"
+                    {% if 12 in alergenos_receta %}checked{% endif %}>
+                    Altramuz <input type="checkbox" name="Altramuz" value="13"
+                    {% if 13 in alergenos_receta %}checked{% endif %}>
+                    Vegano <input type="checkbox" name="Vegano" value="15"
+                    {% if 15 in alergenos_receta %}checked{% endif %}>
 
                     <br><br><h3>Tiempo de preparacion</h3>
                     <label for="tiempo"></label>
-                    <input type="time" name="tiempo_receta" id="tiempo_receta">
+                    <input type="time" name="tiempo_receta" id="tiempo_receta"
+                    value="{% if receta %}{{ '%02d:%02d' % (receta['tiempo']//60, receta['tiempo']%60) }}{% endif %}">
+
+
 
                     <br><br><h3>Didicultad de la receta</h3>
                     <label for="dificultad"></label>
                     <select name="nivel_dificultad" id="nivel_dificultad">
-                        <option value="Facil">Facil</option>
-                        <option value="Normal">Normal</option>
-                        <option value="Dificil">Dificil</option>
+                        <option value="Fácil"   {% if receta and receta['dificultad']=='Fácil' %}selected{% endif %}>Fácil</option>
+                        <option value="Normal"  {% if receta and receta['dificultad']=='Normal' %}selected{% endif %}>Normal</option>
+                        <option value="Difícil" {% if receta and receta['dificultad']=='Difícil' %}selected{% endif %}>Difícil</option>
                     </select>
 
+
+
                     <br><br><h3>Imagen o video del plato (Url)</h3>
-                    <input type="text" name="url_archivo" id="url_archivo">
+                    <input type="text" name="url_archivo" id="url_archivo"
+                    value="{{ receta['url_archivo'] if receta else '' }}">
+
+
+
 
                 </div>
 
@@ -111,5 +143,27 @@
         </div>
     </main>
     <script src="../static/Script/Form_script.js"> </script>
+    
+    <script> 
+        document.addEventListener("DOMContentLoaded", function() {
+            {% if ingredientes %}
+                document.getElementById("Num_ingredientes").value = {{ num_ingredientes }};
+                generarCampos();  // crea los inputs primero
+                {% for ing in ingredientes %}
+                    document.getElementsByName("ingrediente_{{ loop.index }}")[0].value = "{{ ing['nombre'] }}";
+                    document.getElementsByName("cantidad_{{ loop.index }}")[0].value = "{{ ing['cantidad'] }}";
+                    document.getElementsByName("unidad_{{ loop.index }}")[0].value = "{{ ing['unidad_medida'] }}";
+                {% endfor %}
+            {% endif %}
+
+            {% if pasos %}
+                document.getElementById("Num_pasos").value = {{ num_pasos }};
+                generarPasos();  // crea los textareas primero
+                {% for paso in pasos %}
+                    document.getElementsByName("paso_{{ loop.index }}")[0].value = `{{ paso }}`;
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
 </body>
 </html>
