@@ -171,6 +171,10 @@ def Pagina_Principal():
 def formulario_recetas():
     return render_template("FormularioRecetas.html")
 
+@app.route("/who_we_are")
+def who_wue_are():
+    return render_template("Who_we_are.html")
+
 
 @app.route("/logout")
 def logout():
