@@ -19,7 +19,7 @@ GastroLab tiene su información dispersa en múltiples documentos, lo que dificu
 Los archivos de la base de datos están en la carpeta `base de datos` en la rama `Xabier`:
 ```
 Xabier
-    └── base de datos/comprobar_conexion_segun_rol
+    └── base de datos/
         ├── Vistas_roles_permisos.sql # Archivo SQL para crear un usuario, las vistas y los tres roles y dar permisos a esos roles
         ├── bbdd_Definitivo.sql # Archivo SQL con la estructura completa y datos de la base de datos
         └── procedimientos, funciones y triggers de la base de datos.sql # Archivo SQL para crear los procedimientos, funciones y triggers (no necesario ejecutar si se ha ejecutado bbdd_Definitivo.sql de principio a fin) 
