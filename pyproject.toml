@@ -1,5 +1,6 @@
 [tool.pytest.ini_options]
 testpaths = ["proyecto/tests"]
+pythonpath = ["proyecto"]
 
 name = "reto5"
 version = "0.1.0"
