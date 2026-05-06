@@ -76,7 +76,7 @@ def login():
         print(f"VALOR DE USUARIO: {usuario}")
 
         if usuario is not None and hashlib.sha256(contraseña_normal.encode()).hexdigest() == usuario["contraseña"]:
-            session["user_id"] = usuario["id_usuario"]
+            session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             session["correo"] = usuario["correo"] # Para guardar el correo
             mensaje = "Bienvenido a La Comanda"
