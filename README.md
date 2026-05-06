@@ -1,5 +1,11 @@
-# Reto5-Grupo5
-Grupo Musaraña Elefante. En este repositorio vamos a desarrollar un proyecto de un centro internacional de formación culinaria, agricultura y dietética...
+# Problema
+GastroLab tiene su información dispersa en múltiples documentos, lo que dificulta su gestión y organnización diaria. Nuestro trabajo es diseñar una base de datos que centralice toda esta información y proporcionar un plan de digitalización y sostenibilidad. Además, crearemos una página web que permita visualizar toda la información necesaria para mostrar la información necesaria almacenado en la base de datos.
+
+
+
+
+
+
 
 En este reto nuestro grupo ha tenido que crear un contrato el cual deberemos cumplir.
 <img width="769" height="756" alt="image" src="https://github.com/user-attachments/assets/126e8aaf-6a9d-43bd-ba49-d774566d101a" /> <b>
