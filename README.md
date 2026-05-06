@@ -1,5 +1,5 @@
 # Problema
-GastroLab tiene su información dispersa en múltiples documentos, lo que dificulta su gestión y organnización diaria. Nuestro trabajo es diseñar una base de datos que centralice toda esta información y proporcionar un plan de digitalización y sostenibilidad. Además, crearemos una página web que permita visualizar toda la información necesaria para mostrar la información necesaria almacenado en la base de datos.
+GastroLab tiene su información dispersa en múltiples documentos, lo que dificulta su gestión y organnización diaria. Nuestro trabajo es diseñar una base de datos que centralice toda esta información y proporcionar un plan de digitalización y sostenibilidad. Además, crear una página web que permita visualizar toda la información necesaria que esté almacenada en la base de datos.
 
 ## Tecnologías utilizadas
 
