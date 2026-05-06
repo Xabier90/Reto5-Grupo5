@@ -75,8 +75,8 @@ def login():
         usuario = cursor.fetchone() # Recoge el resultado de la consulta SQL que hemos hecho y nos da la primera coincidencia (En este caso no va a haber correos repetidos por lo que nos sirve)
         print(f"VALOR DE USUARIO: {usuario}")
 
-        if usuario is not None and hashlib.sha256(contraseña_normal.encode()).hexdigest() == usuario["contra"]:
-            session["user_id"] = usuario["id_usuario"]
+        if usuario is not None and hashlib.sha256(contraseña_normal.encode()).hexdigest() == usuario["contraseña"]:
+            session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             session["correo"] = usuario["correo"] # Para guardar el correo
             mensaje = "Bienvenido a La Comanda"
@@ -172,7 +172,7 @@ def formulario_recetas():
     return render_template("FormularioRecetas.html")
 
 @app.route("/who_we_are")
-def who_wue_are():
+def who_we_are():
     return render_template("Who_we_are.html")
 
 
