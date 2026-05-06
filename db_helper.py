@@ -1,12 +1,22 @@
+# db_helper.py realizado por Xabier Iglesias
 import mysql.connector
-
+from dotenv import load_dotenv
+import os
 
 def get_db():
+    # He añadido la funcionalidad de obtener las credenciales que estan guardadas en el archivo .env
+    load_dotenv()
+
+    host = os.getenv("HOST")
+    user = os.getenv("DB_USER")
+    password = os.getenv("DB_PASSWORD")
+    database = os.getenv("DATABASE")
+
     conexion = mysql.connector.connect(
-        host="localhost",
-        user="root",          # Tu usuario de MySQL
-        password="Passw0rd", # ¡CAMBIA ESTO por tu contraseña!
-        database="reto5_musarana_elefante"      # ¡CAMBIA ESTO por el nombre de tu base de datos!
+        host=host,
+        user=user,
+        password=password,
+        database=database
     )
     # IMPORTANTE: Configuramos para que guarde cambios automáticamente
     conexion.autocommit = True

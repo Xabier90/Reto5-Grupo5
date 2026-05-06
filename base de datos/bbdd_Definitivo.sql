@@ -38,7 +38,7 @@ CREATE TABLE `alergenos` (
 
 LOCK TABLES `alergenos` WRITE;
 /*!40000 ALTER TABLE `alergenos` DISABLE KEYS */;
-INSERT INTO `alergenos` VALUES (1,'Gluten','https://www.ladietadelchef.es/wp-content/uploads/2016/06/gluten-derivados-150x150.png'),(2,'Crustáceos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/crustaceos-150x150.png'),(3,'Huevo','https://www.ladietadelchef.es/wp-content/uploads/2016/06/huevos-150x150.png'),(4,'Pescado','https://www.ladietadelchef.es/wp-content/uploads/2016/06/pescados-140x140.png'),(5,'Cacahuetes','https://www.ladietadelchef.es/wp-content/uploads/2016/06/cacahuetes-140x140.png'),(6,'Soja','https://www.ladietadelchef.es/wp-content/uploads/2016/06/soja-140x140.png'),(7,'Lácteos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/lacteos-140x140.png'),(8,'Frutos secos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/cascaras-frutos-secos-140x140.png'),(9,'Apio','https://www.ladietadelchef.es/wp-content/uploads/2016/06/apio-140x140.png'),(10,'Mostaza','https://www.ladietadelchef.es/wp-content/uploads/2016/06/mostaza-140x140.png'),(11,'Sésamo','https://www.ladietadelchef.es/wp-content/uploads/2016/06/granos-sesamo-140x140.png'),(12,'Sulfitos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/dioxido-azufre-sulfitos-140x140.png'),(13,'Altramuces','https://www.ladietadelchef.es/wp-content/uploads/2016/06/altramuces-140x140.png'),(14,'Moluscos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/moluscos-140x140.png'),(15,'Vegano','https://www.ladietadelchef.es/wp-content/uploads/2016/06/vegano-140x140.png');
+INSERT INTO `alergenos` VALUES (1,'Gluten','https://www.ladietadelchef.es/wp-content/uploads/2016/06/gluten-derivados-140x140.png'),(2,'Crustáceos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/crustaceos-140x140.png'),(3,'Huevo','https://www.ladietadelchef.es/wp-content/uploads/2016/06/huevos-140x140.png'),(4,'Pescado','https://www.ladietadelchef.es/wp-content/uploads/2016/06/pescados-140x140.png'),(5,'Cacahuetes','https://www.ladietadelchef.es/wp-content/uploads/2016/06/cacahuetes-140x140.png'),(6,'Soja','https://www.ladietadelchef.es/wp-content/uploads/2016/06/soja-140x140.png'),(7,'Lácteos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/lacteos-140x140.png'),(8,'Frutos secos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/cascaras-frutos-secos-140x140.png'),(9,'Apio','https://www.ladietadelchef.es/wp-content/uploads/2016/06/apio-140x140.png'),(10,'Mostaza','https://www.ladietadelchef.es/wp-content/uploads/2016/06/mostaza-140x140.png'),(11,'Sésamo','https://www.ladietadelchef.es/wp-content/uploads/2016/06/granos-sesamo-140x140.png'),(12,'Sulfitos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/dioxido-azufre-sulfitos-140x140.png'),(13,'Altramuces','https://www.ladietadelchef.es/wp-content/uploads/2016/06/altramuces-140x140.png'),(14,'Moluscos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/moluscos-140x140.png'),(15,'Vegano','https://www.ladietadelchef.es/wp-content/uploads/2016/06/vegano-140x140.png');
 /*!40000 ALTER TABLE `alergenos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +57,7 @@ CREATE TABLE `alumnos` (
   PRIMARY KEY (`id_alumno`),
   KEY `alumno-usuario_idx` (`id_usuario`),
   CONSTRAINT `alumno-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `asignaturas` (
 
 LOCK TABLES `asignaturas` WRITE;
 /*!40000 ALTER TABLE `asignaturas` DISABLE KEYS */;
-INSERT INTO `asignaturas` VALUES (1,'Preelaboración y conservación de alimentos',195,'Obligatoria',1),(2,'Técnicas culinarias',240,'Obligatoria',1),(3,'Procesos básicos de pastelería y repostería',90,'Obligatoria',1),(4,'Seguridad e higiene en la manipulación de alimentos',60,'Obligatoria',1),(5,'DUAL general – Cocina (prácticas en empresa)',405,'Prácticas',1),(6,'Postres en restauración',120,'Obligatoria',2),(7,'Productos culinarios',210,'Obligatoria',2),(8,'Empresa e iniciativa emprendedora',75,'Obligatoria',2),(9,'Inglés profesional',80,'Obligatoria',2),(10,'Formación en Centro de Trabajo – Cocina',165,'Prácticas',2),(11,'Elaboraciones de panadería-bollería',270,'Obligatoria',1),(12,'Elaboraciones de confitería y otras especialidades',150,'Obligatoria',1),(13,'Operaciones y control de almacén – ind. alimentaria',90,'Obligatoria',1),(14,'Seguridad e higiene en manipulación de alimentos',60,'Obligatoria',1),(15,'DUAL general – Panadería (prácticas en empresa)',390,'Prácticas',1),(16,'Presentación y venta de productos de panadería',180,'Obligatoria',2),(17,'Postres en restauración – Panadería',90,'Obligatoria',2),(18,'Productos de obrador',225,'Obligatoria',2),(19,'Empresa e iniciativa emprendedora – Panadería',75,'Obligatoria',2),(20,'Inglés técnico',80,'Obligatoria',2),(21,'Formación en Centro de Trabajo – Panadería',400,'Prácticas',2),(22,'Implantación de cultivos',195,'Obligatoria',1),(23,'Taller y equipos de tracción',165,'Obligatoria',1),(24,'Infraestructuras e instalaciones agrícolas',135,'Obligatoria',1),(25,'Principios de sanidad vegetal',105,'Obligatoria',1),(26,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(27,'Inglés profesional (Agricultura)',80,'Obligatoria',1),(28,'DUAL general – Agricultura',310,'Prácticas',1),(29,'Producción de leche, huevos y animales',210,'Obligatoria',2),(30,'Control fitosanitario',165,'Obligatoria',2),(31,'Producción carne y otras producciones ganaderas',210,'Obligatoria',2),(32,'Empresa e iniciativa emprendedora (Agri)',65,'Obligatoria',2),(33,'Formación en Centros de Trabajo – Agricultura',400,'Prácticas',2),(34,'Alimentación equilibrada',195,'Obligatoria',1),(35,'Control alimentario',150,'Obligatoria',1),(36,'Fisiopatología aplicada a la dietética',165,'Obligatoria',1),(37,'Organización y gestión de gabinete de dietética',105,'Obligatoria',1),(38,'Relaciones en el entorno de trabajo',60,'Obligatoria',1),(39,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(40,'DUAL general – Dietética',315,'Prácticas',1),(41,'Calidad y mejora continua',120,'Obligatoria',2),(42,'Dietoterapia',195,'Obligatoria',2),(43,'Educación sanitaria y promoción de la salud',135,'Obligatoria',2),(44,'Microbiología e higiene alimentaria',120,'Obligatoria',2),(45,'Inglés profesional (Dietética)',80,'Obligatoria',2),(46,'DUAL general – Dietética 2º',400,'Prácticas',2),(47,'Estructura del mercado turístico',105,'Obligatoria',1),(48,'Marketing turístico',105,'Obligatoria',1),(49,'Gestión del departamento de pisos',150,'Obligatoria',1),(50,'Recepción y reservas',150,'Obligatoria',1),(51,'Inglés (Dirección de Cocina)',80,'Obligatoria',1),(52,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(53,'Digitalización aplicada a los sectores productivos',60,'Obligatoria',1),(54,'DUAL general – Dirección de Cocina 1º',340,'Prácticas',1),(55,'Protocolo y relaciones públicas',105,'Obligatoria',2),(56,'Dirección de alojamientos turísticos',165,'Obligatoria',2),(57,'Recursos humanos en alojamientos',120,'Obligatoria',2),(58,'Comercialización de eventos',105,'Obligatoria',2),(59,'Proyecto intermodular',75,'Obligatoria',2),(60,'Segunda lengua extranjera',80,'Obligatoria',2),(61,'Itinerario personal para la empleabilidad II',60,'Obligatoria',2),(62,'DUAL general – Dirección de Cocina 2º',340,'Prácticas',2);
+INSERT INTO `asignaturas` VALUES (1,'Preelaboración y conservación de alimentos PRUEBA',195,'Obligatoria',1),(2,'Técnicas culinarias',240,'Obligatoria',1),(3,'Procesos básicos de pastelería y repostería',90,'Obligatoria',1),(4,'Seguridad e higiene en la manipulación de alimentos',60,'Obligatoria',1),(5,'DUAL general – Cocina (prácticas en empresa)',405,'Prácticas',1),(6,'Postres en restauración',120,'Obligatoria',2),(7,'Productos culinarios',210,'Obligatoria',2),(8,'Empresa e iniciativa emprendedora',75,'Obligatoria',2),(9,'Inglés profesional',80,'Obligatoria',2),(10,'Formación en Centro de Trabajo – Cocina',165,'Prácticas',2),(11,'Elaboraciones de panadería-bollería',270,'Obligatoria',1),(12,'Elaboraciones de confitería y otras especialidades',150,'Obligatoria',1),(13,'Operaciones y control de almacén – ind. alimentaria',90,'Obligatoria',1),(14,'Seguridad e higiene en manipulación de alimentos',60,'Obligatoria',1),(15,'DUAL general – Panadería (prácticas en empresa)',390,'Prácticas',1),(16,'Presentación y venta de productos de panadería',180,'Obligatoria',2),(17,'Postres en restauración – Panadería',90,'Obligatoria',2),(18,'Productos de obrador',225,'Obligatoria',2),(19,'Empresa e iniciativa emprendedora – Panadería',75,'Obligatoria',2),(20,'Inglés técnico',80,'Obligatoria',2),(21,'Formación en Centro de Trabajo – Panadería',400,'Prácticas',2),(22,'Implantación de cultivos',195,'Obligatoria',1),(23,'Taller y equipos de tracción',165,'Obligatoria',1),(24,'Infraestructuras e instalaciones agrícolas',135,'Obligatoria',1),(25,'Principios de sanidad vegetal',105,'Obligatoria',1),(26,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(27,'Inglés profesional (Agricultura)',80,'Obligatoria',1),(28,'DUAL general – Agricultura',310,'Prácticas',1),(29,'Producción de leche, huevos y animales',210,'Obligatoria',2),(30,'Control fitosanitario',165,'Obligatoria',2),(31,'Producción carne y otras producciones ganaderas',210,'Obligatoria',2),(32,'Empresa e iniciativa emprendedora (Agri)',65,'Obligatoria',2),(33,'Formación en Centros de Trabajo – Agricultura',400,'Prácticas',2),(34,'Alimentación equilibrada',195,'Obligatoria',1),(35,'Control alimentario',150,'Obligatoria',1),(36,'Fisiopatología aplicada a la dietética',165,'Obligatoria',1),(37,'Organización y gestión de gabinete de dietética',105,'Obligatoria',1),(38,'Relaciones en el entorno de trabajo',60,'Obligatoria',1),(39,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(40,'DUAL general – Dietética',315,'Prácticas',1),(41,'Calidad y mejora continua',120,'Obligatoria',2),(42,'Dietoterapia',195,'Obligatoria',2),(43,'Educación sanitaria y promoción de la salud',135,'Obligatoria',2),(44,'Microbiología e higiene alimentaria',120,'Obligatoria',2),(45,'Inglés profesional (Dietética)',80,'Obligatoria',2),(46,'DUAL general – Dietética 2º',400,'Prácticas',2),(47,'Estructura del mercado turístico',105,'Obligatoria',1),(48,'Marketing turístico',105,'Obligatoria',1),(49,'Gestión del departamento de pisos',150,'Obligatoria',1),(50,'Recepción y reservas',150,'Obligatoria',1),(51,'Inglés (Dirección de Cocina)',80,'Obligatoria',1),(52,'Itinerario personal para la empleabilidad I',60,'Obligatoria',1),(53,'Digitalización aplicada a los sectores productivos',60,'Obligatoria',1),(54,'DUAL general – Dirección de Cocina 1º',340,'Prácticas',1),(55,'Protocolo y relaciones públicas',105,'Obligatoria',2),(56,'Dirección de alojamientos turísticos',165,'Obligatoria',2),(57,'Recursos humanos en alojamientos',120,'Obligatoria',2),(58,'Comercialización de eventos',105,'Obligatoria',2),(59,'Proyecto intermodular',75,'Obligatoria',2),(60,'Segunda lengua extranjera',80,'Obligatoria',2),(61,'Itinerario personal para la empleabilidad II',60,'Obligatoria',2),(62,'DUAL general – Dirección de Cocina 2º',340,'Prácticas',2);
 /*!40000 ALTER TABLE `asignaturas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,7 +447,7 @@ CREATE TABLE `profesores` (
   PRIMARY KEY (`id_profesor`),
   KEY `professor-usuario_idx` (`id_usuario`),
   CONSTRAINT `professor-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -456,7 +456,7 @@ CREATE TABLE `profesores` (
 
 LOCK TABLES `profesores` WRITE;
 /*!40000 ALTER TABLE `profesores` DISABLE KEYS */;
-INSERT INTO `profesores` VALUES (1,'Cocina y Gastronomía','ana.docente@gmail.es',1),(2,'Panadería, Repostería y Confitería','profe.lópez@hotmail.com',2),(3,'Agricultura','agonzalez@GastroLab.eus',22),(4,'Dietética','mmartinez@GastroLab.eus',23),(5,'Dirección de Cocina','lsanchez@GastroLab.eus',24);
+INSERT INTO `profesores` VALUES (1,'Cocina y Gastronomía','ana.docente@gmail.es',1),(2,'Panadería, Repostería y Confitería','profe.lópez@hotmail.com',2),(3,'Agricultura','agonzalez@GastroLab.eus',21),(4,'Dietética','mmartinez@GastroLab.eus',22),(5,'Dirección de Cocina','lsanchez@GastroLab.eus',23);
 /*!40000 ALTER TABLE `profesores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -530,14 +530,14 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
-  `apellido1` varchar(255) NOT NULL,
-  `apellido2` varchar(255) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido1` varchar(45) DEFAULT NULL,
+  `apellido2` varchar(45) DEFAULT NULL,
   `correo` varchar(255) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `tipo_usuario` enum('profesor','alumno','invitado') NOT NULL DEFAULT 'invitado',
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,9 +546,90 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'','','','agarcia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(2,'','','','clopez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(3,'','','','ietxebarria@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(4,'','','','azubieta@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(5,'','','','marrizabalaga@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(6,'','','','lgoikoetxea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(7,'','','','uarostegi@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(8,'','','','niture@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(9,'','','','jlazkano@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(10,'','','','aolalde@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(11,'','','','eurrutia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(12,'','','','mlarrea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(13,'','','','invitado1@mail.com','$2b$10$HaShedPasswd0013','invitado'),(14,'','','','invitado2@mail.com','$2b$10$HaShedPasswd0014','invitado'),(15,'','','','invitado3@mail.com','$2b$10$HaShedPasswd0015','invitado'),(16,'','','','invitado4@mail.com','$2b$10$HaShedPasswd0016','invitado'),(17,'','','','invitado5@mail.com','$2b$10$HaShedPasswd0017','invitado'),(18,'','','','invitado6@mail.com','$2b$10$HaShedPasswd0018','invitado'),(19,'','','','invitado7@mail.com','$2b$10$HaShedPasswd0019','invitado'),(20,'','','','invitado8@mail.com','$2b$10$HaShedPasswd0020','invitado'),(21,'','','','test@gastrolab.eus','pbkdf2:sha256:600000$uG9vXzR8pL2m$0e8c1a9b2d3f4a5b6c7d8e9f0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t','alumno'),(22,'','','','agonzalez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(23,'','','','mmartinez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(24,'','','','lsanchez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(25,'','','','Elena@gmail.es','scrypt:32768:8:1$yl7jpZyil1QpLIr0$e537251fa3560f3885f54655ac05d361ce2c7bcdc46b8e37c572dfeb73fe313f8e4661cd10246b7e18c1e41bec084be14f3ed20106e114b903a510ae93c246d4','invitado');
+INSERT INTO `usuarios` VALUES (1,'Ana','García','Fernández','agarcia@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor'),(2,'Carlos','López','Mendoza','clopez@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor'),(3,'Iker','Etxebarria','Saez','ietxebarria@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(4,'Amaia','Zubieta','Garate','azubieta@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(5,'Mikel','Arrizabalaga','Uribe','marrizabalaga@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(6,'Leire','Goikoetxea','Pardo','lgoikoetxea@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(7,'Unai','Arostegi','Aguirre','uarostegi@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(8,'Nerea','Iture','Eguren','niture@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(9,'Jon','Lazkano','Olabe','jlazkano@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(10,'Ane','Olalde','Berasategi','aolalde@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(11,'Eneko','Urrutia','Zabala','eurrutia@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(12,'Miren','Larrea','Txabarri','mlarrea@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(13,'invitado','invitado','invitado','invitado1@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(14,'invitado','invitado','invitado','invitado2@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(15,'invitado','invitado','invitado','invitado3@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(16,'invitado','invitado','invitado','invitado4@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(17,'invitado','invitado','invitado','invitado5@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(18,'invitado','invitado','invitado','invitado6@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(19,'invitado','invitado','invitado','invitado7@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(20,'invitado','invitado','invitado','invitado8@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(21,'Amaia','González','Elorza','agonzalez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(22,'Mikel','Martínez','Iturri','mmartinez@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor'),(23,'Leire','Sánchez','Zabala','lsanchez@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trigger_usuario_before_insert` BEFORE INSERT ON `usuarios` FOR EACH ROW begin
+	if char_length(new.contraseña) < 8 or char_length(new.contraseña) > 64 then
+		signal sqlstate '45000'
+        set message_text = "La contraseña debe tener entre 8 y 64 caracteres";
+	end if;
+    
+	if new.correo is null then
+		call generar_correo(new.nombre, new.apellido1, "GastroLab.eus", @correo_creado);
+		set new.correo = @correo_creado;
+	elseif new.tipo_usuario = 'invitado' then
+		set new.nombre = 'invitado';
+        set new.apellido1 = 'invitado';
+        set new.apellido2 = 'invitado';
+    end if;
+    if new.tipo_usuario != 'invitado' then
+		set new.contraseña = SHA2(new.contraseña, 256);
+	end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trigger_usuario_after_insert` AFTER INSERT ON `usuarios` FOR EACH ROW begin
+	if new.tipo_usuario = 'alumno' then
+		call crear_alumno(new.correo, new.id_usuario);
+	elseif new.tipo_usuario = 'profesor' then
+		call crear_profesor(null, new.correo, new.id_usuario);
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trigger_usuarios_before_update` BEFORE UPDATE ON `usuarios` FOR EACH ROW begin
+	if char_length(new.contraseña) < 8 or char_length(new.contraseña) > 64 then
+		signal sqlstate '45000'
+        set message_text = "La contraseña debe tener entre 8 y 64 caracteres";
+	end if;
+    
+    set new.contraseña = SHA2(new.contraseña, 256);
+    
+    if new.tipo_usuario = 'invitado' then
+		set new.nombre = 'invitado';
+        set new.apellido1 = 'invitado';
+        set new.apellido2 = 'invitado';
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Temporary view structure for view `vista_cursos_asignaturas`
@@ -606,6 +687,107 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `tipo_alergeno`,
  1 AS `icono_alergeno`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping events for database 'reto5_musarana_elefante'
+--
+
+--
+-- Dumping routines for database 'reto5_musarana_elefante'
+--
+/*!50003 DROP FUNCTION IF EXISTS `eliminar_acentos` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `eliminar_acentos`(texto varchar(255)) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+begin
+	declare resultado varchar(255);
+    set resultado = lower(texto);
+    set resultado = replace(resultado, "á", "a");
+    set resultado = replace(resultado, "é", "e");
+    set resultado = replace(resultado, "í", "i");
+    set resultado = replace(resultado, "ó", "o");
+    set resultado = replace(resultado, "ú", "u");
+    
+    return resultado;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `crear_alumno` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_alumno`(in correo_alumno varchar(255), in id_de_usuario int)
+begin
+	insert into alumnos (correo, id_usuario, fecha_ingreso)
+    values(correo_alumno, id_de_usuario, NOW());
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `crear_profesor` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_profesor`(in especialidad_profesor varchar(255), in correo_profesor varchar(255), id_de_usuario int)
+begin
+	insert into profesores (especialidad, correo, id_usuario)
+    values(especialidad_profesor, correo_profesor, id_de_usuario);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `generar_correo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generar_correo`(
+in p_nombre varchar(255),
+in p_apellido1 varchar(255),
+in p_dominio varchar(255),
+out p_correo varchar(255))
+begin
+	set p_nombre = eliminar_acentos(p_nombre);
+    set p_apellido1 = eliminar_acentos(p_apellido1);
+    set p_correo = concat(lower(concat(left(p_nombre, 1), p_apellido1)), "@", p_dominio);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `vista_cursos_asignaturas`
@@ -670,4 +852,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-05 14:25:28
+-- Dump completed on 2026-05-05 16:25:15
