@@ -1,4 +1,6 @@
-[project]
+[tool.pytest.ini_options]
+testpaths = ["proyecto/tests"]
+
 name = "reto5"
 version = "0.1.0"
 description = "Add your description here"
