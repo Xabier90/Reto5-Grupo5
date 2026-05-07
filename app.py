@@ -98,7 +98,7 @@ def formulario_recetas():
 
     conexion, cursor = db_helper.get_db()
 
-    # --- SI ES GET: ¿VIENE CON ID? ---
+    # --- SI ES GET: REVISAR SI VIENE CON ID ---
     id_receta = request.args.get("id_receta")
 
     receta = None
@@ -137,6 +137,7 @@ def formulario_recetas():
             JOIN receta_ingredientes ri ON i.id_ingredientes = ri.id_ingrediente
             WHERE ri.id_receta = %s
         """, (id_receta,))
+        #Ayuda de IA para recoger los datos de los alergenos
         alergenos_receta = [row["id_alergeno"] for row in cursor.fetchall()]
 
         # Pasos
@@ -169,30 +170,34 @@ def formulario_recetas():
         else:
             id_receta = None
 
-        # Convertir tiempo
+        # Convertir tiempo en INT
+        #Ayuda de IA para saber como convetir tiempo
         tiempo_str = request.form.get("tiempo_receta")
         horas, minutos = tiempo_str.split(":")
         tiempo = int(horas) * 60 + int(minutos)
 
         # Pasos
+        #Ayuda de IA para filtrar los pasos
         num_pasos = int(request.form.get("Num_pasos"))
         pasos = [request.form.get(f"paso_{i}") for i in range(1, num_pasos + 1)]
         instrucciones = "; ".join(filter(None, pasos))
+        #Fin uso IA (pasos)
 
-        # Si existe → actualizar
+        # Si existe -> actualizar
         if id_receta:
             cursor.execute("""
                 UPDATE recetas
                 SET dificultad=%s, tiempo=%s, instrucciones=%s, url_archivo=%s
                 WHERE id_receta=%s AND id_usuario=%s
-            """, (request.form.get("nivel_dificultad"), tiempo, instrucciones,
+            """, 
+            (request.form.get("nivel_dificultad"), tiempo, instrucciones,
                   request.form.get("url_archivo"), id_receta, id_usuario))
 
         else:
             # Crear nueva
             cursor.execute("""
-                INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, votos, id_usuario, url_archivo)
-                VALUES (%s, %s, %s, %s, 0, %s, %s)
+                INSERT INTO recetas (nombre, dificultad, tiempo, instrucciones, id_usuario, url_archivo)
+                VALUES (%s, %s, %s, %s, %s, %s)
             """, (nombre, request.form.get("nivel_dificultad"), tiempo,
                   instrucciones, id_usuario, request.form.get("url_archivo")))
             id_receta = cursor.lastrowid
@@ -220,41 +225,30 @@ def formulario_recetas():
 @app.route("/editar_receta_por_nombre/<nombre>")
 def editar_receta_por_nombre(nombre):
 
-    print(">>> NOMBRE RECIBIDO:", nombre)
-
     id_usuario = session.get("id_usuario")
     if not id_usuario:
         return redirect(url_for("login"))
 
     conexion, cursor = db_helper.get_db()
 
-    nombre_cap = nombre.capitalize()
+    nombre_cap = nombre.lower().capitalize()
 
     cursor.execute("""
         SELECT * FROM recetas WHERE nombre = %s
     """, (nombre_cap,))
 
-
-    
-
     receta = cursor.fetchone()
-
-    print(">>> NOMBRE RECIBIDO:", nombre)
-    print(">>> ID_USUARIO:", id_usuario)
-    print(">>> RECETA ENCONTRADA:", receta)
-
 
     cursor.close()
     conexion.close()
 
     # Si existe -> cargar formulario con datos
+    #Ayuda de IA para implementar receta con los datos de la base de datos
     if receta:
         return redirect(url_for("formulario_recetas", id_receta=receta["id_receta"]))
 
-
     else:
-
-        # Si no existe -> formulario vacío (crear nueva)
+        # Si no existe -> redireccionar a "La_Comanda"
         return redirect(url_for("La_Comanda"))
 
 
@@ -271,8 +265,6 @@ def eliminar_receta_por_nombre(nombre):
     DELETE FROM recetas
         WHERE nombre = %s
     """, (nombre,))
-
-
 
     cursor.close()
     conexion.close()

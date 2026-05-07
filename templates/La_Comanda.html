@@ -119,11 +119,11 @@
 function editarReceta() {
     const nombre = document.getElementById("nombre_receta").value;
     console.log("NOMBRE LEÍDO:", nombre);
-    alert("Nombre leído: " + nombre);
     if (!nombre.trim()) {
         alert("Introduce un nombre de receta");
         return;
     }
+    // encodeURIComponent() copiado de IA
     window.location.href = "/editar_receta_por_nombre/" + encodeURIComponent(nombre);
 }
 
@@ -133,6 +133,7 @@ function eliminarReceta() {
         alert("Introduce un nombre de receta");
         return;
     }
+    // encodeURIComponent() copiado de IA
     window.location.href = "/eliminar_receta_por_nombre/" + encodeURIComponent(nombre);
 }
 </script>
