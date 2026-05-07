@@ -1,12 +1,11 @@
 use reto5_musarana_elefante;
 
 -- Vistas
-
-create view vista_lectura_recetas_ingredientes_likes as
+create view vista_lectura_recetas_ingredientes as
 select r.id_receta, r.nombre as nombre_receta, 
 r.dificultad, r.tiempo, i.nombre as nombre_ingrediente,
 ri.cantidad as cantidad_de_cada_ingrediente, ri.unidad_medida, 
-r.instrucciones, r.votos as cantidad_likes,
+r.instrucciones,
 r.url_archivo as url_imagen_video, a.tipo as tipo_alergeno, 
 a.enlace_img as icono_alergeno
 from recetas r
@@ -39,7 +38,7 @@ create role 'rol_invitado', 'rol_alumno', 'rol_profesor';
 
 -- Permisos a los roles
 -- Invitados
-grant select on vista_lectura_recetas_ingredientes_likes to 'rol_invitado';
+grant select on vista_lectura_recetas_ingredientes to 'rol_invitado';
 grant select on vista_cursos_asignaturas to 'rol_invitado';
 grant select, insert, delete on likes_recetas to 'rol_invitado';
 grant select, insert on usuarios to 'rol_invitado';
