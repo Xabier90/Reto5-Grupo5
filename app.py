@@ -100,16 +100,36 @@ def La_Comanda():
     conexion, cursor = db_helper.get_db()
     
     # Cargar recetas con informacion de la base de datos si el usuario ya ha votado
+    # No conseguia que funcionara la select y le he pedido ayuda a la IA, el problema era que estaba intentando 
+    # hacer todo en una consulta y se volvia loco, me dijo que lo separara en 2.
+    # cursor.execute("""
+    #     SELECT r.id_receta, r.nombre, r.url_archivo, l.votos,
+    #            IF(v.id_usuario IS NOT NULL, 1, 0) AS ya_voto
+    #     FROM recetas r
+    #     LEFT JOIN likes_recetas v ON r.id_receta = v.id_receta
+    #     LEFT JOIN likes l ON r.id_receta = l.id_receta AND v.id_usuario = %s
+    #     GROUP BY r.id_receta
+    #     ORDER BY l.votos DESC
+    # """, (id_usuario,))
+
     cursor.execute("""
-        SELECT r.id_receta, r.nombre, r.url_archivo, r.votos,
-               IF(v.id_usuario IS NOT NULL, 1, 0) AS ya_voto
+        SELECT r.id_receta, r.nombre, r.url_archivo, l.votos
         FROM recetas r
-        LEFT JOIN likes_recetas v 
-            ON r.id_receta = v.id_receta AND v.id_usuario = %s
-        ORDER BY r.votos DESC
-    """, (id_usuario,))
-    
+        LEFT JOIN likes l ON r.id_receta = l.id_receta
+        ORDER BY l.votos DESC
+    """)
     recetas = cursor.fetchall()
+
+    # Consulta 2: obtener qué recetas ha votado el usuario
+    cursor.execute("""
+        SELECT id_receta FROM likes_recetas WHERE id_usuario = %s
+    """, (id_usuario,))
+    votos_usuario = [row["id_receta"] for row in cursor.fetchall()]
+    
+    for receta in recetas:
+        receta["ya_voto"] = receta["id_receta"] in votos_usuario
+        if receta["votos"] is None:
+            receta["votos"] = 0
     cursor.close()
     conexion.close()
     return render_template("La_Comanda.html", recetas=recetas)
@@ -155,13 +175,13 @@ def votar():
         )
 
         # Obtener votos actualizados
-        cursor.execute("SELECT votos FROM recetas WHERE id_receta=%s", (id_receta,))
+        cursor.execute("SELECT votos FROM likes WHERE id_receta=%s", (id_receta,))
         nuevos_votos = cursor.fetchone()["votos"]
     
-        cursor.close()
-        conexion.close()
+    cursor.close()
+    conexion.close()
 
-        return redirect("/La_Comanda")
+    return redirect("/la-comanda")
     
 
 @app.route("/Pagina_principal")
