@@ -1,3 +1,4 @@
+<!-- Who_we_are.html realizado por Xabier Iglesias e Ibai -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -47,17 +48,13 @@
 </header>
 
 <main class="estudia_cursos">
-    <h1 class="titulo_cursos">All about us</h1>         
+    <h1 class="titulo_cursos">{{ titulo }}</h1>         
         <section class="curso_entero">
             <div class="asignaturas">                        
-                <p>We are a small team of developers and foodies. <br>
-                On our website, you can see a combination of delicious recipes for everyday cooking, <br>
-                a couple of courses in which, if you're interested, you can register for a course and learn with us, <br>
-                and an option to submit your recipes if you're signed in. <br>
-                Our mission is to teach cooking with locally sourced foods planted and grown by our students, <br>
-                also helping them to enter the labour market and to make it enjoyable and affordable for anyone in the public interested in cooking. <br>
-                Explore the different sections and come cook with us.
-                </p>    
+                <p>{{ texto }}</p>
+                <form method="post">
+                    <button type="submit" name="idioma" value="{{ proximo_idioma }}">{{ boton }}</button>
+                </form>    
             </div>
             <div class="imagen_asignatura">
                 <img src="../static/Imagenes/who_we_are.jpeg" alt="Panadería">
