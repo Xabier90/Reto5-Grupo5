@@ -57,7 +57,7 @@ CREATE TABLE `alumnos` (
   PRIMARY KEY (`id_alumno`),
   KEY `alumno-usuario_idx` (`id_usuario`),
   CONSTRAINT `alumno-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,8 +328,6 @@ DROP TABLE IF EXISTS `ingredientes`;
 CREATE TABLE `ingredientes` (
   `id_ingredientes` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
-  `cantidad` float DEFAULT NULL,
-  `unidad_medida` enum('mg','g','kg','ud','ml','L') NOT NULL,
   `stock` int DEFAULT NULL,
   `id_alergeno` int NOT NULL,
   PRIMARY KEY (`id_ingredientes`,`id_alergeno`),
@@ -344,7 +342,7 @@ CREATE TABLE `ingredientes` (
 
 LOCK TABLES `ingredientes` WRITE;
 /*!40000 ALTER TABLE `ingredientes` DISABLE KEYS */;
-INSERT INTO `ingredientes` VALUES (1,'Tomate cherry',0.5,'kg',5,15),(2,'Cebolla',0.2,'kg',8,15),(3,'Ajo',3,'ud',2,15),(4,'Pimiento rojo',0.3,'kg',4,15),(5,'Zanahoria',0.3,'kg',6,15),(6,'Patata',0.5,'kg',10,15),(7,'Puerro',0.25,'kg',3,15),(8,'Espinacas',0.2,'kg',2,15),(9,'Aceite de oliva virgen extra',50,'ml',10,15),(10,'Sal',5,'g',3000,15),(11,'Pimienta negra',2,'g',500,15),(12,'Albahaca fresca',5,'ud',500,15),(13,'Perejil fresco',4,'ud',500,15),(14,'Bacalao desalado',0.2,'kg',4,4),(15,'Anchoas en aceite',4,'ud',500,4),(16,'Gambas frescas',0.15,'kg',2,2),(17,'Berberechos frescos',0.25,'kg',2,14),(18,'Huevo campero',2,'ud',30,3),(19,'Nata líquida 35%',100,'ml',2,7),(20,'Queso Idiazabal',0.05,'kg',2,7),(21,'Leche entera',250,'ml',4,7),(22,'Mantequilla',50,'g',1000,7),(23,'Queso crema',200,'g',1500,7),(24,'Harina de trigo T55',0.1,'kg',5,1),(25,'Harina de fuerza',0.5,'kg',5,1),(26,'Pan rallado',50,'g',1000,1),(27,'Levadura fresca',10,'g',200,1),(28,'Azúcar blanquilla',0.1,'kg',3,15),(29,'Azúcar glas',30,'g',500,15),(30,'Cacao en polvo',30,'g',500,15),(31,'Alubias rojas',0.3,'kg',3,15),(32,'Txistorra',150,'g',1,1),(33,'Chorizo',150,'g',1,1),(34,'Avellanas tostadas',40,'g',500,8);
+INSERT INTO `ingredientes` VALUES (1,'Tomate cherry',5,15),(2,'Cebolla',8,15),(3,'Ajo',2,15),(4,'Pimiento rojo',4,15),(5,'Zanahoria',6,15),(6,'Patata',10,15),(7,'Puerro',3,15),(8,'Espinacas',2,15),(9,'Aceite de oliva virgen extra',10,15),(10,'Sal',3000,15),(11,'Pimienta negra',500,15),(12,'Albahaca fresca',500,15),(13,'Perejil fresco',500,15),(14,'Bacalao desalado',4,4),(15,'Anchoas en aceite',500,4),(16,'Gambas frescas',2,2),(17,'Berberechos frescos',2,14),(18,'Huevo campero',30,3),(19,'Nata líquida 35%',2,7),(20,'Queso Idiazabal',2,7),(21,'Leche entera',4,7),(22,'Mantequilla',1000,7),(23,'Queso crema',1500,7),(24,'Harina de trigo T55',5,1),(25,'Harina de fuerza',5,1),(26,'Pan rallado',1000,1),(27,'Levadura fresca',200,1),(28,'Azúcar blanquilla',3,15),(29,'Azúcar glas',500,15),(30,'Cacao en polvo',500,15),(31,'Alubias rojas',3,15),(32,'Txistorra',1,1),(33,'Chorizo',1,1),(34,'Avellanas tostadas',500,8);
 /*!40000 ALTER TABLE `ingredientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -470,7 +468,8 @@ DROP TABLE IF EXISTS `receta_ingredientes`;
 CREATE TABLE `receta_ingredientes` (
   `id_receta` int NOT NULL,
   `id_ingrediente` int NOT NULL,
-  `cantidad` int NOT NULL,
+  `cantidad` float NOT NULL,
+  `unidad_medida` enum('mg','g','kg','ud','ml','L') NOT NULL,
   PRIMARY KEY (`id_receta`,`id_ingrediente`),
   KEY `r_Receta_Ingredientes_i_idx` (`id_receta`),
   KEY `Receta_Ingredientes_Ingredientes_idx` (`id_ingrediente`),
@@ -485,7 +484,7 @@ CREATE TABLE `receta_ingredientes` (
 
 LOCK TABLES `receta_ingredientes` WRITE;
 /*!40000 ALTER TABLE `receta_ingredientes` DISABLE KEYS */;
-INSERT INTO `receta_ingredientes` VALUES (1,5,4),(1,6,5),(1,7,3),(1,9,2),(1,10,5),(2,3,6),(2,9,3),(2,14,4),(3,2,2),(3,6,4),(3,9,3),(3,10,5),(3,18,6),(4,10,5),(4,31,5),(4,32,2),(4,33,1),(5,3,2),(5,8,2),(5,9,2),(5,16,3),(5,18,4),(6,3,3),(6,9,3),(6,10,5),(6,13,2),(6,24,2),(7,1,6),(7,3,1),(7,4,2),(7,9,4),(7,10,5),(7,26,2),(8,2,1),(8,5,5),(8,9,2),(8,10,5),(8,11,3),(8,19,2),(9,15,2),(9,20,3),(9,26,4),(10,18,3),(10,19,2),(10,23,4),(10,28,2),(11,10,5),(11,25,5),(11,27,1),(11,34,3),(12,9,1),(12,13,2),(12,17,5),(13,14,3),(13,18,2),(13,21,4),(13,22,2),(13,24,3),(13,26,2),(14,1,4),(14,9,3),(14,10,5),(14,12,2),(15,18,4),(15,21,5),(15,28,3);
+INSERT INTO `receta_ingredientes` VALUES (1,5,0.25,'kg'),(1,6,0.5,'kg'),(1,7,0.35,'kg'),(1,9,40,'ml'),(1,10,6,'g'),(2,3,2,'ud'),(2,9,120,'ml'),(2,14,0.4,'kg'),(3,2,0.15,'kg'),(3,6,0.8,'kg'),(3,9,60,'ml'),(3,10,8,'g'),(3,18,6,'ud'),(4,10,10,'g'),(4,31,0.5,'kg'),(4,32,0.25,'kg'),(4,33,0.2,'kg'),(5,3,2,'ud'),(5,8,0.25,'kg'),(5,9,30,'ml'),(5,16,0.2,'kg'),(5,18,4,'ud'),(6,3,2,'ud'),(6,9,50,'ml'),(6,10,5,'g'),(6,13,6,'ud'),(6,24,0.02,'kg'),(7,1,0.8,'kg'),(7,3,1,'ud'),(7,4,0.35,'kg'),(7,9,70,'ml'),(7,10,7,'g'),(7,26,0.05,'kg'),(8,2,0.15,'kg'),(8,5,0.5,'kg'),(8,9,25,'ml'),(8,10,5,'g'),(8,11,2,'g'),(8,19,150,'ml'),(9,15,4,'ud'),(9,20,0.08,'kg'),(9,26,0.04,'kg'),(10,18,5,'ud'),(10,19,200,'ml'),(10,23,0.5,'kg'),(10,28,0.18,'kg'),(11,10,7,'g'),(11,25,0.6,'kg'),(11,27,20,'g'),(11,34,0.15,'kg'),(12,9,20,'ml'),(12,13,4,'ud'),(12,17,0.5,'kg'),(13,14,0.3,'kg'),(13,18,3,'ud'),(13,21,0.5,'L'),(13,22,80,'g'),(13,24,0.12,'kg'),(13,26,0.1,'kg'),(14,1,0.6,'kg'),(14,9,30,'ml'),(14,10,4,'g'),(14,12,6,'ud'),(15,18,4,'ud'),(15,21,0.5,'L'),(15,28,0.1,'kg');
 /*!40000 ALTER TABLE `receta_ingredientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -537,7 +536,7 @@ CREATE TABLE `usuarios` (
   `contraseña` varchar(255) NOT NULL,
   `tipo_usuario` enum('profesor','alumno','invitado') NOT NULL DEFAULT 'invitado',
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,7 +545,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Ana','García','Fernández','agarcia@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor'),(2,'Carlos','López','Mendoza','clopez@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor'),(3,'Iker','Etxebarria','Saez','ietxebarria@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(4,'Amaia','Zubieta','Garate','azubieta@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(5,'Mikel','Arrizabalaga','Uribe','marrizabalaga@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(6,'Leire','Goikoetxea','Pardo','lgoikoetxea@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(7,'Unai','Arostegi','Aguirre','uarostegi@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(8,'Nerea','Iture','Eguren','niture@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(9,'Jon','Lazkano','Olabe','jlazkano@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(10,'Ane','Olalde','Berasategi','aolalde@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(11,'Eneko','Urrutia','Zabala','eurrutia@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(12,'Miren','Larrea','Txabarri','mlarrea@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','alumno'),(13,'invitado','invitado','invitado','invitado1@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(14,'invitado','invitado','invitado','invitado2@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(15,'invitado','invitado','invitado','invitado3@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(16,'invitado','invitado','invitado','invitado4@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(17,'invitado','invitado','invitado','invitado5@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(18,'invitado','invitado','invitado','invitado6@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(19,'invitado','invitado','invitado','invitado7@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(20,'invitado','invitado','invitado','invitado8@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(21,'Amaia','González','Elorza','agonzalez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(22,'Mikel','Martínez','Iturri','mmartinez@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor'),(23,'Leire','Sánchez','Zabala','lsanchez@GastroLab.eus','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb','profesor');
+INSERT INTO `usuarios` VALUES (1,'Ana','García','Fernández','agarcia@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(2,'Carlos','López','Mendoza','clopez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(3,'Iker','Etxebarria','Saez','ietxebarria@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(4,'Amaia','Zubieta','Garate','azubieta@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(5,'Mikel','Arrizabalaga','Uribe','marrizabalaga@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(6,'Leire','Goikoetxea','Pardo','lgoikoetxea@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(7,'Unai','Arostegi','Aguirre','uarostegi@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(8,'Nerea','Iture','Eguren','niture@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(9,'Jon','Lazkano','Olabe','jlazkano@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(10,'Ane','Olalde','Berasategi','aolalde@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(11,'Eneko','Urrutia','Zabala','eurrutia@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(12,'Miren','Larrea','Txabarri','mlarrea@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(13,'invitado','invitado','invitado','invitado1@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(14,'invitado','invitado','invitado','invitado2@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(15,'invitado','invitado','invitado','invitado3@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(16,'invitado','invitado','invitado','invitado4@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(17,'invitado','invitado','invitado','invitado5@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(18,'invitado','invitado','invitado','invitado6@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(19,'invitado','invitado','invitado','invitado7@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(20,'invitado','invitado','invitado','invitado8@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(21,'Amaia','González','Elorza','agonzalez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(22,'Mikel','Martínez','Iturri','mmartinez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(23,'Leire','Sánchez','Zabala','lsanchez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -675,7 +674,6 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50001 CREATE VIEW `vista_lectura_recetas_ingredientes_likes` AS SELECT 
  1 AS `id_receta`,
  1 AS `nombre_receta`,
- 1 AS `cantidad_de_ingredientes_por_receta`,
  1 AS `dificultad`,
  1 AS `tiempo`,
  1 AS `nombre_ingrediente`,
@@ -838,7 +836,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_lectura_recetas_ingredientes_likes` AS select `r`.`id_receta` AS `id_receta`,`r`.`nombre` AS `nombre_receta`,`ri`.`cantidad` AS `cantidad_de_ingredientes_por_receta`,`r`.`dificultad` AS `dificultad`,`r`.`tiempo` AS `tiempo`,`i`.`nombre` AS `nombre_ingrediente`,`i`.`cantidad` AS `cantidad_de_cada_ingrediente`,`i`.`unidad_medida` AS `unidad_medida`,`r`.`instrucciones` AS `instrucciones`,`r`.`votos` AS `cantidad_likes`,`r`.`url_archivo` AS `url_imagen_video`,`a`.`tipo` AS `tipo_alergeno`,`a`.`enlace_img` AS `icono_alergeno` from (((`recetas` `r` left join `receta_ingredientes` `ri` on((`r`.`id_receta` = `ri`.`id_receta`))) left join `ingredientes` `i` on((`ri`.`id_ingrediente` = `i`.`id_ingredientes`))) left join `alergenos` `a` on((`i`.`id_alergeno` = `a`.`id_alergeno`))) */;
+/*!50001 VIEW `vista_lectura_recetas_ingredientes_likes` AS select `r`.`id_receta` AS `id_receta`,`r`.`nombre` AS `nombre_receta`,`r`.`dificultad` AS `dificultad`,`r`.`tiempo` AS `tiempo`,`i`.`nombre` AS `nombre_ingrediente`,`ri`.`cantidad` AS `cantidad_de_cada_ingrediente`,`ri`.`unidad_medida` AS `unidad_medida`,`r`.`instrucciones` AS `instrucciones`,`r`.`votos` AS `cantidad_likes`,`r`.`url_archivo` AS `url_imagen_video`,`a`.`tipo` AS `tipo_alergeno`,`a`.`enlace_img` AS `icono_alergeno` from (((`recetas` `r` left join `receta_ingredientes` `ri` on((`r`.`id_receta` = `ri`.`id_receta`))) left join `ingredientes` `i` on((`ri`.`id_ingrediente` = `i`.`id_ingredientes`))) left join `alergenos` `a` on((`i`.`id_alergeno` = `a`.`id_alergeno`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -852,4 +850,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-05 16:25:15
+-- Dump completed on 2026-05-07 10:22:35

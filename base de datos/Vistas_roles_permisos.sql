@@ -4,9 +4,8 @@ use reto5_musarana_elefante;
 
 create view vista_lectura_recetas_ingredientes_likes as
 select r.id_receta, r.nombre as nombre_receta, 
-ri.cantidad as cantidad_de_ingredientes_por_receta, 
 r.dificultad, r.tiempo, i.nombre as nombre_ingrediente,
-i.cantidad as cantidad_de_cada_ingrediente, i.unidad_medida, 
+ri.cantidad as cantidad_de_cada_ingrediente, ri.unidad_medida, 
 r.instrucciones, r.votos as cantidad_likes,
 r.url_archivo as url_imagen_video, a.tipo as tipo_alergeno, 
 a.enlace_img as icono_alergeno
