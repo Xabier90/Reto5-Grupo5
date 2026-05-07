@@ -25,7 +25,7 @@ Xabier
         └── procedimientos_funciones_triggers.sql # Archivo SQL para crear los procedimientos, funciones y triggers
                                                   # (no necesario ejecutar si se ha ejecutado bbdd_Definitivo.sql por completo) 
 ```
-> Nota: Primero ejecutar `bbdd_Definitivo.sql` y luego `procedimientos_funciones_triggers.sql`.
+> Nota: Primero ejecutar `bbdd_Definitivo.sql` y luego `Vistas_roles_permisos.sql`.
 
 ## Flask
 El archivo a ejecutar para iniciar el flask es `app.py`.
