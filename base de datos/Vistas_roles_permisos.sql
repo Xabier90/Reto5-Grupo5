@@ -68,7 +68,7 @@ grant select, insert, update on likes_recetas to 'rol_profesor';
 grant select on usuarios to 'rol_profesor';
 grant select, insert on ingredientes to 'rol_profesor';
 grant select, insert, update, delete on recetas to 'rol_profesor';
-grant insert, update, delete on receta_ingredientes to 'rol_profesor';
+grant select, insert, update, delete on receta_ingredientes to 'rol_profesor';
 grant select, update on likes to 'rol_profesor';
 
 grant select on vista_huertos_ingredientes to 'rol_profesor';
