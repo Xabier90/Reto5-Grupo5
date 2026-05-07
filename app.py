@@ -182,6 +182,30 @@ def votar():
     conexion.close()
 
     return redirect("/la-comanda")
+
+@app.route("/ver_receta/<int:id_receta>")
+def ver_receta(id_receta):
+    conexion, cursor = db_helper.get_db()
+    
+    cursor.execute("SELECT * FROM recetas WHERE id_receta=%s", (id_receta,))
+    receta = cursor.fetchone()
+    
+    cursor.execute("""
+        SELECT i.nombre, ri.cantidad, ri.unidad_medida
+        FROM receta_ingredientes ri
+        JOIN ingredientes i ON ri.id_ingrediente = i.id_ingredientes
+        WHERE ri.id_receta = %s
+    """, (id_receta,))
+    ingredientes = cursor.fetchall()
+    
+    pasos = []
+    if receta and receta["instrucciones"]:
+        pasos = [p.strip() for p in receta["instrucciones"].split(";") if p.strip()]
+    
+    cursor.close()
+    conexion.close()
+    
+    return render_template("ver_receta.html", receta=receta, ingredientes=ingredientes, pasos=pasos)
     
 
 @app.route("/Pagina_principal")

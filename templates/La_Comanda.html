@@ -92,7 +92,8 @@
                     </form>
                     <span>{{ receta.votos }}</span>
                 </div>
-                <a href="{{receta.url_archivo}}" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+                <a href="{{ url_for('ver_receta', id_receta=receta.id_receta) }}" 
+                class="boton-ver-mas">Ver Ingredientes y Pasos</a>
             </div>
         {% endfor %}
     </div>
