@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `reto5_musarana_elefante` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `reto5_musarana_elefante`;
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: localhost    Database: reto5_musarana_elefante
@@ -36,7 +38,7 @@ CREATE TABLE `alergenos` (
 
 LOCK TABLES `alergenos` WRITE;
 /*!40000 ALTER TABLE `alergenos` DISABLE KEYS */;
-INSERT INTO `alergenos` VALUES (1,'Gluten','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/gluten.png'),(2,'Crustáceos','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/crustaceos.png'),(3,'Huevo','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/huevo.png'),(4,'Pescado','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/pescado.png'),(5,'Cacahuetes','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/cacahuetes.png'),(6,'Soja','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/soja.png'),(7,'Lácteos','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/lacteos.png'),(8,'Frutos de cáscara','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/frutos_cascara.png'),(9,'Apio','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/apio.png'),(10,'Mostaza','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/mostaza.png'),(11,'Sésamo','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/sesamo.png'),(12,'Sulfitos','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/sulfitos.png'),(13,'Altramuces','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/altramuces.png'),(14,'Moluscos','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/moluscos.png'),(15,'Sin alérgeno','https://www.euskadi.eus/contenidos/informacion/alergenos/es_def/images/sin_alergeno.png');
+INSERT INTO `alergenos` VALUES (1,'Gluten','https://www.ladietadelchef.es/wp-content/uploads/2016/06/gluten-derivados-140x140.png'),(2,'Crustáceos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/crustaceos-140x140.png'),(3,'Huevo','https://www.ladietadelchef.es/wp-content/uploads/2016/06/huevos-140x140.png'),(4,'Pescado','https://www.ladietadelchef.es/wp-content/uploads/2016/06/pescados-140x140.png'),(5,'Cacahuetes','https://www.ladietadelchef.es/wp-content/uploads/2016/06/cacahuetes-140x140.png'),(6,'Soja','https://www.ladietadelchef.es/wp-content/uploads/2016/06/soja-140x140.png'),(7,'Lácteos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/lacteos-140x140.png'),(8,'Frutos secos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/cascaras-frutos-secos-140x140.png'),(9,'Apio','https://www.ladietadelchef.es/wp-content/uploads/2016/06/apio-140x140.png'),(10,'Mostaza','https://www.ladietadelchef.es/wp-content/uploads/2016/06/mostaza-140x140.png'),(11,'Sésamo','https://www.ladietadelchef.es/wp-content/uploads/2016/06/granos-sesamo-140x140.png'),(12,'Sulfitos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/dioxido-azufre-sulfitos-140x140.png'),(13,'Altramuces','https://www.ladietadelchef.es/wp-content/uploads/2016/06/altramuces-140x140.png'),(14,'Moluscos','https://www.ladietadelchef.es/wp-content/uploads/2016/06/moluscos-140x140.png'),(15,'Vegano','https://www.ladietadelchef.es/wp-content/uploads/2016/06/vegano-140x140.png');
 /*!40000 ALTER TABLE `alergenos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +57,7 @@ CREATE TABLE `alumnos` (
   PRIMARY KEY (`id_alumno`),
   KEY `alumno-usuario_idx` (`id_usuario`),
   CONSTRAINT `alumno-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -326,8 +328,6 @@ DROP TABLE IF EXISTS `ingredientes`;
 CREATE TABLE `ingredientes` (
   `id_ingredientes` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
-  `cantidad` float DEFAULT NULL,
-  `unidad_medida` enum('mg','g','kg','ud','ml','L') NOT NULL,
   `stock` int DEFAULT NULL,
   `id_alergeno` int NOT NULL,
   PRIMARY KEY (`id_ingredientes`,`id_alergeno`),
@@ -342,8 +342,34 @@ CREATE TABLE `ingredientes` (
 
 LOCK TABLES `ingredientes` WRITE;
 /*!40000 ALTER TABLE `ingredientes` DISABLE KEYS */;
-INSERT INTO `ingredientes` VALUES (1,'Tomate cherry',0.5,'kg',5,15),(2,'Cebolla',0.2,'kg',8,15),(3,'Ajo',3,'ud',2,15),(4,'Pimiento rojo',0.3,'kg',4,15),(5,'Zanahoria',0.3,'kg',6,15),(6,'Patata',0.5,'kg',10,15),(7,'Puerro',0.25,'kg',3,15),(8,'Espinacas',0.2,'kg',2,15),(9,'Aceite de oliva virgen extra',50,'ml',10,15),(10,'Sal',5,'g',3000,15),(11,'Pimienta negra',2,'g',500,15),(12,'Albahaca fresca',5,'ud',500,15),(13,'Perejil fresco',4,'ud',500,15),(14,'Bacalao desalado',0.2,'kg',4,4),(15,'Anchoas en aceite',4,'ud',500,4),(16,'Gambas frescas',0.15,'kg',2,2),(17,'Berberechos frescos',0.25,'kg',2,14),(18,'Huevo campero',2,'ud',30,3),(19,'Nata líquida 35%',100,'ml',2,7),(20,'Queso Idiazabal',0.05,'kg',2,7),(21,'Leche entera',250,'ml',4,7),(22,'Mantequilla',50,'g',1000,7),(23,'Queso crema',200,'g',1500,7),(24,'Harina de trigo T55',0.1,'kg',5,1),(25,'Harina de fuerza',0.5,'kg',5,1),(26,'Pan rallado',50,'g',1000,1),(27,'Levadura fresca',10,'g',200,1),(28,'Azúcar blanquilla',0.1,'kg',3,15),(29,'Azúcar glas',30,'g',500,15),(30,'Cacao en polvo',30,'g',500,15),(31,'Alubias rojas',0.3,'kg',3,15),(32,'Txistorra',150,'g',1,1),(33,'Chorizo',150,'g',1,1),(34,'Avellanas tostadas',40,'g',500,8);
+INSERT INTO `ingredientes` VALUES (1,'Tomate cherry',5,15),(2,'Cebolla',8,15),(3,'Ajo',2,15),(4,'Pimiento rojo',4,15),(5,'Zanahoria',6,15),(6,'Patata',10,15),(7,'Puerro',3,15),(8,'Espinacas',2,15),(9,'Aceite de oliva virgen extra',10,15),(10,'Sal',3000,15),(11,'Pimienta negra',500,15),(12,'Albahaca fresca',500,15),(13,'Perejil fresco',500,15),(14,'Bacalao desalado',4,4),(15,'Anchoas en aceite',500,4),(16,'Gambas frescas',2,2),(17,'Berberechos frescos',2,14),(18,'Huevo campero',30,3),(19,'Nata líquida 35%',2,7),(20,'Queso Idiazabal',2,7),(21,'Leche entera',4,7),(22,'Mantequilla',1000,7),(23,'Queso crema',1500,7),(24,'Harina de trigo T55',5,1),(25,'Harina de fuerza',5,1),(26,'Pan rallado',1000,1),(27,'Levadura fresca',200,1),(28,'Azúcar blanquilla',3,15),(29,'Azúcar glas',500,15),(30,'Cacao en polvo',500,15),(31,'Alubias rojas',3,15),(32,'Txistorra',1,1),(33,'Chorizo',1,1),(34,'Avellanas tostadas',500,8);
 /*!40000 ALTER TABLE `ingredientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `likes`
+--
+
+DROP TABLE IF EXISTS `likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `likes` (
+  `id_receta` int NOT NULL,
+  `votos` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_receta`),
+  KEY `Likes_likes_receta_idx` (`id_receta`),
+  CONSTRAINT `id_receta_likes` FOREIGN KEY (`id_receta`) REFERENCES `recetas` (`id_receta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `likes`
+--
+
+LOCK TABLES `likes` WRITE;
+/*!40000 ALTER TABLE `likes` DISABLE KEYS */;
+INSERT INTO `likes` VALUES (1,12),(2,5),(3,23),(4,0),(5,17),(6,7),(7,22),(8,3),(9,0),(10,10),(11,23),(12,1),(13,15),(14,21),(15,6);
+/*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -371,6 +397,7 @@ CREATE TABLE `likes_recetas` (
 
 LOCK TABLES `likes_recetas` WRITE;
 /*!40000 ALTER TABLE `likes_recetas` DISABLE KEYS */;
+INSERT INTO `likes_recetas` VALUES (1,1,'2024-01-05 00:00:00'),(1,3,'2024-03-01 00:00:00'),(1,5,'2024-02-15 00:00:00'),(2,1,'2024-01-06 00:00:00'),(2,3,'2024-03-01 00:00:00'),(2,5,'2024-02-16 00:00:00'),(3,1,'2024-01-10 00:00:00'),(3,3,'2024-03-02 00:00:00'),(3,7,'2026-05-07 13:39:08'),(3,10,'2026-05-07 13:41:40'),(3,11,'2026-05-07 13:41:27'),(3,13,'2026-05-07 13:38:46'),(3,14,'2026-05-07 13:53:34'),(4,1,'2024-01-12 00:00:00'),(4,3,'2024-03-02 00:00:00'),(4,6,'2024-02-18 00:00:00'),(5,1,'2024-01-15 00:00:00'),(5,3,'2024-03-03 00:00:00'),(5,7,'2024-02-19 00:00:00'),(6,1,'2024-01-20 00:00:00'),(6,3,'2024-03-03 00:00:00'),(6,8,'2024-02-20 00:00:00'),(7,1,'2024-02-01 00:00:00'),(7,3,'2024-03-04 00:00:00'),(7,9,'2024-02-21 00:00:00'),(8,1,'2024-02-03 00:00:00'),(8,3,'2024-03-04 00:00:00'),(8,10,'2024-02-22 00:00:00'),(9,1,'2024-02-05 00:00:00'),(9,3,'2024-03-05 00:00:00'),(9,11,'2024-04-01 00:00:00'),(10,1,'2024-02-10 00:00:00'),(10,3,'2024-03-05 00:00:00'),(10,12,'2024-04-02 00:00:00'),(11,1,'2024-02-12 00:00:00'),(11,3,'2024-03-06 00:00:00'),(11,13,'2024-04-03 00:00:00'),(12,1,'2024-02-14 00:00:00'),(12,3,'2024-03-06 00:00:00'),(12,14,'2024-04-04 00:00:00'),(13,2,'2024-01-20 00:00:00'),(13,3,'2024-03-07 00:00:00'),(13,15,'2024-04-05 00:00:00'),(14,2,'2024-01-21 00:00:00'),(14,3,'2024-03-07 00:00:00'),(15,2,'2024-01-22 00:00:00'),(15,3,'2024-03-08 00:00:00'),(16,2,'2024-01-25 00:00:00'),(16,3,'2024-03-08 00:00:00'),(17,2,'2024-01-28 00:00:00'),(17,3,'2024-03-09 00:00:00'),(18,3,'2024-03-09 00:00:00'),(19,3,'2024-03-10 00:00:00'),(20,3,'2024-03-10 00:00:00'),(21,3,'2024-03-11 00:00:00'),(22,3,'2024-03-11 00:00:00'),(23,3,'2024-03-12 00:00:00');
 /*!40000 ALTER TABLE `likes_recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,7 +472,7 @@ CREATE TABLE `profesores` (
   PRIMARY KEY (`id_profesor`),
   KEY `professor-usuario_idx` (`id_usuario`),
   CONSTRAINT `professor-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -454,7 +481,7 @@ CREATE TABLE `profesores` (
 
 LOCK TABLES `profesores` WRITE;
 /*!40000 ALTER TABLE `profesores` DISABLE KEYS */;
-INSERT INTO `profesores` VALUES (1,'Cocina y Gastronomía','ana.docente@gmail.es',1),(2,'Panadería, Repostería y Confitería','profe.lópez@hotmail.com',2),(3,'Agricultura','agonzalez@GastroLab.eus',22),(4,'Dietética','mmartinez@GastroLab.eus',23),(5,'Dirección de Cocina','lsanchez@GastroLab.eus',24);
+INSERT INTO `profesores` VALUES (1,'Cocina y Gastronomía','ana.docente@gmail.es',1),(2,'Panadería, Repostería y Confitería','profe.lópez@hotmail.com',2),(3,'Agricultura','agonzalez@GastroLab.eus',21),(4,'Dietética','mmartinez@GastroLab.eus',22),(5,'Dirección de Cocina','lsanchez@GastroLab.eus',23);
 /*!40000 ALTER TABLE `profesores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,7 +495,8 @@ DROP TABLE IF EXISTS `receta_ingredientes`;
 CREATE TABLE `receta_ingredientes` (
   `id_receta` int NOT NULL,
   `id_ingrediente` int NOT NULL,
-  `cantidad` int NOT NULL,
+  `cantidad` float NOT NULL,
+  `unidad_medida` enum('mg','g','kg','ud','ml','L') NOT NULL,
   PRIMARY KEY (`id_receta`,`id_ingrediente`),
   KEY `r_Receta_Ingredientes_i_idx` (`id_receta`),
   KEY `Receta_Ingredientes_Ingredientes_idx` (`id_ingrediente`),
@@ -483,7 +511,7 @@ CREATE TABLE `receta_ingredientes` (
 
 LOCK TABLES `receta_ingredientes` WRITE;
 /*!40000 ALTER TABLE `receta_ingredientes` DISABLE KEYS */;
-INSERT INTO `receta_ingredientes` VALUES (1,5,4),(1,6,5),(1,7,3),(1,9,2),(1,10,5),(2,3,6),(2,9,3),(2,14,4),(3,2,2),(3,6,4),(3,9,3),(3,10,5),(3,18,6),(4,10,5),(4,31,5),(4,32,2),(4,33,1),(5,3,2),(5,8,2),(5,9,2),(5,16,3),(5,18,4),(6,3,3),(6,9,3),(6,10,5),(6,13,2),(6,24,2),(7,1,6),(7,3,1),(7,4,2),(7,9,4),(7,10,5),(7,26,2),(8,2,1),(8,5,5),(8,9,2),(8,10,5),(8,11,3),(8,19,2),(9,15,2),(9,20,3),(9,26,4),(10,18,3),(10,19,2),(10,23,4),(10,28,2),(11,10,5),(11,25,5),(11,27,1),(11,34,3),(12,9,1),(12,13,2),(12,17,5),(13,14,3),(13,18,2),(13,21,4),(13,22,2),(13,24,3),(13,26,2),(14,1,4),(14,9,3),(14,10,5),(14,12,2),(15,18,4),(15,21,5),(15,28,3);
+INSERT INTO `receta_ingredientes` VALUES (1,5,0.25,'kg'),(1,6,0.5,'kg'),(1,7,0.35,'kg'),(1,9,40,'ml'),(1,10,6,'g'),(2,3,2,'ud'),(2,9,120,'ml'),(2,14,0.4,'kg'),(3,2,0.15,'kg'),(3,6,0.8,'kg'),(3,9,60,'ml'),(3,10,8,'g'),(3,18,6,'ud'),(4,10,10,'g'),(4,31,0.5,'kg'),(4,32,0.25,'kg'),(4,33,0.2,'kg'),(5,3,2,'ud'),(5,8,0.25,'kg'),(5,9,30,'ml'),(5,16,0.2,'kg'),(5,18,4,'ud'),(6,3,2,'ud'),(6,9,50,'ml'),(6,10,5,'g'),(6,13,6,'ud'),(6,24,0.02,'kg'),(7,1,0.8,'kg'),(7,3,1,'ud'),(7,4,0.35,'kg'),(7,9,70,'ml'),(7,10,7,'g'),(7,26,0.05,'kg'),(8,2,0.15,'kg'),(8,5,0.5,'kg'),(8,9,25,'ml'),(8,10,5,'g'),(8,11,2,'g'),(8,19,150,'ml'),(9,15,4,'ud'),(9,20,0.08,'kg'),(9,26,0.04,'kg'),(10,18,5,'ud'),(10,19,200,'ml'),(10,23,0.5,'kg'),(10,28,0.18,'kg'),(11,10,7,'g'),(11,25,0.6,'kg'),(11,27,20,'g'),(11,34,0.15,'kg'),(12,9,20,'ml'),(12,13,4,'ud'),(12,17,0.5,'kg'),(13,14,0.3,'kg'),(13,18,3,'ud'),(13,21,0.5,'L'),(13,22,80,'g'),(13,24,0.12,'kg'),(13,26,0.1,'kg'),(14,1,0.6,'kg'),(14,9,30,'ml'),(14,10,4,'g'),(14,12,6,'ud'),(15,18,4,'ud'),(15,21,0.5,'L'),(15,28,0.1,'kg');
 /*!40000 ALTER TABLE `receta_ingredientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -500,7 +528,6 @@ CREATE TABLE `recetas` (
   `dificultad` varchar(255) NOT NULL,
   `tiempo` int NOT NULL,
   `instrucciones` varchar(255) NOT NULL,
-  `votos` int DEFAULT '0',
   `id_usuario` int NOT NULL,
   `url_archivo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_receta`),
@@ -515,7 +542,7 @@ CREATE TABLE `recetas` (
 
 LOCK TABLES `recetas` WRITE;
 /*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (1,'Porrusalda','Fácil',40,'Pochar puerro y zanahoria en aceite; añadir patata y caldo; cocer 30 min y salpimentar.',12,1,'https://gastrolab.eus/recetas/porrusalda.pdf'),(2,'Bacalao al pil-pil','Difícil',60,'Confitar bacalao con ajo a 60 grados; ligar gelatina moviendo la cazuela en circulos hasta emulsionar.',20,1,'https://gastrolab.eus/recetas/bacalao_pilpil.pdf'),(3,'Tortilla de patata','Media',35,'Freir patata y cebolla; escurrir; mezclar con huevo batido y cuajar por ambos lados.',18,2,'https://gastrolab.eus/recetas/tortilla_patata.pdf'),(4,'Alubias rojas de Tolosa','Media',120,'Remojar 12 horas; cocer a fuego lento con txistorra y chorizo; añadir sal al final.',15,2,'https://gastrolab.eus/recetas/alubias_tolosa.pdf'),(5,'Revuelto de gambas y espinacas','Media',20,'Saltear gambas con ajo; añadir espinacas y huevo batido; remover hasta cuajar ligeramente.',10,3,'https://gastrolab.eus/recetas/revuelto_gambas.pdf'),(6,'Merluza en salsa verde','Media',30,'Dorar ajo; añadir harina; mojar con caldo de pescado y perejil; incorporar merluza y cocer 8 min.',14,4,'https://gastrolab.eus/recetas/merluza_verde.pdf'),(7,'Gazpacho andaluz','Fácil',15,'Triturar tomate, pimiento, ajo, pan, aceite y vinagre; colar; salpimentar y enfriar 2 horas.',8,5,'https://gastrolab.eus/recetas/gazpacho.pdf'),(8,'Crema de zanahoria y jengibre','Fácil',35,'Pochar cebolla y zanahoria; añadir jengibre y caldo; cocer 20 min; triturar y montar con nata.',9,6,'https://gastrolab.eus/recetas/crema_zanahoria.pdf'),(9,'Pintxo de anchoa e Idiazabal','Fácil',10,'Tostar pan; colocar loncha de Idiazabal y anchoa encima; servir a temperatura ambiente.',11,7,'https://gastrolab.eus/recetas/pintxo_anchoa.pdf'),(10,'Tarta de queso al horno','Media',70,'Batir queso crema, huevos, nata y azucar; volcar en molde y hornear a 200 grados 50 min.',17,8,'https://gastrolab.eus/recetas/tarta_queso.pdf'),(11,'Pan de avellanas','Media',90,'Mezclar harina de fuerza, levadura, agua y sal; incorporar avellanas; fermentar 1 hora y hornear.',7,9,'https://gastrolab.eus/recetas/pan_avellanas.pdf'),(12,'Berberechos al vapor','Fácil',10,'Cocer berberechos tapados con vino blanco y perejil hasta que abran; desechar los cerrados.',13,10,'https://gastrolab.eus/recetas/berberechos.pdf'),(13,'Croquetas de bacalao','Media',50,'Preparar bechamel espesa con mantequilla y harina; añadir bacalao; enfriar; empanar y freir.',16,11,'https://gastrolab.eus/recetas/croquetas_bacalao.pdf'),(14,'Ensalada de tomate y albahaca','Fácil',10,'Cortar tomate cherry por la mitad; aliñar con aceite de oliva, sal y hojas de albahaca fresca.',6,12,'https://gastrolab.eus/recetas/ensalada_tomate.pdf'),(15,'Natillas caseras','Fácil',30,'Calentar leche con canela; batir yemas con azucar; mezclar y cocer sin hervir hasta espesar.',10,3,'https://gastrolab.eus/recetas/natillas.pdf');
+INSERT INTO `recetas` VALUES (1,'Porrusalda','Fácil',40,'Pochar puerro y zanahoria en aceite; añadir patata y caldo; cocer 30 min y salpimentar.',1,'https://www.hola.com/horizon/landscape/c3e91d484c61-crema-porru-age-t.jpg?im=Resize=(360),type=downsize'),(2,'Bacalao al pil-pil','Difícil',60,'Confitar bacalao con ajo a 60 grados; ligar gelatina moviendo la cazuela en circulos hasta emulsionar.',1,'https://www.infobae.com/resizer/v2/AXSZC3HFXBB5XGWVFKTY4C3SXM.jpeg?auth=c6c745624537eeb469441453f7279d829ebe5251b0dc4bb8239b10ff9ca4244f&smart=true&width=1200&height=1200&quality=85'),(3,'Tortilla de patata','Media',35,'Freir patata y cebolla; escurrir; mezclar con huevo batido y cuajar por ambos lados.',2,'https://www.coren.es/wp-content/uploads/2017/07/Tortilla-.jpeg'),(4,'Alubias rojas de Tolosa','Media',120,'Remojar 12 horas; cocer a fuego lento con txistorra y chorizo; añadir sal al final.',2,'https://www.hola.com/horizon/landscape/ff03066a0899-holatolosaportadas-t.jpg'),(5,'Revuelto de gambas y espinacas','Media',20,'Saltear gambas con ajo; añadir espinacas y huevo batido; remover hasta cuajar ligeramente.',3,'https://www.instagram.com/reel/DU8zbwyiC6_/'),(6,'Merluza en salsa verde','Media',30,'Dorar ajo; añadir harina; mojar con caldo de pescado y perejil; incorporar merluza y cocer 8 min.',4,'https://bigcrafters.com/cdn/shop/articles/merluza-en-salsa-verde-receta-de-la-abuela_a790cf27-8d28-4bf1-9742-ef63a8a792bd.webp?v=1773761893'),(7,'Gazpacho andaluz','Fácil',15,'Triturar tomate, pimiento, ajo, pan, aceite y vinagre; colar; salpimentar y enfriar 2 horas.',5,'https://static.bainet.es/clip/8cd6db25-3535-4baa-83cd-f90303765c5b_source-aspect-ratio_1600w_0.jpg'),(8,'Crema de zanahoria y jengibre','Fácil',35,'Pochar cebolla y zanahoria; añadir jengibre y caldo; cocer 20 min; triturar y montar con nata.',6,'https://okdiario.com/img/2019/10/04/crema-de-zanahoria-jengibre-y-queso-crema.jpg'),(9,'Pintxo de anchoa e Idiazabal','Fácil',10,'Tostar pan; colocar loncha de Idiazabal y anchoa encima; servir a temperatura ambiente.',7,'https://calidadgourmet.com/wp-content/uploads/2015/04/Tosta-de-anchoas-de-Santo%C3%B1a-con-queso-Idiazabal.png'),(10,'Tarta de queso al horno','Media',70,'Batir queso crema, huevos, nata y azucar; volcar en molde y hornear a 200 grados 50 min.',8,'https://imag.bonviveur.com/desmoldar-con-cuidado.jpg'),(11,'Pan de avellanas','Media',90,'Mezclar harina de fuerza, levadura, agua y sal; incorporar avellanas; fermentar 1 hora y hornear.',9,'https://www.tiktok.com/@josebaarguinano/video/7574424946873617696?is_from_webapp=1&sender_device=pc'),(12,'Berberechos al vapor','Fácil',10,'Cocer berberechos tapados con vino blanco y perejil hasta que abran; desechar los cerrados.',10,'https://recetasdecocina.elmundo.es/wp-content/uploads/2022/04/berberechos-al-vapor-1.jpg'),(13,'Croquetas de bacalao','Media',50,'Preparar bechamel espesa con mantequilla y harina; añadir bacalao; enfriar; empanar y freir.',11,'https://img.saboresdehoy.com/receta/715/croquetas-cremosas-de-bacalao.jpg'),(14,'Ensalada de tomate y albahaca','Fácil',10,'Cortar tomate cherry por la mitad; aliñar con aceite de oliva, sal y hojas de albahaca fresca.',12,'https://s1.abcstatics.com/abc/sevilla/media/gurmesevilla/2010/03/1256_ensaladatomatemozarellaalbahaca_1268558108.jpg'),(15,'Natillas caseras','Fácil',30,'Calentar leche con canela; batir yemas con azucar; mezclar y cocer sin hervir hasta espesar.',3,'https://imag.bonviveur.com/natillas.jpg');
 /*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -528,14 +555,14 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id_usuario` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
-  `apellido1` varchar(255) NOT NULL,
-  `apellido2` varchar(255) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido1` varchar(45) DEFAULT NULL,
+  `apellido2` varchar(45) DEFAULT NULL,
   `correo` varchar(255) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `tipo_usuario` enum('profesor','alumno','invitado') NOT NULL DEFAULT 'invitado',
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -544,9 +571,90 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'','','','agarcia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(2,'','','','clopez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(3,'','','','ietxebarria@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(4,'','','','azubieta@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(5,'','','','marrizabalaga@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(6,'','','','lgoikoetxea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(7,'','','','uarostegi@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(8,'','','','niture@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(9,'','','','jlazkano@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(10,'','','','aolalde@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(11,'','','','eurrutia@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(12,'','','','mlarrea@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','alumno'),(13,'','','','invitado1@mail.com','$2b$10$HaShedPasswd0013','invitado'),(14,'','','','invitado2@mail.com','$2b$10$HaShedPasswd0014','invitado'),(15,'','','','invitado3@mail.com','$2b$10$HaShedPasswd0015','invitado'),(16,'','','','invitado4@mail.com','$2b$10$HaShedPasswd0016','invitado'),(17,'','','','invitado5@mail.com','$2b$10$HaShedPasswd0017','invitado'),(18,'','','','invitado6@mail.com','$2b$10$HaShedPasswd0018','invitado'),(19,'','','','invitado7@mail.com','$2b$10$HaShedPasswd0019','invitado'),(20,'','','','invitado8@mail.com','$2b$10$HaShedPasswd0020','invitado'),(21,'','','','test@gastrolab.eus','pbkdf2:sha256:600000$uG9vXzR8pL2m$0e8c1a9b2d3f4a5b6c7d8e9f0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t','alumno'),(22,'','','','agonzalez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(23,'','','','mmartinez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(24,'','','','lsanchez@GastroLab.eus','scrypt:32768:8:1$HQljfJifIucNR5Gx$85b36d57640dbbb98c13a042f0d0e1125651764558da60742faf5b7d3b7dfcf46528424d81b1e2c44d328e41055fe9e2573c768f408c72cf1224fb1ba6564639','profesor'),(25,'','','','Elena@gmail.es','scrypt:32768:8:1$yl7jpZyil1QpLIr0$e537251fa3560f3885f54655ac05d361ce2c7bcdc46b8e37c572dfeb73fe313f8e4661cd10246b7e18c1e41bec084be14f3ed20106e114b903a510ae93c246d4','invitado');
+INSERT INTO `usuarios` VALUES (1,'Ana','García','Fernández','agarcia@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(2,'Carlos','López','Mendoza','clopez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(3,'Iker','Etxebarria','Saez','ietxebarria@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(4,'Amaia','Zubieta','Garate','azubieta@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(5,'Mikel','Arrizabalaga','Uribe','marrizabalaga@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(6,'Leire','Goikoetxea','Pardo','lgoikoetxea@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(7,'Unai','Arostegi','Aguirre','uarostegi@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(8,'Nerea','Iture','Eguren','niture@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(9,'Jon','Lazkano','Olabe','jlazkano@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(10,'Ane','Olalde','Berasategi','aolalde@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(11,'Eneko','Urrutia','Zabala','eurrutia@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(12,'Miren','Larrea','Txabarri','mlarrea@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','alumno'),(13,'invitado','invitado','invitado','invitado1@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(14,'invitado','invitado','invitado','invitado2@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(15,'invitado','invitado','invitado','invitado3@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(16,'invitado','invitado','invitado','invitado4@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(17,'invitado','invitado','invitado','invitado5@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(18,'invitado','invitado','invitado','invitado6@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(19,'invitado','invitado','invitado','invitado7@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(20,'invitado','invitado','invitado','invitado8@mail.com','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','invitado'),(21,'Amaia','González','Elorza','agonzalez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(22,'Mikel','Martínez','Iturri','mmartinez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor'),(23,'Leire','Sánchez','Zabala','lsanchez@GastroLab.eus','cf39a5b6b9131f3615b4505f6c78cf37109f2e330ad1d457061cdfe873ca368a','profesor');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trigger_usuario_before_insert` BEFORE INSERT ON `usuarios` FOR EACH ROW begin
+	if char_length(new.contraseña) < 8 or char_length(new.contraseña) > 64 then
+		signal sqlstate '45000'
+        set message_text = "La contraseña debe tener entre 8 y 64 caracteres";
+	end if;
+    
+	if new.correo is null then
+		call generar_correo(new.nombre, new.apellido1, "GastroLab.eus", @correo_creado);
+		set new.correo = @correo_creado;
+	elseif new.tipo_usuario = 'invitado' then
+		set new.nombre = 'invitado';
+        set new.apellido1 = 'invitado';
+        set new.apellido2 = 'invitado';
+    end if;
+    if new.tipo_usuario != 'invitado' then
+		set new.contraseña = SHA2(new.contraseña, 256);
+	end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trigger_usuario_after_insert` AFTER INSERT ON `usuarios` FOR EACH ROW begin
+	if new.tipo_usuario = 'alumno' then
+		call crear_alumno(new.correo, new.id_usuario);
+	elseif new.tipo_usuario = 'profesor' then
+		call crear_profesor(null, new.correo, new.id_usuario);
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trigger_usuarios_before_update` BEFORE UPDATE ON `usuarios` FOR EACH ROW begin
+	if char_length(new.contraseña) < 8 or char_length(new.contraseña) > 64 then
+		signal sqlstate '45000'
+        set message_text = "La contraseña debe tener entre 8 y 64 caracteres";
+	end if;
+    
+    set new.contraseña = SHA2(new.contraseña, 256);
+    
+    if new.tipo_usuario = 'invitado' then
+		set new.nombre = 'invitado';
+        set new.apellido1 = 'invitado';
+        set new.apellido2 = 'invitado';
+    end if;
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Temporary view structure for view `vista_cursos_asignaturas`
@@ -582,28 +690,127 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `vista_lectura_recetas_ingredientes_likes`
+-- Temporary view structure for view `vista_lectura_recetas_ingredientes`
 --
 
-DROP TABLE IF EXISTS `vista_lectura_recetas_ingredientes_likes`;
-/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes_likes`*/;
+DROP TABLE IF EXISTS `vista_lectura_recetas_ingredientes`;
+/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes`*/;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vista_lectura_recetas_ingredientes_likes` AS SELECT 
+/*!50001 CREATE VIEW `vista_lectura_recetas_ingredientes` AS SELECT 
  1 AS `id_receta`,
  1 AS `nombre_receta`,
- 1 AS `cantidad_de_ingredientes_por_receta`,
  1 AS `dificultad`,
  1 AS `tiempo`,
  1 AS `nombre_ingrediente`,
  1 AS `cantidad_de_cada_ingrediente`,
  1 AS `unidad_medida`,
  1 AS `instrucciones`,
- 1 AS `cantidad_likes`,
  1 AS `url_imagen_video`,
  1 AS `tipo_alergeno`,
  1 AS `icono_alergeno`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping events for database 'reto5_musarana_elefante'
+--
+
+--
+-- Dumping routines for database 'reto5_musarana_elefante'
+--
+/*!50003 DROP FUNCTION IF EXISTS `eliminar_acentos` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `eliminar_acentos`(texto varchar(255)) RETURNS varchar(255) CHARSET utf8mb4
+    DETERMINISTIC
+begin
+	declare resultado varchar(255);
+    set resultado = lower(texto);
+    set resultado = replace(resultado, "á", "a");
+    set resultado = replace(resultado, "é", "e");
+    set resultado = replace(resultado, "í", "i");
+    set resultado = replace(resultado, "ó", "o");
+    set resultado = replace(resultado, "ú", "u");
+    
+    return resultado;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `crear_alumno` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_alumno`(in correo_alumno varchar(255), in id_de_usuario int)
+begin
+	insert into alumnos (correo, id_usuario, fecha_ingreso)
+    values(correo_alumno, id_de_usuario, NOW());
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `crear_profesor` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `crear_profesor`(in especialidad_profesor varchar(255), in correo_profesor varchar(255), id_de_usuario int)
+begin
+	insert into profesores (especialidad, correo, id_usuario)
+    values(especialidad_profesor, correo_profesor, id_de_usuario);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `generar_correo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generar_correo`(
+in p_nombre varchar(255),
+in p_apellido1 varchar(255),
+in p_dominio varchar(255),
+out p_correo varchar(255))
+begin
+	set p_nombre = eliminar_acentos(p_nombre);
+    set p_apellido1 = eliminar_acentos(p_apellido1);
+    set p_correo = concat(lower(concat(left(p_nombre, 1), p_apellido1)), "@", p_dominio);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `vista_cursos_asignaturas`
@@ -642,10 +849,10 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `vista_lectura_recetas_ingredientes_likes`
+-- Final view structure for view `vista_lectura_recetas_ingredientes`
 --
 
-/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes_likes`*/;
+/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -654,7 +861,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_lectura_recetas_ingredientes_likes` AS select `r`.`id_receta` AS `id_receta`,`r`.`nombre` AS `nombre_receta`,`ri`.`cantidad` AS `cantidad_de_ingredientes_por_receta`,`r`.`dificultad` AS `dificultad`,`r`.`tiempo` AS `tiempo`,`i`.`nombre` AS `nombre_ingrediente`,`i`.`cantidad` AS `cantidad_de_cada_ingrediente`,`i`.`unidad_medida` AS `unidad_medida`,`r`.`instrucciones` AS `instrucciones`,`r`.`votos` AS `cantidad_likes`,`r`.`url_archivo` AS `url_imagen_video`,`a`.`tipo` AS `tipo_alergeno`,`a`.`enlace_img` AS `icono_alergeno` from (((`recetas` `r` left join `receta_ingredientes` `ri` on((`r`.`id_receta` = `ri`.`id_receta`))) left join `ingredientes` `i` on((`ri`.`id_ingrediente` = `i`.`id_ingredientes`))) left join `alergenos` `a` on((`i`.`id_alergeno` = `a`.`id_alergeno`))) */;
+/*!50001 VIEW `vista_lectura_recetas_ingredientes` AS select `r`.`id_receta` AS `id_receta`,`r`.`nombre` AS `nombre_receta`,`r`.`dificultad` AS `dificultad`,`r`.`tiempo` AS `tiempo`,`i`.`nombre` AS `nombre_ingrediente`,`ri`.`cantidad` AS `cantidad_de_cada_ingrediente`,`ri`.`unidad_medida` AS `unidad_medida`,`r`.`instrucciones` AS `instrucciones`,`r`.`url_archivo` AS `url_imagen_video`,`a`.`tipo` AS `tipo_alergeno`,`a`.`enlace_img` AS `icono_alergeno` from (((`recetas` `r` left join `receta_ingredientes` `ri` on((`r`.`id_receta` = `ri`.`id_receta`))) left join `ingredientes` `i` on((`ri`.`id_ingrediente` = `i`.`id_ingredientes`))) left join `alergenos` `a` on((`i`.`id_alergeno` = `a`.`id_alergeno`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -668,4 +875,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-05  9:25:22
+-- Dump completed on 2026-05-07 13:55:58

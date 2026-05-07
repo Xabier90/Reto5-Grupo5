@@ -1,14 +1,28 @@
+# app.py realizado por Ibai y Xabier Iglesias
 from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 import db_helper
-from werkzeug.security import generate_password_hash, check_password_hash # La herramienta para cifrar y comprobar si hay coincidencia
+import hashlib # La herramienta para cifrar y comprobar si hay coincidencia
 
 app = Flask(__name__)
 app.secret_key = "ABCD"
 
-@app.route("/")
-def home():
-    return "Hello, Flask + uv is working!"
+@app.route("/Pagina_principal")
+def Pagina_principal():
+
+    conexion, cursor = db_helper.get_db()
+
+    SQL = f"""
+        SELECT * FROM vista_cursos_asignaturas;
+    """
+
+    cursor.execute(SQL)
+    cursos = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+
+    return render_template("Pagina_Principal.html", cursos=cursos)
 
 @app.route("/registro", methods = ['GET','POST'])
 def registro():
@@ -17,7 +31,7 @@ def registro():
         correo_usuario = request.form.get("email_address")
         contraseña = request.form.get("password")
 
-        contraseña_segura = generate_password_hash(contraseña)
+        contraseña_segura = hashlib.sha256(contraseña.encode()).hexdigest()
 
         conexion, cursor = db_helper.get_db()
 
@@ -61,7 +75,7 @@ def login():
         usuario = cursor.fetchone() # Recoge el resultado de la consulta SQL que hemos hecho y nos da la primera coincidencia (En este caso no va a haber correos repetidos por lo que nos sirve)
         print(f"VALOR DE USUARIO: {usuario}")
 
-        if usuario is not None and check_password_hash(usuario["contraseña"], contraseña_normal):
+        if usuario is not None and hashlib.sha256(contraseña_normal.encode()).hexdigest() == usuario["contraseña"]:
             session["id_usuario"] = usuario["id_usuario"]
             session["tipo_usuario"] = usuario["tipo_usuario"] # Nos sirve para saber que la persona que esta accediendo es o profesor o alumno o invitado(el Rol del usuario)
             session["correo"] = usuario["correo"] # Para guardar el correo
@@ -79,12 +93,96 @@ def login():
 
 @app.route("/la-comanda") # Esta es la URL que se verá en el navegador
 def La_Comanda(): 
-    usuario = session.get("id_usuario")
-    if usuario:      # <--- Este es el nombre que busca url_for
-        return render_template("La_Comanda.html")
-    else:
-        return redirect(url_for("login"))
+    id_usuario = session.get("id_usuario")
+    
+    if id_usuario is None:
+        return redirect("/login")
+    conexion, cursor = db_helper.get_db()
+    
+    # Cargar recetas con informacion de la base de datos si el usuario ya ha votado
+    # No conseguia que funcionara la select y le he pedido ayuda a la IA, el problema era que estaba intentando 
+    # hacer todo en una consulta y se volvia loco, me dijo que lo separara en 2.
+    # cursor.execute("""
+    #     SELECT r.id_receta, r.nombre, r.url_archivo, l.votos,
+    #            IF(v.id_usuario IS NOT NULL, 1, 0) AS ya_voto
+    #     FROM recetas r
+    #     LEFT JOIN likes_recetas v ON r.id_receta = v.id_receta
+    #     LEFT JOIN likes l ON r.id_receta = l.id_receta AND v.id_usuario = %s
+    #     GROUP BY r.id_receta
+    #     ORDER BY l.votos DESC
+    # """, (id_usuario,))
 
+    cursor.execute("""
+        SELECT r.id_receta, r.nombre, r.url_archivo, l.votos
+        FROM recetas r
+        LEFT JOIN likes l ON r.id_receta = l.id_receta
+        ORDER BY l.votos DESC
+    """)
+    recetas = cursor.fetchall()
+
+    # Consulta 2: obtener qué recetas ha votado el usuario
+    cursor.execute("""
+        SELECT id_receta FROM likes_recetas WHERE id_usuario = %s
+    """, (id_usuario,))
+    votos_usuario = [row["id_receta"] for row in cursor.fetchall()]
+    
+    for receta in recetas:
+        receta["ya_voto"] = receta["id_receta"] in votos_usuario
+        if receta["votos"] is None:
+            receta["votos"] = 0
+    cursor.close()
+    conexion.close()
+    return render_template("La_Comanda.html", recetas=recetas)
+
+    
+
+@app.route("/votar", methods=["POST"])
+def votar():
+    id_usuario = session.get("id_usuario")
+    if id_usuario is None:       
+        return redirect("/login")
+    
+    id_receta = request.form.get("id_receta")
+
+    conexion, cursor = db_helper.get_db()
+    # Comprobar si ya ha votado
+    cursor.execute(
+        "SELECT 1 FROM likes_recetas WHERE id_usuario=%s AND id_receta=%s",
+        (id_usuario, id_receta)
+    )
+    ya_voto = cursor.fetchone()
+
+    if ya_voto:
+        # Quitar voto
+        cursor.execute(
+            "DELETE FROM likes_recetas WHERE id_usuario=%s AND id_receta=%s",
+            (id_usuario, id_receta)
+        )
+        cursor.execute(
+            "UPDATE likes SET votos = votos - 1 WHERE id_receta=%s",
+            (id_receta,)
+        )
+
+    else:
+        # Añadir voto
+        cursor.execute(
+            "INSERT INTO likes_recetas (id_usuario, id_receta, fecha_like) VALUES (%s, %s, NOW())",
+            (id_usuario, id_receta)
+        )
+        cursor.execute(
+            "UPDATE likes SET votos = votos + 1 WHERE id_receta=%s",
+            (id_receta,)
+        )
+
+        # Obtener votos actualizados
+        cursor.execute("SELECT votos FROM likes WHERE id_receta=%s", (id_receta,))
+        nuevos_votos = cursor.fetchone()["votos"]
+    
+    cursor.close()
+    conexion.close()
+
+    return redirect("/la-comanda")
+    
 
 @app.route("/Pagina_principal")
 def Pagina_Principal():
@@ -271,6 +369,10 @@ def eliminar_receta_por_nombre(nombre):
 
     return redirect(url_for("La_Comanda"))
 
+
+@app.route("/who_we_are")
+def who_we_are():
+    return render_template("Who_we_are.html")
 
 
 @app.route("/logout")

@@ -1,3 +1,4 @@
+<!-- La_Comanda.html realizado por Xabier Iglesias -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
                     <img src="../static/Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
                     <div class="menu-desplegable">
                         <a href="{{url_for('Pagina_Principal')}}">Página Principal</a>
-                        <a href="#">Quiénes Somos</a>
+                        <a href="{{url_for('who_we_are')}}">Quiénes Somos</a>
                         <a href="#">Plan de Digitalización</a>
                         <a href="#">Plan de Sostenibilidad</a>
                     </div>
@@ -63,55 +64,37 @@
     <!-- Lista Top 10 -->
     <div class="top-10">
         <h3>🏆 Top 10 Recetas de la Semana</h3>
-        <p>1. Paella | 2. Tortilla | 3. Gazpacho... </p>
+        <p> {% for r in recetas[:10] %}
+            {{ loop.index }}. {{ r.nombre }}{% if not loop.last %} | {% endif %}
+            {% endfor %}
+        </p>
     </div>
 
     <!-- Contenedor de celdas que contienen las recetas -->
     <div class="galeria">
-
-        <!-- Receta 1 -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Lasaña Clásica</h3>
-            <img src="../static/Imagenes/lasaña.jpg" alt="Lasaña">
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>45</span>
+        {% for receta in recetas %}
+        <!-- Bucle recetas -->
+            <div class="receta-bloque">
+                <h3 class="nombre-plato">{{ receta.nombre }}</h3>
+                    {% if receta.url_archivo and receta.url_archivo.endswith('.mp4') %}
+                        <video controls>
+                            <source src="{{ receta.url_archivo }}" type="video/mp4">
+                        </video>
+                    {% elif receta.url_archivo %}
+                        <img src="{{ receta.url_archivo }}" alt="{{ receta.nombre }}">
+                    {% endif %}
+                <div class="interaccion">
+                    <form action="/votar" method="POST">
+                        <input type="hidden" name="id_receta" value="{{ receta.id_receta }}">
+                        <button type="submit" class="emoji-like">
+                            {% if receta.ya_voto %}😍{% else %}😋{% endif %}
+                        </button>
+                    </form>
+                    <span>{{ receta.votos }}</span>
+                </div>
+                <a href="{{receta.url_archivo}}" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
             </div>
-            <!-- ENLACE A OTRA PÁGINA -->
-            <a href="receta_lasana.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
-        <!-- Receta 2 -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Vídeo: Tarta Queso</h3>
-            <video controls>
-                <source src="../static/Videos/tarta.mp4" type="video/mp4">
-            </video>
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>82</span>
-            </div>
-            <a href="receta_tarta.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
-        <!-- Receta 3 -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Ensalada César</h3>
-            <img src="../static/Imagenes/ensalada.jpg" alt="Ensalada">
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>12</span>
-            </div>
-            <a href="receta_ensalada.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
-        <!-- Receta 4 (Bajará sola porque he repartido en 3 partes) -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">Arroz a Banda</h3>
-            <img src="../static/Imagenes/arroz.jpg" alt="Arroz">
-            <div class="interaccion">
-                <button class="emoji-like">😋</button> <span>30</span>
-            </div>
-            <a href="receta_arroz.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
-
+        {% endfor %}
     </div>
 </body>
 

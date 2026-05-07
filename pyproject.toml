@@ -1,4 +1,7 @@
-[project]
+[tool.pytest.ini_options]
+testpaths = ["proyecto/tests"]
+pythonpath = ["proyecto"]
+
 name = "reto5"
 version = "0.1.0"
 description = "Add your description here"
@@ -7,5 +10,6 @@ requires-python = ">=3.13"
 dependencies = [
     "flask>=3.1.3",
     "mysql-connector-python>=8.0",
-    "werkzeug>=3.0.0"
+    "werkzeug>=3.0.0",
+    "python-dotenv>=1.0.0"
 ]
