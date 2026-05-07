@@ -347,6 +347,32 @@ INSERT INTO `ingredientes` VALUES (1,'Tomate cherry',5,15),(2,'Cebolla',8,15),(3
 UNLOCK TABLES;
 
 --
+-- Table structure for table `likes`
+--
+
+DROP TABLE IF EXISTS `likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `likes` (
+  `id_receta` int NOT NULL,
+  `votos` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_receta`),
+  KEY `Likes_likes_receta_idx` (`id_receta`),
+  CONSTRAINT `Likes_likes_receta` FOREIGN KEY (`id_receta`) REFERENCES `likes_recetas` (`id_receta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `likes`
+--
+
+LOCK TABLES `likes` WRITE;
+/*!40000 ALTER TABLE `likes` DISABLE KEYS */;
+INSERT INTO `likes` VALUES (1,12),(2,5),(3,23),(4,0),(5,18),(6,7),(7,21),(8,3),(9,0),(10,9),(11,22),(12,1),(13,14),(14,20),(15,6);
+/*!40000 ALTER TABLE `likes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `likes_recetas`
 --
 
@@ -371,6 +397,7 @@ CREATE TABLE `likes_recetas` (
 
 LOCK TABLES `likes_recetas` WRITE;
 /*!40000 ALTER TABLE `likes_recetas` DISABLE KEYS */;
+INSERT INTO `likes_recetas` VALUES (1,1,'2024-01-05 00:00:00'),(1,3,'2024-03-01 00:00:00'),(1,5,'2024-02-15 00:00:00'),(2,1,'2024-01-06 00:00:00'),(2,3,'2024-03-01 00:00:00'),(2,5,'2024-02-16 00:00:00'),(3,1,'2024-01-10 00:00:00'),(3,3,'2024-03-02 00:00:00'),(3,5,'2024-02-17 00:00:00'),(4,1,'2024-01-12 00:00:00'),(4,3,'2024-03-02 00:00:00'),(4,6,'2024-02-18 00:00:00'),(5,1,'2024-01-15 00:00:00'),(5,3,'2024-03-03 00:00:00'),(5,7,'2024-02-19 00:00:00'),(6,1,'2024-01-20 00:00:00'),(6,3,'2024-03-03 00:00:00'),(6,8,'2024-02-20 00:00:00'),(7,1,'2024-02-01 00:00:00'),(7,3,'2024-03-04 00:00:00'),(7,9,'2024-02-21 00:00:00'),(8,1,'2024-02-03 00:00:00'),(8,3,'2024-03-04 00:00:00'),(8,10,'2024-02-22 00:00:00'),(9,1,'2024-02-05 00:00:00'),(9,3,'2024-03-05 00:00:00'),(9,11,'2024-04-01 00:00:00'),(10,1,'2024-02-10 00:00:00'),(10,3,'2024-03-05 00:00:00'),(10,12,'2024-04-02 00:00:00'),(11,1,'2024-02-12 00:00:00'),(11,3,'2024-03-06 00:00:00'),(11,13,'2024-04-03 00:00:00'),(12,1,'2024-02-14 00:00:00'),(12,3,'2024-03-06 00:00:00'),(12,14,'2024-04-04 00:00:00'),(13,2,'2024-01-20 00:00:00'),(13,3,'2024-03-07 00:00:00'),(13,15,'2024-04-05 00:00:00'),(14,2,'2024-01-21 00:00:00'),(14,3,'2024-03-07 00:00:00'),(15,2,'2024-01-22 00:00:00'),(15,3,'2024-03-08 00:00:00'),(16,2,'2024-01-25 00:00:00'),(16,3,'2024-03-08 00:00:00'),(17,2,'2024-01-28 00:00:00'),(17,3,'2024-03-09 00:00:00'),(18,3,'2024-03-09 00:00:00'),(19,3,'2024-03-10 00:00:00'),(20,3,'2024-03-10 00:00:00'),(21,3,'2024-03-11 00:00:00'),(22,3,'2024-03-11 00:00:00'),(23,3,'2024-03-12 00:00:00');
 /*!40000 ALTER TABLE `likes_recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -501,7 +528,6 @@ CREATE TABLE `recetas` (
   `dificultad` varchar(255) NOT NULL,
   `tiempo` int NOT NULL,
   `instrucciones` varchar(255) NOT NULL,
-  `votos` int DEFAULT '0',
   `id_usuario` int NOT NULL,
   `url_archivo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_receta`),
@@ -516,7 +542,7 @@ CREATE TABLE `recetas` (
 
 LOCK TABLES `recetas` WRITE;
 /*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (1,'Porrusalda','Fácil',40,'Pochar puerro y zanahoria en aceite; añadir patata y caldo; cocer 30 min y salpimentar.',12,1,'https://www.hola.com/horizon/landscape/c3e91d484c61-crema-porru-age-t.jpg?im=Resize=(360),type=downsize'),(2,'Bacalao al pil-pil','Difícil',60,'Confitar bacalao con ajo a 60 grados; ligar gelatina moviendo la cazuela en circulos hasta emulsionar.',20,1,'https://www.infobae.com/resizer/v2/AXSZC3HFXBB5XGWVFKTY4C3SXM.jpeg?auth=c6c745624537eeb469441453f7279d829ebe5251b0dc4bb8239b10ff9ca4244f&smart=true&width=1200&height=1200&quality=85'),(3,'Tortilla de patata','Media',35,'Freir patata y cebolla; escurrir; mezclar con huevo batido y cuajar por ambos lados.',18,2,'https://www.coren.es/wp-content/uploads/2017/07/Tortilla-.jpeg'),(4,'Alubias rojas de Tolosa','Media',120,'Remojar 12 horas; cocer a fuego lento con txistorra y chorizo; añadir sal al final.',15,2,'https://www.hola.com/horizon/landscape/ff03066a0899-holatolosaportadas-t.jpg'),(5,'Revuelto de gambas y espinacas','Media',20,'Saltear gambas con ajo; añadir espinacas y huevo batido; remover hasta cuajar ligeramente.',10,3,'https://www.instagram.com/reel/DU8zbwyiC6_/'),(6,'Merluza en salsa verde','Media',30,'Dorar ajo; añadir harina; mojar con caldo de pescado y perejil; incorporar merluza y cocer 8 min.',14,4,'https://bigcrafters.com/cdn/shop/articles/merluza-en-salsa-verde-receta-de-la-abuela_a790cf27-8d28-4bf1-9742-ef63a8a792bd.webp?v=1773761893'),(7,'Gazpacho andaluz','Fácil',15,'Triturar tomate, pimiento, ajo, pan, aceite y vinagre; colar; salpimentar y enfriar 2 horas.',8,5,'https://static.bainet.es/clip/8cd6db25-3535-4baa-83cd-f90303765c5b_source-aspect-ratio_1600w_0.jpg'),(8,'Crema de zanahoria y jengibre','Fácil',35,'Pochar cebolla y zanahoria; añadir jengibre y caldo; cocer 20 min; triturar y montar con nata.',9,6,'https://okdiario.com/img/2019/10/04/crema-de-zanahoria-jengibre-y-queso-crema.jpg'),(9,'Pintxo de anchoa e Idiazabal','Fácil',10,'Tostar pan; colocar loncha de Idiazabal y anchoa encima; servir a temperatura ambiente.',11,7,'https://calidadgourmet.com/wp-content/uploads/2015/04/Tosta-de-anchoas-de-Santo%C3%B1a-con-queso-Idiazabal.png'),(10,'Tarta de queso al horno','Media',70,'Batir queso crema, huevos, nata y azucar; volcar en molde y hornear a 200 grados 50 min.',17,8,'https://imag.bonviveur.com/desmoldar-con-cuidado.jpg'),(11,'Pan de avellanas','Media',90,'Mezclar harina de fuerza, levadura, agua y sal; incorporar avellanas; fermentar 1 hora y hornear.',7,9,'https://www.tiktok.com/@josebaarguinano/video/7574424946873617696?is_from_webapp=1&sender_device=pc'),(12,'Berberechos al vapor','Fácil',10,'Cocer berberechos tapados con vino blanco y perejil hasta que abran; desechar los cerrados.',13,10,'https://recetasdecocina.elmundo.es/wp-content/uploads/2022/04/berberechos-al-vapor-1.jpg'),(13,'Croquetas de bacalao','Media',50,'Preparar bechamel espesa con mantequilla y harina; añadir bacalao; enfriar; empanar y freir.',16,11,'https://img.saboresdehoy.com/receta/715/croquetas-cremosas-de-bacalao.jpg'),(14,'Ensalada de tomate y albahaca','Fácil',10,'Cortar tomate cherry por la mitad; aliñar con aceite de oliva, sal y hojas de albahaca fresca.',6,12,'https://s1.abcstatics.com/abc/sevilla/media/gurmesevilla/2010/03/1256_ensaladatomatemozarellaalbahaca_1268558108.jpg'),(15,'Natillas caseras','Fácil',30,'Calentar leche con canela; batir yemas con azucar; mezclar y cocer sin hervir hasta espesar.',10,3,'https://imag.bonviveur.com/natillas.jpg');
+INSERT INTO `recetas` VALUES (1,'Porrusalda','Fácil',40,'Pochar puerro y zanahoria en aceite; añadir patata y caldo; cocer 30 min y salpimentar.',1,'https://www.hola.com/horizon/landscape/c3e91d484c61-crema-porru-age-t.jpg?im=Resize=(360),type=downsize'),(2,'Bacalao al pil-pil','Difícil',60,'Confitar bacalao con ajo a 60 grados; ligar gelatina moviendo la cazuela en circulos hasta emulsionar.',1,'https://www.infobae.com/resizer/v2/AXSZC3HFXBB5XGWVFKTY4C3SXM.jpeg?auth=c6c745624537eeb469441453f7279d829ebe5251b0dc4bb8239b10ff9ca4244f&smart=true&width=1200&height=1200&quality=85'),(3,'Tortilla de patata','Media',35,'Freir patata y cebolla; escurrir; mezclar con huevo batido y cuajar por ambos lados.',2,'https://www.coren.es/wp-content/uploads/2017/07/Tortilla-.jpeg'),(4,'Alubias rojas de Tolosa','Media',120,'Remojar 12 horas; cocer a fuego lento con txistorra y chorizo; añadir sal al final.',2,'https://www.hola.com/horizon/landscape/ff03066a0899-holatolosaportadas-t.jpg'),(5,'Revuelto de gambas y espinacas','Media',20,'Saltear gambas con ajo; añadir espinacas y huevo batido; remover hasta cuajar ligeramente.',3,'https://www.instagram.com/reel/DU8zbwyiC6_/'),(6,'Merluza en salsa verde','Media',30,'Dorar ajo; añadir harina; mojar con caldo de pescado y perejil; incorporar merluza y cocer 8 min.',4,'https://bigcrafters.com/cdn/shop/articles/merluza-en-salsa-verde-receta-de-la-abuela_a790cf27-8d28-4bf1-9742-ef63a8a792bd.webp?v=1773761893'),(7,'Gazpacho andaluz','Fácil',15,'Triturar tomate, pimiento, ajo, pan, aceite y vinagre; colar; salpimentar y enfriar 2 horas.',5,'https://static.bainet.es/clip/8cd6db25-3535-4baa-83cd-f90303765c5b_source-aspect-ratio_1600w_0.jpg'),(8,'Crema de zanahoria y jengibre','Fácil',35,'Pochar cebolla y zanahoria; añadir jengibre y caldo; cocer 20 min; triturar y montar con nata.',6,'https://okdiario.com/img/2019/10/04/crema-de-zanahoria-jengibre-y-queso-crema.jpg'),(9,'Pintxo de anchoa e Idiazabal','Fácil',10,'Tostar pan; colocar loncha de Idiazabal y anchoa encima; servir a temperatura ambiente.',7,'https://calidadgourmet.com/wp-content/uploads/2015/04/Tosta-de-anchoas-de-Santo%C3%B1a-con-queso-Idiazabal.png'),(10,'Tarta de queso al horno','Media',70,'Batir queso crema, huevos, nata y azucar; volcar en molde y hornear a 200 grados 50 min.',8,'https://imag.bonviveur.com/desmoldar-con-cuidado.jpg'),(11,'Pan de avellanas','Media',90,'Mezclar harina de fuerza, levadura, agua y sal; incorporar avellanas; fermentar 1 hora y hornear.',9,'https://www.tiktok.com/@josebaarguinano/video/7574424946873617696?is_from_webapp=1&sender_device=pc'),(12,'Berberechos al vapor','Fácil',10,'Cocer berberechos tapados con vino blanco y perejil hasta que abran; desechar los cerrados.',10,'https://recetasdecocina.elmundo.es/wp-content/uploads/2022/04/berberechos-al-vapor-1.jpg'),(13,'Croquetas de bacalao','Media',50,'Preparar bechamel espesa con mantequilla y harina; añadir bacalao; enfriar; empanar y freir.',11,'https://img.saboresdehoy.com/receta/715/croquetas-cremosas-de-bacalao.jpg'),(14,'Ensalada de tomate y albahaca','Fácil',10,'Cortar tomate cherry por la mitad; aliñar con aceite de oliva, sal y hojas de albahaca fresca.',12,'https://s1.abcstatics.com/abc/sevilla/media/gurmesevilla/2010/03/1256_ensaladatomatemozarellaalbahaca_1268558108.jpg'),(15,'Natillas caseras','Fácil',30,'Calentar leche con canela; batir yemas con azucar; mezclar y cocer sin hervir hasta espesar.',3,'https://imag.bonviveur.com/natillas.jpg');
 /*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -664,14 +690,14 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `vista_lectura_recetas_ingredientes_likes`
+-- Temporary view structure for view `vista_lectura_recetas_ingredientes`
 --
 
-DROP TABLE IF EXISTS `vista_lectura_recetas_ingredientes_likes`;
-/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes_likes`*/;
+DROP TABLE IF EXISTS `vista_lectura_recetas_ingredientes`;
+/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes`*/;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `vista_lectura_recetas_ingredientes_likes` AS SELECT 
+/*!50001 CREATE VIEW `vista_lectura_recetas_ingredientes` AS SELECT 
  1 AS `id_receta`,
  1 AS `nombre_receta`,
  1 AS `dificultad`,
@@ -680,7 +706,6 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `cantidad_de_cada_ingrediente`,
  1 AS `unidad_medida`,
  1 AS `instrucciones`,
- 1 AS `cantidad_likes`,
  1 AS `url_imagen_video`,
  1 AS `tipo_alergeno`,
  1 AS `icono_alergeno`*/;
@@ -824,10 +849,10 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `vista_lectura_recetas_ingredientes_likes`
+-- Final view structure for view `vista_lectura_recetas_ingredientes`
 --
 
-/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes_likes`*/;
+/*!50001 DROP VIEW IF EXISTS `vista_lectura_recetas_ingredientes`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -836,7 +861,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_lectura_recetas_ingredientes_likes` AS select `r`.`id_receta` AS `id_receta`,`r`.`nombre` AS `nombre_receta`,`r`.`dificultad` AS `dificultad`,`r`.`tiempo` AS `tiempo`,`i`.`nombre` AS `nombre_ingrediente`,`ri`.`cantidad` AS `cantidad_de_cada_ingrediente`,`ri`.`unidad_medida` AS `unidad_medida`,`r`.`instrucciones` AS `instrucciones`,`r`.`votos` AS `cantidad_likes`,`r`.`url_archivo` AS `url_imagen_video`,`a`.`tipo` AS `tipo_alergeno`,`a`.`enlace_img` AS `icono_alergeno` from (((`recetas` `r` left join `receta_ingredientes` `ri` on((`r`.`id_receta` = `ri`.`id_receta`))) left join `ingredientes` `i` on((`ri`.`id_ingrediente` = `i`.`id_ingredientes`))) left join `alergenos` `a` on((`i`.`id_alergeno` = `a`.`id_alergeno`))) */;
+/*!50001 VIEW `vista_lectura_recetas_ingredientes` AS select `r`.`id_receta` AS `id_receta`,`r`.`nombre` AS `nombre_receta`,`r`.`dificultad` AS `dificultad`,`r`.`tiempo` AS `tiempo`,`i`.`nombre` AS `nombre_ingrediente`,`ri`.`cantidad` AS `cantidad_de_cada_ingrediente`,`ri`.`unidad_medida` AS `unidad_medida`,`r`.`instrucciones` AS `instrucciones`,`r`.`url_archivo` AS `url_imagen_video`,`a`.`tipo` AS `tipo_alergeno`,`a`.`enlace_img` AS `icono_alergeno` from (((`recetas` `r` left join `receta_ingredientes` `ri` on((`r`.`id_receta` = `ri`.`id_receta`))) left join `ingredientes` `i` on((`ri`.`id_ingrediente` = `i`.`id_ingredientes`))) left join `alergenos` `a` on((`i`.`id_alergeno` = `a`.`id_alergeno`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -850,4 +875,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-07 10:22:35
+-- Dump completed on 2026-05-07 12:42:30

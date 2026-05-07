@@ -71,24 +71,27 @@
     <!-- Contenedor de celdas que contienen las recetas -->
     <div class="galeria">
         {% for receta in recetas %}
-        <!-- Receta 1 -->
-        <div class="receta-bloque">
-            <h3 class="nombre-plato">{{ receta.nombre }}</h3>
-            <!-- Para la imagen y video he necesitado ayuda de la IA porque no me visualizaba bien en el caso de los videos -->
-             <!-- Imagen o Video -->
-            {% if receta.url_archivo and receta.url_archivo.endswith('.mp4') %}
-                <video controls>
-                    <source src="{{ receta.url_archivo }}" type="video/mp4">
-                </video>
-            {% elif receta.url_archivo %}
-                <img src="{{ receta.url_archivo }}" alt="{{ receta.nombre }}">
-            {% endif %}
-            <div class="interaccion">
-                <button class="emoji-like">{% if receta.ya_vote %}😍{% else %}😋{% endif %}</button> <span>45</span>
+        <!-- Bucle recetas -->
+            <div class="receta-bloque">
+                <h3 class="nombre-plato">{{ receta.nombre }}</h3>
+                    {% if receta.url_archivo and receta.url_archivo.endswith('.mp4') %}
+                        <video controls>
+                            <source src="{{ receta.url_archivo }}" type="video/mp4">
+                        </video>
+                    {% elif receta.url_archivo %}
+                        <img src="{{ receta.url_archivo }}" alt="{{ receta.nombre }}">
+                    {% endif %}
+                <div class="interaccion">
+                    <form action="/votar" method="POST">
+                        <input type="hidden" name="id_receta" value="{{ receta.id_receta }}">
+                        <button type="submit" class="emoji-like">
+                            {% if receta.ya_voto %}😍{% else %}😋{% endif %}
+                        </button>
+                    </form>
+                    <span>{{ receta.votos }}</span>
+                </div>
+                <a href="receta_lasana.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
             </div>
-            <!-- ENLACE A OTRA PÁGINA -->
-            <a href="receta_lasana.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
-        </div>
         {% endfor %}
     </div>
 </body>

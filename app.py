@@ -94,6 +94,7 @@ def login():
 @app.route("/la-comanda") # Esta es la URL que se verá en el navegador
 def La_Comanda(): 
     id_usuario = session.get("id_usuario")
+    
     if id_usuario is None:
         return redirect("/login")
     conexion, cursor = db_helper.get_db()
@@ -101,7 +102,7 @@ def La_Comanda():
     # Cargar recetas con informacion de la base de datos si el usuario ya ha votado
     cursor.execute("""
         SELECT r.id_receta, r.nombre, r.url_archivo, r.votos,
-               IF(v.id_usuario IS NOT NULL, 1, 0) AS ya_vote
+               IF(v.id_usuario IS NOT NULL, 1, 0) AS ya_voto
         FROM recetas r
         LEFT JOIN likes_recetas v 
             ON r.id_receta = v.id_receta AND v.id_usuario = %s
@@ -120,6 +121,8 @@ def votar():
     id_usuario = session.get("id_usuario")
     if id_usuario is None:       
         return redirect("/login")
+    
+    id_receta = request.form.get("id_receta")
 
     conexion, cursor = db_helper.get_db()
     # Comprobar si ya ha votado
@@ -136,32 +139,30 @@ def votar():
             (id_usuario, id_receta)
         )
         cursor.execute(
-            "UPDATE recetas SET votos = votos - 1 WHERE id_receta=%s",
+            "UPDATE likes SET votos = votos - 1 WHERE id_receta=%s",
             (id_receta,)
         )
-        accion = "quitado"
 
     else:
         # Añadir voto
         cursor.execute(
-            "INSERT INTO likes_recetas (id_usuario, id_receta, fecha_receta) VALUES (%s, %s, NOW())",
+            "INSERT INTO likes_recetas (id_usuario, id_receta, fecha_like) VALUES (%s, %s, NOW())",
             (id_usuario, id_receta)
         )
         cursor.execute(
-            "UPDATE recetas SET votos = votos + 1 WHERE id_receta=%s",
+            "UPDATE likes SET votos = votos + 1 WHERE id_receta=%s",
             (id_receta,)
         )
-        accion = "añadido"
 
         # Obtener votos actualizados
         cursor.execute("SELECT votos FROM recetas WHERE id_receta=%s", (id_receta,))
         nuevos_votos = cursor.fetchone()["votos"]
-
-        return redirect("/La_Comanda")
     
         cursor.close()
         conexion.close()
 
+        return redirect("/La_Comanda")
+    
 
 @app.route("/Pagina_principal")
 def Pagina_Principal():
