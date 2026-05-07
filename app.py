@@ -113,12 +113,21 @@ def La_Comanda():
     # """, (id_usuario,))
 
     cursor.execute("""
-        SELECT r.id_receta, r.nombre, r.url_archivo, l.votos
+        SELECT r.id_receta, r.nombre, r.url_archivo, COALESCE(l.votos, 0) as votos
         FROM recetas r
         LEFT JOIN likes l ON r.id_receta = l.id_receta
-        ORDER BY l.votos DESC
+        ORDER BY r.id_receta DESC
     """)
-    recetas = cursor.fetchall()
+    recetas_galeria = cursor.fetchall()
+    # necesite ayuda con el coalesce
+    cursor.execute("""
+        SELECT nombre, COALESCE(l.votos, 0) as votos  
+        FROM recetas r
+        JOIN likes l ON r.id_receta = l.id_receta
+        ORDER BY l.votos DESC
+        LIMIT 10
+    """)
+    ranking_votos = cursor.fetchall()
 
     # Consulta 2: obtener qué recetas ha votado el usuario
     cursor.execute("""
@@ -126,16 +135,18 @@ def La_Comanda():
     """, (id_usuario,))
     votos_usuario = [row["id_receta"] for row in cursor.fetchall()]
     
-    for receta in recetas:
-        receta["ya_voto"] = receta["id_receta"] in votos_usuario
-        if receta["votos"] is None:
-            receta["votos"] = 0
+    for r in recetas_galeria:
+        r["ya_voto"] = r["id_receta"] in votos_usuario
+        if r["votos"] is None:
+            r["votos"] = 0
     cursor.close()
     conexion.close()
-    return render_template("La_Comanda.html", recetas=recetas)
+    return render_template("La_Comanda.html", recetas=recetas_galeria, ranking=ranking_votos)
 
     
-
+# He necesitado IA porque necesitaba el rowcount que no lo conocia para resolver
+#el problema de los votos que en la likes no inserta la información, que necesitamos para
+# que si eliminamos una receta y generamos una nueva la nueva no nos de erroras.
 @app.route("/votar", methods=["POST"])
 def votar():
     id_usuario = session.get("id_usuario")
@@ -145,7 +156,8 @@ def votar():
     id_receta = request.form.get("id_receta")
 
     conexion, cursor = db_helper.get_db()
-    # Comprobar si ya ha votado
+    
+    # 1. Comprobar si ya ha votado
     cursor.execute(
         "SELECT 1 FROM likes_recetas WHERE id_usuario=%s AND id_receta=%s",
         (id_usuario, id_receta)
@@ -162,21 +174,36 @@ def votar():
             "UPDATE likes SET votos = votos - 1 WHERE id_receta=%s",
             (id_receta,)
         )
-
     else:
         # Añadir voto
         cursor.execute(
             "INSERT INTO likes_recetas (id_usuario, id_receta, fecha_like) VALUES (%s, %s, NOW())",
             (id_usuario, id_receta)
         )
+        
+        # Intentamos actualizar el contador
         cursor.execute(
             "UPDATE likes SET votos = votos + 1 WHERE id_receta=%s",
             (id_receta,)
         )
 
-        # Obtener votos actualizados
-        cursor.execute("SELECT votos FROM likes WHERE id_receta=%s", (id_receta,))
-        nuevos_votos = cursor.fetchone()["votos"]
+        # SEGURIDAD: Si la fila no existía en 'likes', el UPDATE no hace nada (rowcount 0)
+        # En ese caso, la creamos con 1 voto.
+        if cursor.rowcount == 0:
+            cursor.execute(
+                "INSERT INTO likes (id_receta, votos) VALUES (%s, 1)",
+                (id_receta,)
+            )
+
+    # 2. Obtener votos actualizados DE FORMA SEGURA (Fuera del if/else)
+    cursor.execute("SELECT votos FROM likes WHERE id_receta=%s", (id_receta,))
+    resultado = cursor.fetchone()
+    
+    # Si por algún milagro 'resultado' sigue siendo None, evitamos el crash
+    nuevos_votos = resultado["votos"] if resultado else 0
+    
+    # Forzamos el guardado
+    conexion.commit()
     
     cursor.close()
     conexion.close()
@@ -300,6 +327,13 @@ def formulario_recetas():
                   instrucciones, id_usuario, request.form.get("url_archivo")))
             id_receta = cursor.lastrowid
 
+            conexion.commit()
+
+            cursor.execute("""
+                INSERT INTO likes (id_receta, votos) VALUES (%s, %s)
+            """, (id_receta, 0))
+
+            conexion.commit()
 
         cursor.close()
         conexion.close()
@@ -360,9 +394,31 @@ def eliminar_receta_por_nombre(nombre):
     conexion, cursor = db_helper.get_db()
 
     cursor.execute("""
-    DELETE FROM recetas
+    SELECT id_receta FROM recetas 
         WHERE nombre = %s
     """, (nombre,))
+
+    resultado = cursor.fetchone()
+
+    if resultado:
+
+        id_receta = resultado['id_receta']
+
+        cursor.execute("""
+        DELETE FROM likes_recetas 
+            WHERE id_receta = %s
+        """, (id_receta,))
+
+        cursor.execute("""
+        DELETE FROM likes 
+            WHERE id_receta = %s
+        """, (id_receta,))
+
+        cursor.execute("""
+        DELETE FROM recetas
+            WHERE nombre = %s
+        """, (id_receta,))
+
 
     cursor.close()
     conexion.close()
@@ -373,6 +429,12 @@ def eliminar_receta_por_nombre(nombre):
 @app.route("/who_we_are")
 def who_we_are():
     return render_template("Who_we_are.html")
+
+@app.route("/digitalizacion")
+def digi():
+    return render_template("Digitalizacion.html")
+
+
 
 
 @app.route("/logout")

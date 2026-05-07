@@ -16,7 +16,7 @@
                     <div class="menu-desplegable">
                         <a href="{{url_for('Pagina_Principal')}}">Página Principal</a>
                         <a href="{{url_for('who_we_are')}}">Quiénes Somos</a>
-                        <a href="#">Plan de Digitalización</a>
+                        <a href="{{url_for('digi')}}">Plan de Digitalización</a>
                         <a href="#">Plan de Sostenibilidad</a>
                     </div>
                 </div>
@@ -62,11 +62,11 @@
     </div>
 
     <!-- Lista Top 10 -->
-    <div class="top-10">
+    <div class="top-10">        
         <h3>🏆 Top 10 Recetas de la Semana</h3>
-        <p> {% for r in recetas[:10] %}
-            {{ loop.index }}. {{ r.nombre }}{% if not loop.last %} | {% endif %}
-            {% endfor %}
+        <!-- Tuve que ayudarme de la IA porque no conseguiaa ordenarlos -->
+        <p> {% for r in ranking %}  {{ loop.index }}. {{ r.nombre }} ({{ r.votos }} votos){% if not loop.last %} | {% endif %}
+        {% endfor %}
         </p>
     </div>
 
@@ -96,6 +96,11 @@
             </div>
         {% endfor %}
     </div>
+    <footer>
+        <a href="https://www.instagram.com/?variant=following" target="_blank">
+            <img src="../static/Imagenes/logotipo-instagram_1199-122.avif" alt="Instagram" style="width: 30px; vertical-align: middle;">
+        </a>
+    </footer>
 </body>
 
 <script>

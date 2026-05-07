@@ -349,8 +349,77 @@ main.estudia_cursos {
 .texto_cerrar_sesion{
     color: rgb(146, 184, 8);
     font-size: 17px;
+
 }
 
+/* Digitalización */
+.h1{
+    color: #4a6741;
+}
+.h2{
+   color: #b16a29; 
+} 
 
+.h3{
+    color: brown;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 2px solid  #b16a29;
+    padding: 20px;
+    
+}
+.texto_izq1{
+    margin-bottom: 20px;
+    margin-top: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+/* Contenedor */
+.texto_img {
+    width: 100%;
+    margin-bottom: 240px;
+    margin-top: 0px;
+    
+    
+}
+
+.texto_izq {
+    width: 20%;
+    float: left;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 30px;
+
+}
+.img_cent{
+    width: 20%;
+    float: left;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.texto_drch {
+    width: 55%;
+    float: right;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+        border-top: 1px solid #ccc;
+    }
 
 
