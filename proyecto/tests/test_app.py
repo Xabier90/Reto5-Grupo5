@@ -4,7 +4,7 @@
 # y cómo inyectamos "mágicamente" el fixture datos_suma.
 #from app import sumar, es_par
 
-from funciones_test import contrasena_es_valida, correo_es_valido, verificar_contrasena, nombre_receta_valido, usuario_es_root, usuario_puede_eliminar_receta, calcular_votos, formato_correo
+from src.funciones_test import contrasena_es_valida, correo_es_valido, verificar_contrasena, nombre_receta_valido, usuario_es_root, usuario_puede_eliminar_receta, calcular_votos, formato_correo
 from werkzeug.security import generate_password_hash
 
 # contrasena_es_valida 
