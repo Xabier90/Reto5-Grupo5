@@ -32,14 +32,29 @@ El archivo a ejecutar para iniciar el flask es `app.py`.
 
 ### Pasos a seguir
 Una vez que tienes todo el contenido del `main` y sus archivos sigue los siguientes pasos:
-1. En la carpeta debes crear un archivo llamado `.env` con el siguiente contenido:
+1. En la carpeta debes crear el entorno virtual de python, activarlo y instalar las dependencias:
+   
+   1. Crear el entorno virtual de python:
+      ```
+      python -m venv .venv
+      ```
+   2. activar el entorno virtual de python:
+      ```
+      .venv\Scripts\activate
+      ```
+   3. Instalar las dependencias:
+      ```
+      pip install flask mysql-connector-python werkzeug python-dotenv "transformers<5.0.0" torch sentencepiece
+      ```
+2. En la carpeta debes crear un archivo llamado `.env` con el siguiente contenido:
+ 
       ```
       HOST=localhost
       DATABASE=reto5_musarana_elefante
       DB_USER=usuario_La_Comanda
       DB_PASSWORD=GastroLab2026
       ```
-2. Si has colocado todo correctamente ejecuta el archivo `app.py` y abre en el navegador `127.0.0.1:5000/Pagina_principal`
+3. Si has colocado todo correctamente ejecuta el archivo `app.py` y abre en el navegador `127.0.0.1:5000/Pagina_principal`
 
 ## Autores
 
