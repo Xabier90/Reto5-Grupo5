@@ -1,4 +1,4 @@
-<!-- Pagina_Principal.html realizado por Ibai y Xabier Iglesias -->
+<!-- Digitalizacion.html realizado por Xabier Iglesias -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,8 +18,7 @@
                 <div class="menu-desplegable">
                     <a href="{{url_for('who_we_are')}}">Quiénes Somos</a>
                     <a href="{{url_for('La_Comanda')}}">Red Social "La Comanda"</a>
-                    <a href="#">Plan de Digitalización</a>
-                    <a href="#">Plan de Sostenibilidad</a>
+                    <a href="{{url_for('soste')}}">Plan de Sostenibilidad</a>
                     {% if not session.get('correo') %}
                         <a href="{{url_for('registro')}}">Registrarse</a>
                     {% endif %}
@@ -219,7 +218,7 @@
     </div>
 </main>
 <footer>
-    <a href="https://www.instagram.com/?variant=following" target="_blank">
+    <a href="https://www.instagram.com/gastrolabkm0/" target="_blank">
         <img src="../static/Imagenes/logotipo-instagram_1199-122.avif" alt="Instagram" style="width: 30px; vertical-align: middle;">
     </a>
 </footer>

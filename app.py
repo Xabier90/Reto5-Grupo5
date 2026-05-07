@@ -483,7 +483,9 @@ Explore the different sections and come cook with us."""
 def digi():
     return render_template("Digitalizacion.html")
 
-
+@app.route("/sostenibilidad")
+def soste():
+    return render_template("Sostenibilidad.html")
 
 
 @app.route("/logout")

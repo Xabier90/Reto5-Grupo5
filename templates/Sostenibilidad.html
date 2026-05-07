@@ -1,0 +1,106 @@
+<!-- Sostenibilidad.html realizado por Ibai -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GastroLab</title>
+    <link rel="stylesheet" href="../static/CSS-Pagina_Web/style.css">
+</head>
+<body>
+
+<header class="cabecera">
+    <nav class="barra-navegacion">
+
+        <div class="bloque-menu">
+            <div class="menu-icono">
+                <img src="../static/Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
+                <div class="menu-desplegable">
+                    <a href="{{url_for('who_we_are')}}">Quiénes Somos</a>
+                    <a href="{{url_for('La_Comanda')}}">Red Social "La Comanda"</a>
+                    <a href="{{url_for('digi')}}">Plan de Digitalización</a>
+                    {% if not session.get('correo') %}
+                        <a href="{{url_for('registro')}}">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="bloque-logo">
+            <img src="../static/Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
+        </div>
+        <div class="bloque-registro">
+            {% if not session.get('correo') %}
+                <div class="boton-registro">
+                    <a href="{{url_for('registro')}}" class="boton-registro">Registrarse</a>
+                </div>
+            {% else %}
+                <div class="boton_cierre_sesion">
+                        <p>Estás conectado como: <b>{{ session['correo'] }}</b><br>
+                    (Rol: {{session['tipo_usuario']}})</p><br>
+                    <a class="texto_cerrar_sesion" href="{{url_for('logout')}}">Cerrar sesión</a>
+                </div>
+            {% endif %}
+        </div>
+
+    </nav>
+</header>
+<main>
+    <div>
+        <h1 class="h1">Plan de Sostenibilidad GastroLab</h1>
+        <p><b>Proyecto: PLan de Sostenibilidad de GastroLab (Reto Profesional) Ciclo: 1º Grado superior DAM </b><br>
+            - Asignatura: Sostenibilidad Grupo: 5 - Musaraña Elefante <br>
+            Integrantes: Aroa Hernández, Ibai Lopez, Xabier Iglesias <br>
+        </p>
+        <br>
+        <h2 class="h2">GastroLab</h2>
+        <h3 class="h3">¿Qué es?</h3>
+        <p>Escuela profesional que integra agricultura, cocina/repostería y dietética. Tiene 1<br>
+            hectárea de huertos propios y un restaurante escolar (Raíz & Aula) donde los alumnos<br> 
+            practican.</p>
+        <br>
+        <h2 class="h2">Pilares sostenibles principales</h2>
+        <ul>
+            <li><b>Economía circular: </b> plantan, producen y cocinan sus propios alimentos. Los residuos<br>
+                orgánicos se convierten en compost para abonar los huertos.</li>
+            <li><b>Cero desperdicio: </b> la comida sobrante se transforma en nuevos platos o se destina al compost.</li>
+            <li><b>KM0: </b> dependencia mínima de proveedores externos.</li>
+        </ul>
+        <br>
+        <h2 class="h2">Objetivos de desarrollo Sostenible(ODS)</h2>
+        <h3 class="h3">Las ODS priorizados son: </h3>
+        <ul>
+            <li><b>ODS 2: </b> Hambre Cero</li>
+            <li><b>ODS 3: </b> Salud</li>
+            <li><b>ODS 4: </b> Educación de calidad</li>
+            <li><b>ODS 5: </b> Igualdad de género</li>
+            <li><b>ODS 6: </b> Agua limpia</li>
+            <li><b>ODS 8 y 10: </b> Trabajo y reducción de desigualdades</li>
+            <li><b>ODS 12: </b> Consumo responsable</li>
+        </ul>
+        
+        <h3 class="h3">Acciones concretas planeadas</h3>
+        <ul>
+            <li>Apertura de una eco-tienda KM0 con excedentes (en 3 años).</li>
+            <li>Sistema de control de desperdicio alimentario y consumo de agua.</li>
+            <li>Programa de becas para prácticas en el extranjero (tipo Erasmus).</li>
+        </ul>
+        <br>
+        <h2 class="h2">KPIs clave</h2>
+        <p>Aprovechar el 95% de los alimentos, reducir el consumo de agua un 10%, lograr que el 80%<br>
+            de los alumnos en prácticas sean contratados, y mantener brecha salarial de género en cero.</p>
+        <br>
+        <h2 class="h2">Diferencial competitivo</h2>
+        <p>A diferencia de otros centros, los alumnos ven y gestionan todo el ciclo alimentario. Además,<br>
+            la dependencia reducida de proveedores los hace más resilientes ante subidas de precios o huelgas.</p>
+        
+        
+    </div>
+</main>
+<footer>
+    <a href="https://www.instagram.com/gastrolabkm0/" target="_blank">
+        <img src="../static/Imagenes/logotipo-instagram_1199-122.avif" alt="Instagram" style="width: 30px; vertical-align: middle;">
+    </a>
+</footer>
+</body>
+</html>
