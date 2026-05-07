@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Receta</title>
+    <link rel="stylesheet" href="../static/CSS-Pagina_Web/style.css">
+</head>
+
+<style>
+    .Mostrar_receta{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div class="Mostrar_receta">
+        <h1><u>{{ receta.nombre }}</u></h1>
+        <p><b>Dificultad:</b> {{ receta.dificultad }}</p><br>
+        <p><b>Tiempo:</b> {{ receta.tiempo }} minutos</p><br><br>
+
+        {% if receta.url_archivo %}
+            <img src="{{ receta.url_archivo }}" alt="{{ receta.nombre }}" width="400" style="margin: 15px; border-radius: 10px;">
+        {% endif %}
+
+        <br><br><h2>Ingredientes</h2>
+        <ul>
+            {% for ing in ingredientes %}
+                <li>{{ ing.cantidad }} {{ ing.unidad_medida }} de {{ ing.nombre }}</li><br>
+            {% endfor %}
+        </ul>
+
+        <br><br><h2>Pasos</h2>
+        <ol>
+            {% for paso in pasos %}
+                <li>{{ paso }}</li>
+            {% endfor %}
+        </ol>
+
+        <a href="{{ url_for('La_Comanda') }}" 
+        style="margin: 15px; padding: 5px; padding-left: 20px; padding-right: 20px;
+        border: solid rgb(108, 67, 9); border-radius: 16px; text-decoration: none; color: black;
+        background-color: rgb(215, 134, 3);">Volver</a>
+    </div>
+</body>
+</html>
