@@ -22,7 +22,8 @@ Xabier
     └── base de datos/
         ├── Vistas_roles_permisos.sql # Archivo SQL para crear un usuario, las vistas y los tres roles y dar permisos a esos roles
         ├── bbdd_Definitivo.sql # Archivo SQL con la estructura completa y datos de la base de datos
-        └── procedimientos_funciones_triggers.sql # Archivo SQL para crear los procedimientos, funciones y triggers (no necesario ejecutar si se ha ejecutado bbdd_Definitivo.sql por completo) 
+        └── procedimientos_funciones_triggers.sql # Archivo SQL para crear los procedimientos, funciones y triggers
+                                                  # (no necesario ejecutar si se ha ejecutado bbdd_Definitivo.sql por completo) 
 ```
 > Nota: Primero ejecutar `bbdd_Definitivo.sql` y luego `procedimientos_funciones_triggers.sql`.
 
