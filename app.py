@@ -1,11 +1,14 @@
-# app.py realizado por Ibai y Xabier Iglesias
+# app.py realizado por Ibai, Xabier Iglesias y Aroa
 from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 import db_helper
 import hashlib # La herramienta para cifrar y comprobar si hay coincidencia
+from transformers import pipeline
 
 app = Flask(__name__)
 app.secret_key = "ABCD"
+
+traductor = pipeline("translation", model="Helsinki-NLP/opus-mt-en-es")
 
 @app.route("/Pagina_principal")
 def Pagina_principal():
@@ -369,10 +372,32 @@ def eliminar_receta_por_nombre(nombre):
 
     return redirect(url_for("La_Comanda"))
 
-
-@app.route("/who_we_are")
+# Para poder utilizar el modelo para traducir el texto he tenido que ayudarme un poco de la IA porque no me funcionaba correctamente
+@app.route("/who_we_are", methods=["GET", "POST"])
 def who_we_are():
-    return render_template("Who_we_are.html")
+    titulo_en_ingles = "All about us"
+    texto_en_ingles = """We are a small team of developers and foodies. 
+On our website, you can see a combination of delicious recipes for everyday cooking, 
+a couple of courses in which, if you're interested, you can register for a course and learn with us, 
+and an option to submit your recipes if you're signed in. 
+Our mission is to teach cooking with locally sourced foods planted and grown by our students, 
+also helping them to enter the labour market and to make it enjoyable and affordable for anyone in the public interested in cooking. 
+Explore the different sections and come cook with us."""
+
+    idioma = request.form.get("idioma", "inglés")
+
+    if idioma == "inglés":
+        titulo=titulo_en_ingles
+        texto = texto_en_ingles
+        proximo_idioma = "es"
+        boton="Translate to Spanish"
+    else:
+        titulo = traductor(titulo_en_ingles)[0]["translation_text"]
+        texto = traductor(texto_en_ingles)[0]["translation_text"]
+        proximo_idioma = "en"
+        boton="Traducido"
+        
+    return render_template("Who_we_are.html", titulo=titulo, texto=texto, boton=boton, proximo_idioma=proximo_idioma)
 
 
 @app.route("/logout")
