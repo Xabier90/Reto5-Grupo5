@@ -33,7 +33,7 @@ left join asignaturas a on a.id_asignatura = ca.id_asignatura;
 
 
 -- Roles
-
+drop role if exists 'rol_invitado', 'rol_alumno', 'rol_profesor';
 create role 'rol_invitado', 'rol_alumno', 'rol_profesor';
 
 -- Permisos a los roles
@@ -47,13 +47,13 @@ grant select, update on likes to 'rol_invitado';
 
 
 -- Alumnos
-grant select on vista_lectura_recetas_ingredientes_likes to 'rol_alumno';
+grant select on vista_lectura_recetas_ingredientes to 'rol_alumno';
 grant select on vista_cursos_asignaturas to 'rol_alumno';
 grant select, insert, delete on likes_recetas to 'rol_alumno';
 grant select on usuarios to 'rol_alumno';
 grant select on ingredientes to 'rol_alumno';
 grant select, insert on recetas to 'rol_alumno';
-grant insert on receta_ingredientes to 'rol_alumno';
+grant select, insert on receta_ingredientes to 'rol_alumno';
 grant select, update on likes to 'rol_alumno';
 
 
@@ -62,7 +62,7 @@ grant select on huertos to 'rol_alumno';
 grant insert, update on huerto_ingredientes to 'rol_alumno';
 
 -- Profesores
-grant select on vista_lectura_recetas_ingredientes_likes to 'rol_profesor';
+grant select on vista_lectura_recetas_ingredientes to 'rol_profesor';
 grant select on vista_cursos_asignaturas to 'rol_profesor';
 grant select, insert, update on likes_recetas to 'rol_profesor';
 grant select on usuarios to 'rol_profesor';
@@ -77,9 +77,13 @@ grant insert, update, delete on huerto_ingredientes to 'rol_profesor';
 
 -- Crear usuario
 
+drop user if exists 'usuario_La_Comanda'@'localhost';
 create user 'usuario_La_Comanda'@'localhost' identified by 'GastroLab2026';
 grant 'rol_invitado', 'rol_alumno', 'rol_profesor' to 'usuario_La_Comanda'@'localhost';
 
 set default role 'rol_invitado' to 'usuario_La_Comanda'@'localhost';
+
+GRANT ALL PRIVILEGES ON reto5_musarana_elefante.* TO 'usuario_La_Comanda'@'localhost';
+FLUSH PRIVILEGES;
 
 

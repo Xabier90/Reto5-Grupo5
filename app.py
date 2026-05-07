@@ -212,7 +212,7 @@ def formulario_recetas():
         if receta:
             # 2. Ingredientes
             cursor.execute("""
-                SELECT i.nombre, ri.cantidad, i.unidad_medida
+                SELECT i.nombre, ri.cantidad, ri.unidad_medida
                 FROM receta_ingredientes ri
                 JOIN ingredientes i ON ri.id_ingrediente = i.id_ingredientes
                 WHERE ri.id_receta = %s
@@ -221,7 +221,7 @@ def formulario_recetas():
 
         # Ingredientes: cantidad viene de receta_ingredientes
         cursor.execute("""
-            SELECT i.nombre, ri.cantidad, i.unidad_medida
+            SELECT i.nombre, ri.cantidad, ri.unidad_medida
             FROM receta_ingredientes ri
             JOIN ingredientes i ON ri.id_ingrediente = i.id_ingredientes
             WHERE ri.id_receta = %s
