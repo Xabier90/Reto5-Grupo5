@@ -43,9 +43,9 @@ Una vez que tienes todo el contenido del `main` y sus archivos sigue los siguien
 
 ## Autores
 
-**Xabier Iglesias**
-**Aroa Hernández**
-**Ibai López**
+**Xabier Iglesias**  
+**Aroa Hernández**  
+**Ibai López**  
 
 Repositorio mantenido por el grupo `Musaraña elefante`
 
