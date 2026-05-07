@@ -1,0 +1,356 @@
+/* CONFIGURACIÓN GENERAL  el header que todos tienen en comun*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfaf5; /* Color crema de la página */
+}
+main{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CABECERA: Fondo igualado al logo */
+.cabecera {
+    background-color: #fdfaf5; /* ESTE ES EL SECRETO: El mismo color que el fondo de tu logo */
+    border-bottom: 5px solid #345e35;
+    height: 180px;
+    display: flex;
+    align-items: center;
+}
+
+.barra-navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 40px;
+}
+
+/* IZQUIERDA: Icono apoyado en la línea */
+.bloque-menu {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.menu-icono {
+    position: relative;
+    margin-bottom: -25px; /* Empuja el icono para que pise la línea verde */
+    z-index: 10;
+}
+
+.img-icono {
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+    border: 2px solid #345e35;
+    cursor: pointer;
+}
+
+/* MENÚ DESPLEGABLE */
+.menu-desplegable {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: rgb(240, 226, 204);
+    min-width: 220px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.menu-desplegable a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.menu-icono:hover .menu-desplegable {
+    display: block;
+}
+
+/* CENTRO: El Logo */
+.bloque-logo {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.imagen-logo {
+    height: 290px; /* Tamaño grande para legibilidad */
+    width: auto;
+    object-fit: contain;
+    margin-bottom: -150px;
+}
+
+/* DERECHA: Registro */
+.bloque-registro {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* A la derecha */
+    align-items: flex-end;
+    height: 100%;
+    padding-top: 30px;
+    flex-direction: column; /* Esto hace que se pongan verticalmente */
+    margin-bottom: 20px;
+    
+}
+
+.boton-registro {
+    background-color: #b16a29;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.formulario{
+    background-color: #345e35;
+    width: 50%;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 16px;
+}
+label{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+input[type="email"], input[type="password"]{
+    border: 1.5px solid grey;
+    width: 295px;
+    height: 36px;
+    padding-left: 15px;
+}
+input[type="email"]:hover, input[type="password"]:hover{
+    border-color: black;
+}
+button{
+    background-color: black;
+    color: white;
+    padding: 10px 80px 10px 80px; /* arriba derecha abajo izquierda*/
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 16px;
+    border-style: none;
+}
+/* Alineamos todo el main a la izquierda */
+main.estudia_cursos {
+    display: block;
+    margin-top: 150px;
+    padding: 0 50px;
+    text-align: left;
+}
+
+.titulo_cursos {
+    color: #345e35; /* Verde */
+    margin-bottom: 30px;
+}
+
+/* Ponemos el texto a un lado y la imagen al otro */
+.curso_entero {
+    display: flex;
+    margin-bottom: 60px;
+    align-items: center; /* Centra la imagen verticalmente con el texto */
+}
+
+.asignaturas {
+    width: 60%; /* El texto ocupa el 60% */
+}
+
+.imagen_asignatura {
+    width: 30%; /* La imagen el 30% */
+    text-align: right; /* Empuja la imagen a la derecha */
+}
+
+/* Colores de las letras */
+.asignaturas h2 {
+    color: #b16a29; /*El Marrón/Dorado del Logo */
+    margin-bottom: 10px;
+}
+
+.asignaturas h3 {
+    color: #345e35; /*El Verde del Logo */
+    margin-top: 15px;
+}
+
+.asignaturas ul {
+    margin-left: 20px; /* Un poco de separación entre lineas para la lista */
+}
+
+/* Imagenes del main de la pagina principal */
+.imagen_asignatura img {
+    width: 500px;  
+    height: 300px;
+    border-radius: 10px; 
+    object-fit: cover;
+}
+
+
+/* Formulario */
+.Sections {
+        border: 2px solid rgb(188, 103, 39);
+        background-color: rgba(251, 252, 246, 0.5);
+        padding: 10px;
+        width: 400px;
+    }
+
+    .Formulario {
+        border: 4px solid rgba(110, 87, 64) ;
+        border-radius: 5%;
+        padding: 20px;
+        background-color: rgb(191, 179, 155);
+        width: 500px;
+    }
+
+/* La Comanda */
+
+/* Cabecera de la sección */
+.cabecera-social {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 200px;
+}
+
+.boton-crear {
+    display: inline-block;
+    background-color: #345e35;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.boton-cambiar {
+    display: inline-block;
+    background-color: #b16a29;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.boton-eliminar {
+    display: inline-block;
+    background-color: #8d2606;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.label_nombre_receta{
+    font-size: 15px;
+}
+
+/* Top 10 */
+.top-10 {
+    background-color: #f2ede0;
+    padding: 15px;
+    border: 1px solid #d1c7ac;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* CUADRICULA DE RECETAS (33% aproximado) */
+.receta-bloque {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%; /* Dejamos margen para que no se amontonen */
+    margin: 1%;
+    background: white;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.receta-bloque img, .receta-bloque video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.nombre-plato {
+    color: #4a6741;
+    font-size: 1.4em;
+    margin: 10px 0;
+}
+
+/* Likes */
+.interaccion {
+    margin: 15px 0;
+    font-size: 1.2em;
+}
+
+.emoji-like {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.2em;
+}
+
+/* Boton para ir a otra página */
+.boton-ver-mas {
+    display: block;
+    background-color: #4a6741; /* Verde como tu logo */
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.boton-ver-mas:hover {
+    background-color: #3b5234;
+}
+
+.boton_inicio {
+    background-color: #b16a29;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    
+}
+
+.boton_cierre_sesion {
+    background-color: #345e35;
+    color: white;
+    padding: 15px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    float: right;
+    width: min-content
+}
+
+.texto_cerrar_sesion{
+    color: rgb(146, 184, 8);
+    font-size: 17px;
+}
+
+
+
+

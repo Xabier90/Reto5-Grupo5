@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Comanda</title>
+    <link rel="stylesheet" href="../static/CSS-Pagina_Web/style.css">
+</head>
+<body>
+    <header class="cabecera">
+        <nav class="barra-navegacion">
+            <div class="bloque-menu">
+                <div class="menu-icono">
+                    <img src="../static/Imagenes/tenedor_cuchara.avif" alt="Menú" class="img-icono">
+                    <div class="menu-desplegable">
+                        <a href="{{url_for('Pagina_Principal')}}">Página Principal</a>
+                        <a href="#">Quiénes Somos</a>
+                        <a href="#">Plan de Digitalización</a>
+                        <a href="#">Plan de Sostenibilidad</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bloque-logo">
+                <img src="../static/Imagenes/Logo.png" alt="GastroLab" class="imagen-logo">
+            </div>
+                      
+            <div class="bloque-registro">
+                {% if not session.get('correo') %}
+                    <div class="boton-registro">
+                        <a href="{{ url_for('registro') }}" class="boton-registro">Registrarse</a>
+                    </div>
+                {% else %}
+                    <div class="boton_cierre_sesion">
+                        <p>Estás conectado como: <b>{{ session['correo'] }}</b><br>
+                        (Rol: {{ session['tipo_usuario'] }})</p><br>
+                        <a class="texto_cerrar_sesion" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <!-- Titulo y Botones -->
+    <div class="cabecera-social">
+        <h1>Bienvenidos a La Comanda</h1>
+        {% if session['tipo_usuario'] == 'alumno' or session['tipo_usuario'] == 'profesor' %}
+            <a href="{{url_for('formulario_recetas')}}" class="boton-crear"> + Publicar mi Receta</a><br><br>
+        {% endif %}
+        {% if session['tipo_usuario'] == 'profesor' %}
+            <a onclick="editarReceta()" class="boton-cambiar"> ? Cambiar Receta</a>
+            <label for="nombre_receta" class="label_nombre_receta">Nombre de la Receta:</label>
+            <input type="text" id="nombre_receta" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
+
+        {% endif %}
+        {% if session['tipo_usuario'] == 'profesor' %}
+            <a onclick="eliminarReceta()" class="boton-eliminar"> - Eliminar</a>
+            <label for="nombre_receta_eliminar" class="label_nombre_receta">Nombre de la Receta:</label>
+            <input type="text" id="nombre_receta_eliminar" name="nombre_receta" placeholder="Nombre Receta" required><br><br>
+
+        {% endif %}
+    </div>
+
+    <!-- Lista Top 10 -->
+    <div class="top-10">
+        <h3>🏆 Top 10 Recetas de la Semana</h3>
+        <p>1. Paella | 2. Tortilla | 3. Gazpacho... </p>
+    </div>
+
+    <!-- Contenedor de celdas que contienen las recetas -->
+    <div class="galeria">
+
+        <!-- Receta 1 -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Lasaña Clásica</h3>
+            <img src="../static/Imagenes/lasaña.jpg" alt="Lasaña">
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>45</span>
+            </div>
+            <!-- ENLACE A OTRA PÁGINA -->
+            <a href="receta_lasana.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+        <!-- Receta 2 -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Vídeo: Tarta Queso</h3>
+            <video controls>
+                <source src="../static/Videos/tarta.mp4" type="video/mp4">
+            </video>
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>82</span>
+            </div>
+            <a href="receta_tarta.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+        <!-- Receta 3 -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Ensalada César</h3>
+            <img src="../static/Imagenes/ensalada.jpg" alt="Ensalada">
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>12</span>
+            </div>
+            <a href="receta_ensalada.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+        <!-- Receta 4 (Bajará sola porque he repartido en 3 partes) -->
+        <div class="receta-bloque">
+            <h3 class="nombre-plato">Arroz a Banda</h3>
+            <img src="../static/Imagenes/arroz.jpg" alt="Arroz">
+            <div class="interaccion">
+                <button class="emoji-like">😋</button> <span>30</span>
+            </div>
+            <a href="receta_arroz.html" class="boton-ver-mas">Ver Ingredientes y Pasos</a>
+        </div>
+
+    </div>
+</body>
+
+<script>
+function editarReceta() {
+    const nombre = document.getElementById("nombre_receta").value;
+    console.log("NOMBRE LEÍDO:", nombre);
+    if (!nombre.trim()) {
+        alert("Introduce un nombre de receta");
+        return;
+    }
+    // encodeURIComponent() copiado de IA
+    window.location.href = "/editar_receta_por_nombre/" + encodeURIComponent(nombre);
+}
+
+function eliminarReceta() {
+    const nombre = document.getElementById("nombre_receta_eliminar").value;
+    if (!nombre.trim()) {
+        alert("Introduce un nombre de receta");
+        return;
+    }
+    // encodeURIComponent() copiado de IA
+    window.location.href = "/eliminar_receta_por_nombre/" + encodeURIComponent(nombre);
+}
+</script>
+
+
+</html>
