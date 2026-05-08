@@ -10,8 +10,12 @@ app.secret_key = "ABCD"
 
 traductor = pipeline("translation", model="Helsinki-NLP/opus-mt-en-es")
 
+@app.route("/")
+def inicio():
+    return redirect(url_for("Pagina_Principal"))
+
 @app.route("/Pagina_principal")
-def Pagina_principal():
+def Pagina_Principal():
 
     conexion, cursor = db_helper.get_db()
 
@@ -236,11 +240,6 @@ def ver_receta(id_receta):
     conexion.close()
     
     return render_template("ver_receta.html", receta=receta, ingredientes=ingredientes, pasos=pasos)
-    
-
-@app.route("/Pagina_principal")
-def Pagina_Principal():
-    return render_template("Pagina_Principal.html")
 
 @app.route("/formulario_recetas", methods=["GET", "POST"])
 def formulario_recetas():
